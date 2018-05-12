@@ -181,7 +181,11 @@ public class SsfPersonaDAO {
             storedProcedure.setParameter("p_apellidom", persona.getApMaterno());
             storedProcedure.setParameter("p_correo", persona.getCorreo());
             storedProcedure.setParameter("p_telefono", persona.getTelefono());
-            storedProcedure.setParameter("p_fechanac", new Date(persona.getFechaNac().getTime()));
+            Date nfecha = null;
+            if (persona.getFechaNac() != null) {
+                nfecha = new Date(persona.getFechaNac().getTime());
+            }
+            storedProcedure.setParameter("p_fechanac", nfecha);
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
@@ -225,7 +229,11 @@ public class SsfPersonaDAO {
             storedProcedure.setParameter("p_apellidom", persona.getApMaterno());
             storedProcedure.setParameter("p_correo", persona.getCorreo());
             storedProcedure.setParameter("p_telefono", persona.getTelefono());
-            storedProcedure.setParameter("p_fechanac", new Date(persona.getFechaNac().getTime()));
+            Date nfecha = null;
+            if (persona.getFechaNac() != null) {
+                nfecha = new Date(persona.getFechaNac().getTime());
+            }
+            storedProcedure.setParameter("p_fechanac", nfecha);
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
@@ -243,7 +251,7 @@ public class SsfPersonaDAO {
             return false;
         }
     }
-    
+
     public boolean removeSP(int id) {
         try {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
@@ -268,7 +276,7 @@ public class SsfPersonaDAO {
             return false;
         }
     }
-    
+
     public boolean desactivarSP(int id) {
         try {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
@@ -296,7 +304,7 @@ public class SsfPersonaDAO {
             return false;
         }
     }
-    
+
     public boolean activarSP(int id) {
         try {
             EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
@@ -324,6 +332,5 @@ public class SsfPersonaDAO {
             return false;
         }
     }
-    
 
 }

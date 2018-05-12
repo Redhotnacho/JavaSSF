@@ -42,7 +42,7 @@ public class Prueba {
         }
         */
         // Comprobación updateSP
-        
+        /*
         p = pbo.findSP(121);
         System.out.println("correo sin update: "+p.getCorreo());
         p.setCorreo("updated6969@gmail.com");
@@ -86,5 +86,6 @@ public class Prueba {
         }else{
             System.out.println("Fail!");
         }
+        */
     }
 }
