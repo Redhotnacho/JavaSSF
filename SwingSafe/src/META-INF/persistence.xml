@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="SwingSafePU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>duoc.cl.safe.entity.SsfPersona</class>
+    <class>duoc.cl.safe.entidades.TablaPrueba</class>
+    <class>duoc.cl.safe.entidades.SsfPersona</class>
+    <class>duoc.cl.safe.entidades.TablaPrueba2</class>
+    <class>duoc.cl.safe.entity.SsfExamentipo</class>
+    <class>duoc.cl.safe.entity.SsfFichamedica</class>
+    <class>duoc.cl.safe.entity.SsfEstadocapaempresa</class>
+    <class>duoc.cl.safe.entity.SsfMedicoespecialidad</class>
+    <class>duoc.cl.safe.entity.SsfFichamedicaatencion</class>
+    <class>duoc.cl.safe.entity.SsfPerfilvista</class>
+    <class>duoc.cl.safe.entity.SsfCapacitacion</class>
+    <class>duoc.cl.safe.entity.SsfExamen</class>
+    <class>duoc.cl.safe.entity.SsfVista</class>
+    <class>duoc.cl.safe.entity.SsfAlumnocapaempresa</class>
+    <class>duoc.cl.safe.entity.SsfEvaluaciontipo</class>
+    <class>duoc.cl.safe.entity.SsfEvaluacion</class>
+    <class>duoc.cl.safe.entity.SsfEvaluacionestado</class>
+    <class>duoc.cl.safe.entity.SsfAtencionmedica</class>
+    <class>duoc.cl.safe.entity.SsfAsistencia</class>
+    <class>duoc.cl.safe.entity.SsfMenu</class>
+    <class>duoc.cl.safe.entity.SsfAlumno</class>
+    <class>duoc.cl.safe.entity.SsfCertificado</class>
+    <class>duoc.cl.safe.entity.SsfCentromedico</class>
+    <class>duoc.cl.safe.entity.SsfCapacitaciondia</class>
+    <class>duoc.cl.safe.entity.SsfAdjunto</class>
+    <class>duoc.cl.safe.entity.SsfEvaluacionparametro</class>
+    <class>duoc.cl.safe.entity.SsfUsuario</class>
+    <class>duoc.cl.safe.entity.SsfEmpresa</class>
+    <class>duoc.cl.safe.entity.SsfPerfil</class>
+    <class>duoc.cl.safe.entity.SsfParametro</class>
+    <class>duoc.cl.safe.entity.SsfCapacitaciontipo</class>
+    <class>duoc.cl.safe.entity.SsfMedico</class>
+    <class>duoc.cl.safe.entity.SsfCapacitacionempresa</class>
+    <class>duoc.cl.safe.entity.TablaPrueba</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:oracle:thin:@bdsafe.chm8491rpjvj.sa-east-1.rds.amazonaws.com:1521:SAFE"/>
+      <property name="javax.persistence.jdbc.user" value="portafolio"/>
+      <property name="javax.persistence.jdbc.driver" value="oracle.jdbc.OracleDriver"/>
+      <property name="javax.persistence.jdbc.password" value="portafolio2018"/>
+    </properties>
+  </persistence-unit>
+</persistence>
