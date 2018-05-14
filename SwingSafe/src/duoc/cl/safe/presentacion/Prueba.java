@@ -5,7 +5,9 @@
  */
 package duoc.cl.safe.presentacion;
 
+import duoc.cl.safe.entity.SsfPerfil;
 import duoc.cl.safe.entity.SsfPersona;
+import duoc.cl.safe.negocio.SsfPerfilBO;
 import duoc.cl.safe.negocio.SsfPersonaBO;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -18,10 +20,10 @@ import java.util.List;
  */
 public class Prueba {
     public static void main(String[] args) throws ParseException {
-        SsfPersonaBO pbo= new SsfPersonaBO();
+        //SsfPersonaBO pbo= new SsfPersonaBO();
         
         // Comprobación addSP
-        
+        /*
         SsfPersona p = new SsfPersona();
         p.setNombre("Prueba2");
         SimpleDateFormat dateformat2 = new SimpleDateFormat("dd/MM/yyyy");
@@ -32,7 +34,7 @@ public class Prueba {
         }else{
             System.out.println("Fail!");
         }
-
+        */
         //Comprobación removeSP
         /*
         if (pbo.removeSP(89)) {
@@ -87,5 +89,14 @@ public class Prueba {
             System.out.println("Fail!");
         }
         */
+        
+        // ------------- Prueba conexión perfil -----------------------
+        /*
+        SsfPerfilBO pbo = new SsfPerfilBO();
+        for (SsfPerfil p : pbo.getAll()){
+            System.out.println("Perfil getAll(): "+p.getPerfil());
+        }
+        */
+        
     }
 }

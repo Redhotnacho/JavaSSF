@@ -13,9 +13,11 @@ import java.math.BigInteger;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -63,6 +65,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tfFechaNac = new javax.swing.JTextField();
         bLimpiar = new javax.swing.JButton();
         lExito = new javax.swing.JLabel();
+        tfBuscar = new javax.swing.JTextField();
+        bBuscar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -118,7 +122,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
             }
         });
 
-        tbEstado.setBackground(new java.awt.Color(102, 204, 0));
+        tbEstado.setBackground(new java.awt.Color(0, 204, 102));
         tbEstado.setText("Activo");
         tbEstado.setEnabled(false);
         tbEstado.addActionListener(new java.awt.event.ActionListener() {
@@ -151,6 +155,13 @@ public class MantenedorPersona extends javax.swing.JFrame {
         });
 
         lExito.setForeground(new java.awt.Color(0, 204, 51));
+
+        bBuscar.setText("Buscar Persona");
+        bBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bBuscarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,6 +197,16 @@ public class MantenedorPersona extends javax.swing.JFrame {
                                 .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
+                                        .addGap(2, 2, 2)
+                                        .addComponent(bAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bLimpiar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bModificar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 147, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
@@ -194,29 +215,28 @@ public class MantenedorPersona extends javax.swing.JFrame {
                                             .addComponent(tfAp1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                             .addComponent(tfAp2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addGap(36, 36, 36)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel6)
-                                            .addComponent(jLabel5))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(tfCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                                            .addComponent(tfTelefono)))
-                                    .addGroup(layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(bAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(tfBuscar)
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel6)
+                                                    .addComponent(jLabel5))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(tfCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
+                                                    .addComponent(tfTelefono))))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bLimpiar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bModificar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addGap(0, 130, Short.MAX_VALUE)))
+                                        .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(38, 38, 38)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bBuscar))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -259,7 +279,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     .addComponent(lError, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
                     .addComponent(lExito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -323,8 +343,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private void tbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbEstadoActionPerformed
         limpiarMsgs();
         DefaultTableModel model = (DefaultTableModel) tblPersona.getModel();
-        SsfPersonaBO pbo = new SsfPersonaBO();
-        int id = Short.parseShort(model.getValueAt(tblPersona.getSelectedRow(), 0).toString());
+        pbo = new SsfPersonaBO();
 
         if (tblPersona.getSelectedRow() == -1) {
             tbEstado.setEnabled(false);
@@ -334,7 +353,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                 lError.setText("No hay fila seleccionada");
             }
         } else {
-
+            int id = Short.parseShort(model.getValueAt(tblPersona.getSelectedRow(), 0).toString());
             if (!tbEstado.isSelected()) {
                 activarEstado();
                 model.setValueAt("1", tblPersona.getSelectedRow(), 9);
@@ -350,6 +369,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_tbEstadoActionPerformed
 
     private void bLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLimpiarActionPerformed
+        tfFechaNac.setText("DD-MM-AAAA");
         tbEstado.setEnabled(false);
         bModificar.setEnabled(false);
         limpiarMsgs();
@@ -361,10 +381,11 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tfCorreo.setText("");
         tfTelefono.setText("");
         tfFechaNac.setText("");
+        tfBuscar.setText("");
     }//GEN-LAST:event_bLimpiarActionPerformed
 
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
-        SsfPersonaBO pbo = new SsfPersonaBO();
+        pbo = new SsfPersonaBO();
         limpiarMsgs();
         if (tfNombre.getText().trim().equals("")) {
             lError.setText("Ingrese un nombre");
@@ -386,7 +407,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     p.setFechaNac(fecha);
                 }
             } catch (ParseException ex) {
-                Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, ex);
+                //Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, ex);
                 log.log(Level.SEVERE, "Error en formato de fecha", ex);
                 sfech = "error";
                 lError.setText("Error en formato de fecha");
@@ -421,7 +442,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
         DefaultTableModel model = (DefaultTableModel) tblPersona.getModel();
-        SsfPersonaBO pbo = new SsfPersonaBO();
+        pbo = new SsfPersonaBO();
         limpiarMsgs();
         if (tblPersona.getSelectedRow() == -1) {
             tbEstado.setEnabled(false);
@@ -466,7 +487,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, e);
                     log.log(Level.SEVERE, "Error en valor de telefono", e);
                     lError.setText("Error en valor de telefono");
-                    tel="error";
+                    tel = "error";
                 }
                 if (!sfech.equals("error")) {
                     p.setId(BigDecimal.valueOf(Long.valueOf(id)));
@@ -477,6 +498,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     p.setCorreo(correo);
                     if (pbo.updateSP(p)) {
                         lExito.setText("Persona modificada exitosamente.");
+                        // método cargaTabla() no actualiza la tabla por motivos desconocidos
                         model.setValueAt(rut, tblPersona.getSelectedRow(), 1);
                         model.setValueAt(nom, tblPersona.getSelectedRow(), 2);
                         model.setValueAt(ap1, tblPersona.getSelectedRow(), 3);
@@ -486,6 +508,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                             model.setValueAt(tel, tblPersona.getSelectedRow(), 6);
                         }
                         model.setValueAt(sfech, tblPersona.getSelectedRow(), 7);
+ 
                     } else {
                         lError.setText("No se pudo modificar");
                     }
@@ -494,8 +517,96 @@ public class MantenedorPersona extends javax.swing.JFrame {
 
             }
         }
-
+        //cargaTabla();
     }//GEN-LAST:event_bModificarActionPerformed
+
+    private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
+        
+        String busqueda = tfBuscar.getText().trim();
+        //split(Pattern.quote(".")) - str.split("\\s+");
+        if (busqueda.equals("")) {
+            tfBuscar.setText("Búsqueda no puede ser vacío");
+        } else {
+            String[] palabras = busqueda.split("\\s+");
+            String[] palabras2 = busqueda.split(Pattern.quote("."));
+            List<SsfPersona> pp = new LinkedList<>();
+            pbo = new SsfPersonaBO();
+            List<SsfPersona> ppall = pbo.getAllSP();
+            for (String s : palabras) {
+                for (SsfPersona pers : ppall) {
+                    if (pers.getRut() != null) {
+                        if (!pp.isEmpty()) {
+                            if (!existeIdPers(pp, pers) && pers.getRut().contains(s)) {
+                                pp.add(pers);
+                            }
+                        } else {
+                            if (pers.getRut().contains(s)) {
+                                pp.add(pers);
+                            }
+                        }
+                    }
+                    if (pers.getNombre() != null) {
+                        if (!pp.isEmpty()) {
+                            if (!existeIdPers(pp, pers) && pers.getNombre().contains(s)) {
+                                pp.add(pers);
+                            }
+                        } else {
+                            if (pers.getNombre().contains(s)) {
+                                pp.add(pers);
+                            }
+                        }
+                    }
+                    if (pers.getApPaterno() != null) {
+                        if (!pp.isEmpty()) {
+                            if (!existeIdPers(pp, pers) && pers.getApPaterno().contains(s)) {
+                                pp.add(pers);
+                            }
+                        } else {
+                            if (pers.getApPaterno().contains(s)) {
+                                pp.add(pers);
+                            }
+                        }
+                    }
+                    if (pers.getApMaterno() != null) {
+                        if (!pp.isEmpty()) {
+                            if (!existeIdPers(pp, pers) && pers.getApMaterno().contains(s)) {
+                                pp.add(pers);
+                            }
+                        } else {
+                            if (pers.getApMaterno().contains(s)) {
+                                pp.add(pers);
+                            }
+                        }
+                    }
+                }
+            }
+            for (String s : palabras2) {
+                for (SsfPersona pers : ppall) {
+                    if (pers.getRut() != null) {
+                        if (!pp.isEmpty()) {
+                            if (!existeIdPers(pp, pers) && pers.getRut().contains(s)) {
+                                pp.add(pers);
+                            }
+                        } else {
+                            if (pers.getRut().contains(s)) {
+                                pp.add(pers);
+                            }
+                        }
+                    }
+                }
+            }
+            if (!pp.isEmpty()) {
+                tblPersona.removeAll();
+                cargaPersonas(pp);
+            } else {
+                tfBuscar.setText("Búsqueda sin resultados");
+                tblPersona.removeAll();
+            }
+
+        }
+        
+        
+    }//GEN-LAST:event_bBuscarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -535,6 +646,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton bAgregar;
+    private javax.swing.JButton bBuscar;
     private javax.swing.JButton bLimpiar;
     private javax.swing.JButton bModificar;
     private javax.swing.JLabel jLabel1;
@@ -551,6 +663,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private javax.swing.JTable tblPersona;
     private javax.swing.JTextField tfAp1;
     private javax.swing.JTextField tfAp2;
+    private javax.swing.JTextField tfBuscar;
     private javax.swing.JTextField tfCorreo;
     private javax.swing.JTextField tfFechaNac;
     private javax.swing.JTextField tfNombre;
@@ -558,23 +671,18 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
 
+    private static Logger log = Logger.getLogger(MantenedorPersona.class.getName());
+    DefaultTableModel model;
+    SsfPersonaBO pbo;
+    
     private void cargaTabla() {
-        
-        tblPersona.repaint();
-        DefaultTableModel model = (DefaultTableModel) tblPersona.getModel();
-        model.fireTableDataChanged();
-        tblPersona.repaint();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-        model.setRowCount(0);
-        
-        SsfPersonaBO pbo = new SsfPersonaBO();
+        borrarTabla();
+        pbo = new SsfPersonaBO();
         List<SsfPersona> lp = pbo.getAllSP();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String sfecha = null;
         for (SsfPersona p : lp) {
-            SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
-            String sfecha = null;
+            
             if (p.getFechaNac() != null) {
                 sfecha = sdf.format(p.getFechaNac());
             }
@@ -584,21 +692,67 @@ public class MantenedorPersona extends javax.swing.JFrame {
 
     }
 
-    private static Logger log = Logger.getLogger(MantenedorPersona.class.getName());
+    
 
     private void desactivarEstado() {
         tbEstado.setText("Desactivado");
-        tbEstado.setBackground(Color.RED);
+        tbEstado.setBackground(new java.awt.Color(255, 51, 51));
     }
 
     private void activarEstado() {
         tbEstado.setText("Activo");
-        tbEstado.setBackground(Color.GREEN);
+        tbEstado.setBackground(new java.awt.Color(0, 204, 102));
     }
 
     private void limpiarMsgs() {
         lExito.setText("");
         lError.setText("");
+    }
+    
+    private boolean existeIdPers(List<SsfPersona> pp, SsfPersona pers) {
+        for (SsfPersona p : pp) {
+            if (p.getId() == pers.getId()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private void cargaPersonas(List<SsfPersona> pp) {
+        borrarTabla();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
+        String sfecha = null;
+        for (SsfPersona p : pp) {
+            
+            if (p.getFechaNac() != null) {
+                sfecha = sdf.format(p.getFechaNac());
+            }
+            model.addRow(new Object[]{p.getId(), p.getRut(), p.getNombre(),
+                p.getApPaterno(), p.getApMaterno(), p.getCorreo(), p.getTelefono(),
+                sfecha, sdf.format(p.getFechCreacion()), p.getEstado()});
+        }
+        tblPersona.setModel(model);
+    }
+
+    private void borrarTabla() {
+        tblPersona.removeAll();
+        tblPersona.repaint();
+        model = (DefaultTableModel) tblPersona.getModel();
+        model.fireTableDataChanged();
+        tblPersona.repaint();
+        tblPersona.removeAll();
+        int rows = model.getRowCount();
+        for (int i = rows - 1; i >= 0; i--) {
+            model.removeRow(i);
+        }
+        
+        tblPersona.removeAll();
+        model.setRowCount(0);
+        model.fireTableDataChanged();
+        tblPersona.repaint();
+        tblPersona.setModel(model);
+        tblPersona.repaint();
+        tblPersona.removeAll();
     }
 
 }
