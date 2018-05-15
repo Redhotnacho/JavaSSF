@@ -39,4 +39,33 @@ public class SsfAlumnoBO {
     public List<SsfAlumno> getAll(){
         return this.alumnoDAO.getAll();
     }
+    
+    public SsfAlumno findSP(int id){
+        return this.alumnoDAO.findSP(id);
+    }
+    
+    public List<SsfAlumno> getAllSP(){
+        return this.alumnoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfAlumno alumno){
+        return this.alumnoDAO.addSP(alumno);
+    }
+    
+    public boolean updateSP(SsfAlumno alumno){
+        return this.alumnoDAO.updateSP(alumno);
+    }
+    
+    public boolean removeSP(int id){
+        return this.alumnoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.alumnoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.alumnoDAO.activarSP(id);
+    }
+    
 }

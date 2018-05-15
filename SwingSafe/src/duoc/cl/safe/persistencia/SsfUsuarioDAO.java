@@ -172,9 +172,9 @@ public class SsfUsuarioDAO {
             storedProcedure.registerStoredProcedureParameter("o_id", BigDecimal.class, ParameterMode.OUT);
             storedProcedure.setParameter("p_username", usuario.getUsername());
             storedProcedure.setParameter("p_contrasena", usuario.getContrasena());
-            storedProcedure.setParameter("p_persona", usuario.getIdPersona());
-            storedProcedure.setParameter("p_perfil", usuario.getIdPerfil());
-            storedProcedure.setParameter("p_empresa", usuario.getIdEmpresa());
+            storedProcedure.setParameter("p_persona", usuario.getIdPersona().getId());
+            storedProcedure.setParameter("p_perfil", usuario.getIdPerfil().getId());
+            storedProcedure.setParameter("p_empresa", usuario.getIdEmpresa().getId());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
@@ -211,9 +211,9 @@ public class SsfUsuarioDAO {
             storedProcedure.setParameter("p_id", usuario.getId());
             storedProcedure.setParameter("p_username", usuario.getUsername());
             storedProcedure.setParameter("p_contrasena", usuario.getContrasena());
-            storedProcedure.setParameter("p_persona", usuario.getIdPersona());
-            storedProcedure.setParameter("p_perfil", usuario.getIdPerfil());
-            storedProcedure.setParameter("p_empresa", usuario.getIdEmpresa());
+            storedProcedure.setParameter("p_persona", usuario.getIdPersona().getId());
+            storedProcedure.setParameter("p_perfil", usuario.getIdPerfil().getId());
+            storedProcedure.setParameter("p_empresa", usuario.getIdEmpresa().getId());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
@@ -310,6 +310,42 @@ public class SsfUsuarioDAO {
             Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
             log.log(Level.SEVERE, "Error al activar", ex);
             return false;
+        }
+    }
+    
+    
+    public SsfUsuario validaUsuarioSP(String username, String contrasena) {
+        SsfUsuario objUsuario = null;
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_validaUsuario", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("p_username", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_contrasena", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_data", void.class, ParameterMode.REF_CURSOR);
+            storedProcedure.setParameter("p_username", username);
+            storedProcedure.setParameter("p_contrasena", contrasena);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            List<SsfUsuario> usuarios = (List<SsfUsuario>) storedProcedure.getOutputParameterValue("o_data");
+            objUsuario = usuarios.get(0);
+
+            if (o_glosa.contains("xito")) {
+                return objUsuario;
+            } else {
+                return null;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al validar usuario", ex);
+            return null;
         }
     }
     

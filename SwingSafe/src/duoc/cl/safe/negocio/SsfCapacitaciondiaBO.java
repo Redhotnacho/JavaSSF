@@ -39,4 +39,32 @@ public class SsfCapacitaciondiaBO {
     public List<SsfCapacitaciondia> getAll(){
         return this.capacitaciondiaDAO.getAll();
     }
+    
+    public SsfCapacitaciondia findSP(int id){
+        return this.capacitaciondiaDAO.findSP(id);
+    }
+    
+    public List<SsfCapacitaciondia> getAllSP(){
+        return this.capacitaciondiaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfCapacitaciondia capacitaciondia){
+        return this.capacitaciondiaDAO.addSP(capacitaciondia);
+    }
+    
+    public boolean updateSP(SsfCapacitaciondia capacitaciondia){
+        return this.capacitaciondiaDAO.updateSP(capacitaciondia);
+    }
+    
+    public boolean removeSP(int id){
+        return this.capacitaciondiaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.capacitaciondiaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.capacitaciondiaDAO.activarSP(id);
+    }
 }

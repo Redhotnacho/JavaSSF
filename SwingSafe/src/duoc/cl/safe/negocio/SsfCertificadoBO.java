@@ -39,4 +39,33 @@ public class SsfCertificadoBO {
     public List<SsfCertificado> getAll(){
         return this.certificadoDAO.getAll();
     }
+    
+    public SsfCertificado findSP(int id){
+        return this.certificadoDAO.findSP(id);
+    }
+    
+    public List<SsfCertificado> getAllSP(){
+        return this.certificadoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfCertificado certificado){
+        return this.certificadoDAO.addSP(certificado);
+    }
+    
+    public boolean updateSP(SsfCertificado certificado){
+        return this.certificadoDAO.updateSP(certificado);
+    }
+    
+    public boolean removeSP(int id){
+        return this.certificadoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.certificadoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.certificadoDAO.activarSP(id);
+    }
+    
 }

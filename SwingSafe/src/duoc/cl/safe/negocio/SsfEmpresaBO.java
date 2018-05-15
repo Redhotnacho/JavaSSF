@@ -39,4 +39,32 @@ public class SsfEmpresaBO {
     public List<SsfEmpresa> getAll(){
         return this.empresaDAO.getAll();
     }
+    
+    public SsfEmpresa findSP(int id){
+        return this.empresaDAO.findSP(id);
+    }
+    
+    public List<SsfEmpresa> getAllSP(){
+        return this.empresaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfEmpresa empresa){
+        return this.empresaDAO.addSP(empresa);
+    }
+    
+    public boolean updateSP(SsfEmpresa empresa){
+        return this.empresaDAO.updateSP(empresa);
+    }
+    
+    public boolean removeSP(int id){
+        return this.empresaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.empresaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.empresaDAO.activarSP(id);
+    }
 }

@@ -39,4 +39,33 @@ public class SsfExamenBO {
     public List<SsfExamen> getAll(){
         return this.examenDAO.getAll();
     }
+    
+    public SsfExamen findSP(int id){
+        return this.examenDAO.findSP(id);
+    }
+    
+    public List<SsfExamen> getAllSP(){
+        return this.examenDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfExamen examen){
+        return this.examenDAO.addSP(examen);
+    }
+    
+    public boolean updateSP(SsfExamen examen){
+        return this.examenDAO.updateSP(examen);
+    }
+    
+    public boolean removeSP(int id){
+        return this.examenDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.examenDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.examenDAO.activarSP(id);
+    }
+    
 }

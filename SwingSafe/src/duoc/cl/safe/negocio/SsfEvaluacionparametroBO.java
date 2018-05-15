@@ -39,4 +39,33 @@ public class SsfEvaluacionparametroBO {
     public List<SsfEvaluacionparametro> getAll(){
         return this.evaluacionparametroDAO.getAll();
     }
+    
+    public SsfEvaluacionparametro findSP(int id){
+        return this.evaluacionparametroDAO.findSP(id);
+    }
+    
+    public List<SsfEvaluacionparametro> getAllSP(){
+        return this.evaluacionparametroDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfEvaluacionparametro evaluacionparametro){
+        return this.evaluacionparametroDAO.addSP(evaluacionparametro);
+    }
+    
+    public boolean updateSP(SsfEvaluacionparametro evaluacionparametro){
+        return this.evaluacionparametroDAO.updateSP(evaluacionparametro);
+    }
+    
+    public boolean removeSP(int id){
+        return this.evaluacionparametroDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.evaluacionparametroDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.evaluacionparametroDAO.activarSP(id);
+    }
+    
 }

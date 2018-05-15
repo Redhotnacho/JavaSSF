@@ -39,4 +39,33 @@ public class SsfAdjuntoBO {
     public List<SsfAdjunto> getAll(){
         return this.adjuntoDAO.getAll();
     }
+    
+    public SsfAdjunto findSP(int id){
+        return this.adjuntoDAO.findSP(id);
+    }
+    
+    public List<SsfAdjunto> getAllSP(){
+        return this.adjuntoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfAdjunto adjunto){
+        return this.adjuntoDAO.addSP(adjunto);
+    }
+    
+    public boolean updateSP(SsfAdjunto adjunto){
+        return this.adjuntoDAO.updateSP(adjunto);
+    }
+    
+    public boolean removeSP(int id){
+        return this.adjuntoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.adjuntoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.adjuntoDAO.activarSP(id);
+    }
+    
 }

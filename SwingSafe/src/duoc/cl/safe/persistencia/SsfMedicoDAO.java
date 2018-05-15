@@ -13,7 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.ParameterMode;
 import javax.persistence.Persistence;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  *
@@ -101,4 +103,212 @@ public class SsfMedicoDAO {
             return null;
         }
     }
+    
+    public SsfMedico findSP(int id) {
+        SsfMedico objMedico = null;
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfMedico.sp_find", SsfMedico.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_data", void.class, ParameterMode.REF_CURSOR);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            List<SsfMedico> medicos = (List<SsfMedico>) storedProcedure.getOutputParameterValue("o_data");
+            objMedico = medicos.get(0);
+
+            return objMedico;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfMedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al buscar", ex);
+            return null;
+        }
+    }
+
+    public List<SsfMedico> getAllSP() {
+        List<SsfMedico> medicos = null;
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfMedico.sp_getAll", SsfMedico.class);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_data", void.class, ParameterMode.REF_CURSOR);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            System.out.println("o_glosa : " + o_glosa);
+            medicos = (List<SsfMedico>) storedProcedure.getOutputParameterValue("o_data");
+
+            return medicos;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfMedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            return null;
+        }
+    }
+
+    public boolean addSP(SsfMedico medico) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfMedico.sp_add", SsfMedico.class);
+            storedProcedure.registerStoredProcedureParameter("p_nombre", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_apellidos", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_especialidad", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_centromedico", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_id", BigDecimal.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_nombre", medico.getNombre());
+            storedProcedure.setParameter("p_apellidos", medico.getApellidos());
+            storedProcedure.setParameter("p_especialidad", medico.getIdEspecialidad().getId());
+            storedProcedure.setParameter("p_centromedico", medico.getIdCentromedico().getId());
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            BigDecimal o_id = (BigDecimal) storedProcedure.getOutputParameterValue("o_id");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            System.out.println("o_id : " + o_id);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfMedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al agregar", ex);
+            return false;
+        }
+    }
+
+    public boolean updateSP(SsfMedico medico) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfMedico.sp_update", SsfMedico.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_nombre", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_apellidos", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_especialidad", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_centromedico", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", medico.getId());
+            storedProcedure.setParameter("p_nombre", medico.getNombre());
+            storedProcedure.setParameter("p_apellidos", medico.getApellidos());
+            storedProcedure.setParameter("p_especialidad", medico.getIdEspecialidad().getId());
+            storedProcedure.setParameter("p_centromedico", medico.getIdCentromedico().getId());
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfMedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al modificar", ex);
+            return false;
+        }
+    }
+
+    public boolean removeSP(int id) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfMedico.sp_delete", SsfMedico.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            System.out.println("o_glosa : " + o_glosa);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfMedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al borrar", ex);
+            return false;
+        }
+    }
+
+    public boolean desactivarSP(int id) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfMedico.sp_desactivar", SsfMedico.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfMedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al desactivar", ex);
+            return false;
+        }
+    }
+
+    public boolean activarSP(int id) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfMedico.sp_activar", SsfMedico.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfMedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al activar", ex);
+            return false;
+        }
+    }
+    
+    
 }

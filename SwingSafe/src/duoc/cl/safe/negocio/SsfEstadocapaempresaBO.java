@@ -39,4 +39,33 @@ public class SsfEstadocapaempresaBO {
     public List<SsfEstadocapaempresa> getAll(){
         return this.estadocapaempresaDAO.getAll();
     }
+    
+    public SsfEstadocapaempresa findSP(int id){
+        return this.estadocapaempresaDAO.findSP(id);
+    }
+    
+    public List<SsfEstadocapaempresa> getAllSP(){
+        return this.estadocapaempresaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfEstadocapaempresa estadocapaempresa){
+        return this.estadocapaempresaDAO.addSP(estadocapaempresa);
+    }
+    
+    public boolean updateSP(SsfEstadocapaempresa estadocapaempresa){
+        return this.estadocapaempresaDAO.updateSP(estadocapaempresa);
+    }
+    
+    public boolean removeSP(int id){
+        return this.estadocapaempresaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.estadocapaempresaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.estadocapaempresaDAO.activarSP(id);
+    }
+    
 }

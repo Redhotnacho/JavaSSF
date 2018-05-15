@@ -39,4 +39,33 @@ public class SsfCentromedicoBO {
     public List<SsfCentromedico> getAll(){
         return this.centromedicoDAO.getAll();
     }
+    
+    public SsfCentromedico findSP(int id){
+        return this.centromedicoDAO.findSP(id);
+    }
+    
+    public List<SsfCentromedico> getAllSP(){
+        return this.centromedicoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfCentromedico centromedico){
+        return this.centromedicoDAO.addSP(centromedico);
+    }
+    
+    public boolean updateSP(SsfCentromedico centromedico){
+        return this.centromedicoDAO.updateSP(centromedico);
+    }
+    
+    public boolean removeSP(int id){
+        return this.centromedicoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.centromedicoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.centromedicoDAO.activarSP(id);
+    }
+    
 }

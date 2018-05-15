@@ -167,8 +167,8 @@ public class SsfAlumnoDAO {
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_id", BigDecimal.class, ParameterMode.OUT);
-            storedProcedure.setParameter("p_persona", alumno.getIdPersona());
-            storedProcedure.setParameter("p_empresa", alumno.getIdEmpresa());
+            storedProcedure.setParameter("p_persona", alumno.getIdPersona().getId());
+            storedProcedure.setParameter("p_empresa", alumno.getIdEmpresa().getId());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
@@ -201,8 +201,8 @@ public class SsfAlumnoDAO {
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
             storedProcedure.setParameter("p_id", alumno.getId());
-            storedProcedure.setParameter("p_persona", alumno.getIdPersona());
-            storedProcedure.setParameter("p_empresa", alumno.getIdEmpresa());
+            storedProcedure.setParameter("p_persona", alumno.getIdPersona().getId());
+            storedProcedure.setParameter("p_empresa", alumno.getIdEmpresa().getId());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");

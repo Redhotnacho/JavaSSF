@@ -39,4 +39,37 @@ public class SsfUsuarioBO {
     public List<SsfUsuario> getAll(){
         return this.usuarioDAO.getAll();
     }
+    
+    public SsfUsuario findSP(int id){
+        return this.usuarioDAO.findSP(id);
+    }
+    
+    public List<SsfUsuario> getAllSP(){
+        return this.usuarioDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfUsuario usuario){
+        return this.usuarioDAO.addSP(usuario);
+    }
+    
+    public boolean updateSP(SsfUsuario usuario){
+        return this.usuarioDAO.updateSP(usuario);
+    }
+    
+    public boolean removeSP(int id){
+        return this.usuarioDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.usuarioDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.usuarioDAO.activarSP(id);
+    }
+    
+    public SsfUsuario validaUsuarioSP(String username, String contrasena){
+        return this.usuarioDAO.validaUsuarioSP(username, contrasena);
+    }
+    
 }

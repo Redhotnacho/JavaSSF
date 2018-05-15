@@ -39,4 +39,33 @@ public class SsfVistaBO {
     public List<SsfVista> getAll(){
         return this.vistaDAO.getAll();
     }
+    
+    public SsfVista findSP(int id){
+        return this.vistaDAO.findSP(id);
+    }
+    
+    public List<SsfVista> getAllSP(){
+        return this.vistaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfVista vista){
+        return this.vistaDAO.addSP(vista);
+    }
+    
+    public boolean updateSP(SsfVista vista){
+        return this.vistaDAO.updateSP(vista);
+    }
+    
+    public boolean removeSP(int id){
+        return this.vistaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.vistaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.vistaDAO.activarSP(id);
+    }
+    
 }

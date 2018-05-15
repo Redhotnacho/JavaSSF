@@ -39,4 +39,33 @@ public class SsfFichamedicaatencionBO {
     public List<SsfFichamedicaatencion> getAll(){
         return this.fichamedicaatencionDAO.getAll();
     }
+    
+    public SsfFichamedicaatencion findSP(int id){
+        return this.fichamedicaatencionDAO.findSP(id);
+    }
+    
+    public List<SsfFichamedicaatencion> getAllSP(){
+        return this.fichamedicaatencionDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfFichamedicaatencion fichamedicaatencion){
+        return this.fichamedicaatencionDAO.addSP(fichamedicaatencion);
+    }
+    
+    public boolean updateSP(SsfFichamedicaatencion fichamedicaatencion){
+        return this.fichamedicaatencionDAO.updateSP(fichamedicaatencion);
+    }
+    
+    public boolean removeSP(int id){
+        return this.fichamedicaatencionDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.fichamedicaatencionDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.fichamedicaatencionDAO.activarSP(id);
+    }
+    
 }

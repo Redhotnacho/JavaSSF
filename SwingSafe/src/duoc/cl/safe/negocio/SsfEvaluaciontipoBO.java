@@ -39,4 +39,33 @@ public class SsfEvaluaciontipoBO {
     public List<SsfEvaluaciontipo> getAll(){
         return this.evaluaciontipoDAO.getAll();
     }
+    
+    public SsfEvaluaciontipo findSP(int id){
+        return this.evaluaciontipoDAO.findSP(id);
+    }
+    
+    public List<SsfEvaluaciontipo> getAllSP(){
+        return this.evaluaciontipoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfEvaluaciontipo evaluaciontipo){
+        return this.evaluaciontipoDAO.addSP(evaluaciontipo);
+    }
+    
+    public boolean updateSP(SsfEvaluaciontipo evaluaciontipo){
+        return this.evaluaciontipoDAO.updateSP(evaluaciontipo);
+    }
+    
+    public boolean removeSP(int id){
+        return this.evaluaciontipoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.evaluaciontipoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.evaluaciontipoDAO.activarSP(id);
+    }
+    
 }

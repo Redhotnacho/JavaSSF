@@ -39,4 +39,32 @@ public class SsfPerfilBO {
     public List<SsfPerfil> getAll(){
         return this.perfilDAO.getAll();
     }
+    
+    public SsfPerfil findSP(int id){
+        return this.perfilDAO.findSP(id);
+    }
+    
+    public List<SsfPerfil> getAllSP(){
+        return this.perfilDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfPerfil perfil){
+        return this.perfilDAO.addSP(perfil);
+    }
+    
+    public boolean updateSP(SsfPerfil perfil){
+        return this.perfilDAO.updateSP(perfil);
+    }
+    
+    public boolean removeSP(int id){
+        return this.perfilDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.perfilDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.perfilDAO.activarSP(id);
+    }
 }

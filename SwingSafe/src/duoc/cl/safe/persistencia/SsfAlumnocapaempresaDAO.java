@@ -170,9 +170,9 @@ public class SsfAlumnocapaempresaDAO {
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_id", BigDecimal.class, ParameterMode.OUT);
-            storedProcedure.setParameter("p_alumno", alumnocapaempresa.getIdAlumno());
-            storedProcedure.setParameter("p_capaempresa", alumnocapaempresa.getIdCapaempresa());
-            storedProcedure.setParameter("p_certificado", alumnocapaempresa.getIdCertificado());
+            storedProcedure.setParameter("p_alumno", alumnocapaempresa.getIdAlumno().getId());
+            storedProcedure.setParameter("p_capaempresa", alumnocapaempresa.getIdCapaempresa().getId());
+            storedProcedure.setParameter("p_certificado", alumnocapaempresa.getIdCertificado().getId());
             storedProcedure.setParameter("p_aprobacion", alumnocapaempresa.getAprobacion());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
@@ -207,9 +207,9 @@ public class SsfAlumnocapaempresaDAO {
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
             storedProcedure.setParameter("p_id", alumnocapaempresa.getId());
-            storedProcedure.setParameter("p_alumno", alumnocapaempresa.getIdAlumno());
-            storedProcedure.setParameter("p_capaempresa", alumnocapaempresa.getIdCapaempresa());
-            storedProcedure.setParameter("p_certificado", alumnocapaempresa.getIdCertificado());
+            storedProcedure.setParameter("p_alumno", alumnocapaempresa.getIdAlumno().getId());
+            storedProcedure.setParameter("p_capaempresa", alumnocapaempresa.getIdCapaempresa().getId());
+            storedProcedure.setParameter("p_certificado", alumnocapaempresa.getIdCertificado().getId());
             storedProcedure.setParameter("p_aprobacion", alumnocapaempresa.getAprobacion());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");

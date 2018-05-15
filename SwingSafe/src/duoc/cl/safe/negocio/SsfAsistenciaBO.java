@@ -39,4 +39,33 @@ public class SsfAsistenciaBO {
     public List<SsfAsistencia> getAll(){
         return this.asistenciaDAO.getAll();
     }
+    
+    public SsfAsistencia findSP(int id){
+        return this.asistenciaDAO.findSP(id);
+    }
+    
+    public List<SsfAsistencia> getAllSP(){
+        return this.asistenciaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfAsistencia asistencia){
+        return this.asistenciaDAO.addSP(asistencia);
+    }
+    
+    public boolean updateSP(SsfAsistencia asistencia){
+        return this.asistenciaDAO.updateSP(asistencia);
+    }
+    
+    public boolean removeSP(int id){
+        return this.asistenciaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.asistenciaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.asistenciaDAO.activarSP(id);
+    }
+    
 }

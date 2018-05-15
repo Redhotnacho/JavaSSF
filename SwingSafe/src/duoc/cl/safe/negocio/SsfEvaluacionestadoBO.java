@@ -39,4 +39,32 @@ public class SsfEvaluacionestadoBO {
     public List<SsfEvaluacionestado> getAll(){
         return this.evaluacionestadoDAO.getAll();
     }
+    
+    public SsfEvaluacionestado findSP(int id){
+        return this.evaluacionestadoDAO.findSP(id);
+    }
+    
+    public List<SsfEvaluacionestado> getAllSP(){
+        return this.evaluacionestadoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfEvaluacionestado evaluacionestado){
+        return this.evaluacionestadoDAO.addSP(evaluacionestado);
+    }
+    
+    public boolean updateSP(SsfEvaluacionestado evaluacionestado){
+        return this.evaluacionestadoDAO.updateSP(evaluacionestado);
+    }
+    
+    public boolean removeSP(int id){
+        return this.evaluacionestadoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.evaluacionestadoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.evaluacionestadoDAO.activarSP(id);
+    }
 }

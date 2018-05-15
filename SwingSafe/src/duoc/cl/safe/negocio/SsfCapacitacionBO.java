@@ -39,4 +39,33 @@ public class SsfCapacitacionBO {
     public List<SsfCapacitacion> getAll(){
         return this.capacitacionDAO.getAll();
     }
+    
+    public SsfCapacitacion findSP(int id){
+        return this.capacitacionDAO.findSP(id);
+    }
+    
+    public List<SsfCapacitacion> getAllSP(){
+        return this.capacitacionDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfCapacitacion capacitacion){
+        return this.capacitacionDAO.addSP(capacitacion);
+    }
+    
+    public boolean updateSP(SsfCapacitacion capacitacion){
+        return this.capacitacionDAO.updateSP(capacitacion);
+    }
+    
+    public boolean removeSP(int id){
+        return this.capacitacionDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.capacitacionDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.capacitacionDAO.activarSP(id);
+    }
+    
 }

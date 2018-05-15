@@ -39,4 +39,33 @@ public class SsfCapacitaciontipoBO {
     public List<SsfCapacitaciontipo> getAll(){
         return this.capacitaciontipoDAO.getAll();
     }
+    
+    public SsfCapacitaciontipo findSP(int id){
+        return this.capacitaciontipoDAO.findSP(id);
+    }
+    
+    public List<SsfCapacitaciontipo> getAllSP(){
+        return this.capacitaciontipoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfCapacitaciontipo capacitaciontipo){
+        return this.capacitaciontipoDAO.addSP(capacitaciontipo);
+    }
+    
+    public boolean updateSP(SsfCapacitaciontipo capacitaciontipo){
+        return this.capacitaciontipoDAO.updateSP(capacitaciontipo);
+    }
+    
+    public boolean removeSP(int id){
+        return this.capacitaciontipoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.capacitaciontipoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.capacitaciontipoDAO.activarSP(id);
+    }
+    
 }

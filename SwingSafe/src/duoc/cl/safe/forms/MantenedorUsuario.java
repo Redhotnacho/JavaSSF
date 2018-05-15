@@ -90,22 +90,12 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         });
 
         cbPerfil.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccione Perfil -" }));
-        cbPerfil.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbPerfilActionPerformed(evt);
-            }
-        });
 
         jLabel3.setText("Perfil:");
 
         jLabel4.setText("Empresa:");
 
         cbEmpresa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccione Empresa -" }));
-        cbEmpresa.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbEmpresaActionPerformed(evt);
-            }
-        });
 
         tblUsuario.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -304,27 +294,6 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
 
-    private void cbEmpresaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEmpresaActionPerformed
-        /*
-        if (cbEmpresa.getSelectedIndex() != 0) {
-            tfBuscarPersona.setText(mape.get(cbEmpresa.getSelectedItem()).toString());
-        } else {
-            tfBuscarPersona.setText("");
-        }
-         */
-
-    }//GEN-LAST:event_cbEmpresaActionPerformed
-
-    private void cbPerfilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbPerfilActionPerformed
-        /*
-        if (cbPerfil.getSelectedIndex() != 0) {
-            tfUsuario.setText(mapp.get(cbPerfil.getSelectedItem()).toString());
-        } else {
-            tfUsuario.setText("");
-        }
-         */
-    }//GEN-LAST:event_cbPerfilActionPerformed
-
     private void bBuscarPersonaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarPersonaActionPerformed
         String busqueda = tfBuscarPersona.getText().trim();
         //split(Pattern.quote(".")) - str.split("\\s+");
@@ -414,7 +383,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     private void tbEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tbEstadoActionPerformed
         limpiarMsgs();
         model = (DefaultTableModel) tblUsuario.getModel();
-        SsfUsuarioBO ubo = new SsfUsuarioBO();
+        ubo = new SsfUsuarioBO();
         SsfUsuario u = null;
 
         if (tblUsuario.getSelectedRow() == -1) {
@@ -429,15 +398,15 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             if (!tbEstado.isSelected()) {
                 activarEstado();
                 model.setValueAt("1", tblUsuario.getSelectedRow(), 7);
-                u = ubo.find(id);
+                u = ubo.findSP(id);
                 u.setEstado(Short.parseShort("1"));
-                ubo.update(u);
+                ubo.updateSP(u);
             } else {
                 desactivarEstado();
                 model.setValueAt("0", tblUsuario.getSelectedRow(), 7);
-                u = ubo.find(id);
+                u = ubo.findSP(id);
                 u.setEstado(Short.parseShort("0"));
-                ubo.update(u);
+                ubo.updateSP(u);
             }
         }
     }//GEN-LAST:event_tbEstadoActionPerformed
@@ -502,12 +471,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_bLimpiarActionPerformed
 
     private void bAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAgregarActionPerformed
-        SsfUsuarioBO ubo = new SsfUsuarioBO();
-        /*
-        SsfPersonaBO pbo = new SsfPersonaBO();
-        SsfPerfilBO perfbo = new SsfPerfilBO();
-        SsfEmpresaBO ebo = new SsfEmpresaBO();
-         */
+        ubo = new SsfUsuarioBO();
         limpiarMsgs();
         if (tfUsuario.getText().trim().equals("")) {
             lError.setText("Ingrese un nombre de usuario");
@@ -534,25 +498,20 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             u.setIdPersona(new SsfPersona(BigDecimal.valueOf((long) Long.valueOf(idpersona))));
             u.setIdPerfil(new SsfPerfil(BigDecimal.valueOf((long) Long.valueOf(idperfil))));
             u.setIdEmpresa(new SsfEmpresa(BigDecimal.valueOf((long) Long.valueOf(idempresa))));
-            if (ubo.add(u)) {
+            if (ubo.addSP(u)) {
                 lExito.setText("Persona agregada exitosamente.");
                 cargaTabla();
             } else {
                 lError.setText("No se pudo agregar");
             }
 
-            /*
-            u.setIdPersona(pbo.findSP(Integer.valueOf(idpersona)));
-            u.setIdPerfil(perfbo.find(Integer.valueOf(idperfil)));
-            u.setIdEmpresa(ebo.find(Integer.valueOf(idempresa)));
-             */
         }
 
 
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
-        SsfUsuarioBO ubo = new SsfUsuarioBO();
+        ubo = new SsfUsuarioBO();
         limpiarMsgs();
 
         if (tblUsuario.getSelectedRow() == -1) {
@@ -578,26 +537,33 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             } else {
                 String id, username, password, idpersona, idperfil, idempresa;
                 id = model.getValueAt(tblUsuario.getSelectedRow(), 0).toString();
-                username = tfUsuario.getText();
-                password = pfPassword.getText();
+                username = tfUsuario.getText().trim();
+                password = pfPassword.getText().trim();
                 idpersona = mappers.get(cbPersona.getSelectedItem()).toString();
                 idperfil = mapp.get(cbPerfil.getSelectedItem()).toString();
                 idempresa = mape.get(cbEmpresa.getSelectedItem()).toString();
-                SsfUsuario u = ubo.find(Integer.valueOf(id));
+                SsfUsuario u = ubo.findSP(Integer.valueOf(id));
                 u.setId(BigDecimal.valueOf((long) Long.valueOf(id)));
                 u.setUsername(username);
                 u.setContrasena(password);
                 u.setIdPersona(new SsfPersona(BigDecimal.valueOf((long) Long.valueOf(idpersona))));
                 u.setIdPerfil(new SsfPerfil(BigDecimal.valueOf((long) Long.valueOf(idperfil))));
                 u.setIdEmpresa(new SsfEmpresa(BigDecimal.valueOf((long) Long.valueOf(idempresa))));
-                if (ubo.update(u)) {
+                if (ubo.updateSP(u)) {
                     lExito.setText("Persona modficada exitosamente.");
+
+                    model.setValueAt(username, tblUsuario.getSelectedRow(), 1);
+                    model.setValueAt(password, tblUsuario.getSelectedRow(), 2);
+                    model.setValueAt(cbPersona.getSelectedItem(), tblUsuario.getSelectedRow(), 3);
+                    model.setValueAt(cbPerfil.getSelectedItem(), tblUsuario.getSelectedRow(), 4);
+                    model.setValueAt(cbEmpresa.getSelectedItem(), tblUsuario.getSelectedRow(), 5);
+
                 } else {
                     lError.setText("No se pudo modificar");
                 }
             }
         }
-        cargaTabla();
+        //cargaTabla();
     }//GEN-LAST:event_bModificarActionPerformed
 
     private void bBuscarUsuarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarUsuarioActionPerformed
@@ -609,11 +575,11 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             String[] palabras = busqueda.split("\\s+");
             String[] palabras2 = busqueda.split(Pattern.quote("."));
             List<SsfUsuario> uu = new LinkedList<>();
-            SsfUsuarioBO ubo = new SsfUsuarioBO();
-            List<SsfUsuario> uuall = ubo.getAll();
+            ubo = new SsfUsuarioBO();
+            List<SsfUsuario> uuall = ubo.getAllSP();
             for (String s : palabras) {
                 for (SsfUsuario u : uuall) {
-                    if (u.getUsername()!= null) {
+                    if (u.getUsername() != null) {
                         if (!uu.isEmpty()) {
                             if (!existeIdUsuario(uu, u) && u.getUsername().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
@@ -624,7 +590,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                             }
                         }
                     }
-                    if (u.getIdPersona().getNombre()!= null) {
+                    if (u.getIdPersona().getNombre() != null) {
                         if (!uu.isEmpty()) {
                             if (!existeIdUsuario(uu, u) && u.getIdPersona().getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
@@ -657,7 +623,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                             }
                         }
                     }
-                    if (u.getIdPerfil().getPerfil()!= null) {
+                    if (u.getIdPerfil().getPerfil() != null) {
                         if (!uu.isEmpty()) {
                             if (!existeIdUsuario(uu, u) && u.getIdPerfil().getPerfil().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
@@ -668,7 +634,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                             }
                         }
                     }
-                    if (u.getIdEmpresa().getNombre()!= null) {
+                    if (u.getIdEmpresa().getNombre() != null) {
                         if (!uu.isEmpty()) {
                             if (!existeIdUsuario(uu, u) && u.getIdEmpresa().getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
@@ -683,7 +649,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             }
             for (String s : palabras2) {
                 for (SsfUsuario u : uuall) {
-                    if (u.getIdPersona().getRut()!= null) {
+                    if (u.getIdPersona().getRut() != null) {
                         if (!uu.isEmpty()) {
                             if (!existeIdUsuario(uu, u) && u.getIdPersona().getRut().contains(s)) {
                                 uu.add(u);
@@ -777,10 +743,11 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     private HashMap<String, Integer> mappers = new HashMap<>();
     DefaultTableModel model;
     List<SsfUsuario> lu;
+    SsfUsuarioBO ubo;
 
     public void cargaEmpresa() {
         SsfEmpresaBO ebo = new SsfEmpresaBO();
-        List<SsfEmpresa> elist = ebo.getAll();
+        List<SsfEmpresa> elist = ebo.getAllSP();
         elist.forEach((e) -> {
             mape.put(e.getNombre(), e.getId().intValue());
         });
@@ -791,7 +758,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
 
     public void cargaPerfil() {
         SsfPerfilBO pbo = new SsfPerfilBO();
-        List<SsfPerfil> plist = pbo.getAll();
+        List<SsfPerfil> plist = pbo.getAllSP();
         plist.forEach((p) -> {
             mapp.put(p.getPerfil(), p.getId().intValue());
         });
@@ -850,8 +817,8 @@ public class MantenedorUsuario extends javax.swing.JFrame {
 
     private void cargaTabla() {
         borrarTabla();
-        SsfUsuarioBO ubo = new SsfUsuarioBO();
-        lu = ubo.getAll();
+        ubo = new SsfUsuarioBO();
+        lu = ubo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         for (SsfUsuario u : lu) {
@@ -914,9 +881,9 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         for (SsfUsuario u : uu) {
 
             model.addRow(new Object[]{u.getId(), u.getUsername(), u.getContrasena(),
-                u.getIdPersona().getRut()+" "+u.getIdPersona().getNombre()+" "+u.getIdPersona().getApPaterno(),
-                    u.getIdPerfil().getPerfil(), u.getIdEmpresa().getNombre(),
-                    sdf.format(u.getFechCreacion()), u.getEstado()});
+                u.getIdPersona().getRut() + " " + u.getIdPersona().getNombre() + " " + u.getIdPersona().getApPaterno(),
+                u.getIdPerfil().getPerfil(), u.getIdEmpresa().getNombre(),
+                sdf.format(u.getFechCreacion()), u.getEstado()});
         }
         tblUsuario.setModel(model);
     }

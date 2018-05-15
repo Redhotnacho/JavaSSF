@@ -39,4 +39,33 @@ public class SsfAtencionmedicaBO {
     public List<SsfAtencionmedica> getAll(){
         return this.atencionmedicaDAO.getAll();
     }
+    
+    public SsfAtencionmedica findSP(int id){
+        return this.atencionmedicaDAO.findSP(id);
+    }
+    
+    public List<SsfAtencionmedica> getAllSP(){
+        return this.atencionmedicaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfAtencionmedica atencionmedica){
+        return this.atencionmedicaDAO.addSP(atencionmedica);
+    }
+    
+    public boolean updateSP(SsfAtencionmedica atencionmedica){
+        return this.atencionmedicaDAO.updateSP(atencionmedica);
+    }
+    
+    public boolean removeSP(int id){
+        return this.atencionmedicaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.atencionmedicaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.atencionmedicaDAO.activarSP(id);
+    }
+    
 }

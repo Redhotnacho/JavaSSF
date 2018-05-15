@@ -39,4 +39,33 @@ public class SsfMedicoBO {
     public List<SsfMedico> getAll(){
         return this.medicoDAO.getAll();
     }
+    
+    public SsfMedico findSP(int id){
+        return this.medicoDAO.findSP(id);
+    }
+    
+    public List<SsfMedico> getAllSP(){
+        return this.medicoDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfMedico medico){
+        return this.medicoDAO.addSP(medico);
+    }
+    
+    public boolean updateSP(SsfMedico medico){
+        return this.medicoDAO.updateSP(medico);
+    }
+    
+    public boolean removeSP(int id){
+        return this.medicoDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.medicoDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.medicoDAO.activarSP(id);
+    }
+    
 }

@@ -39,4 +39,33 @@ public class SsfAlumnocapaempresaBO {
     public List<SsfAlumnocapaempresa> getAll(){
         return this.alumnocapaempresaDAO.getAll();
     }
+    
+    public SsfAlumnocapaempresa findSP(int id){
+        return this.alumnocapaempresaDAO.findSP(id);
+    }
+    
+    public List<SsfAlumnocapaempresa> getAllSP(){
+        return this.alumnocapaempresaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfAlumnocapaempresa alumnocapaempresa){
+        return this.alumnocapaempresaDAO.addSP(alumnocapaempresa);
+    }
+    
+    public boolean updateSP(SsfAlumnocapaempresa alumnocapaempresa){
+        return this.alumnocapaempresaDAO.updateSP(alumnocapaempresa);
+    }
+    
+    public boolean removeSP(int id){
+        return this.alumnocapaempresaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.alumnocapaempresaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.alumnocapaempresaDAO.activarSP(id);
+    }
+    
 }

@@ -39,4 +39,34 @@ public class SsfCapacitacionempresaBO {
     public List<SsfCapacitacionempresa> getAll(){
         return this.capacitacionempresaDAO.getAll();
     }
+    
+    public SsfCapacitacionempresa findSP(int id){
+        return this.capacitacionempresaDAO.findSP(id);
+    }
+    
+    public List<SsfCapacitacionempresa> getAllSP(){
+        return this.capacitacionempresaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfCapacitacionempresa capacitacionempresa){
+        return this.capacitacionempresaDAO.addSP(capacitacionempresa);
+    }
+    
+    public boolean updateSP(SsfCapacitacionempresa capacitacionempresa){
+        return this.capacitacionempresaDAO.updateSP(capacitacionempresa);
+    }
+    
+    public boolean removeSP(int id){
+        return this.capacitacionempresaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.capacitacionempresaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.capacitacionempresaDAO.activarSP(id);
+    }
+    
+    
 }

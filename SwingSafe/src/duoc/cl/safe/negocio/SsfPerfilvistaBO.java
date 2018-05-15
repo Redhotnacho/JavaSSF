@@ -39,4 +39,33 @@ public class SsfPerfilvistaBO {
     public List<SsfPerfilvista> getAll(){
         return this.perfilvistaDAO.getAll();
     }
+    
+    public SsfPerfilvista findSP(int id){
+        return this.perfilvistaDAO.findSP(id);
+    }
+    
+    public List<SsfPerfilvista> getAllSP(){
+        return this.perfilvistaDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfPerfilvista perfilvista){
+        return this.perfilvistaDAO.addSP(perfilvista);
+    }
+    
+    public boolean updateSP(SsfPerfilvista perfilvista){
+        return this.perfilvistaDAO.updateSP(perfilvista);
+    }
+    
+    public boolean removeSP(int id){
+        return this.perfilvistaDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.perfilvistaDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.perfilvistaDAO.activarSP(id);
+    }
+    
 }

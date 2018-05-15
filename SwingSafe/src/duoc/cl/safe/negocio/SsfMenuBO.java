@@ -39,4 +39,33 @@ public class SsfMenuBO {
     public List<SsfMenu> getAll(){
         return this.menuDAO.getAll();
     }
+    
+    public SsfMenu findSP(int id){
+        return this.menuDAO.findSP(id);
+    }
+    
+    public List<SsfMenu> getAllSP(){
+        return this.menuDAO.getAllSP();
+    }
+    
+    public boolean addSP(SsfMenu menu){
+        return this.menuDAO.addSP(menu);
+    }
+    
+    public boolean updateSP(SsfMenu menu){
+        return this.menuDAO.updateSP(menu);
+    }
+    
+    public boolean removeSP(int id){
+        return this.menuDAO.removeSP(id);
+    }
+    
+    public boolean desactivarSP(int id){
+        return this.menuDAO.desactivarSP(id);
+    }
+    
+    public boolean activarSP(int id){
+        return this.menuDAO.activarSP(id);
+    }
+    
 }
