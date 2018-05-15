@@ -13,17 +13,11 @@ import duoc.cl.safe.negocio.SsfEmpresaBO;
 import duoc.cl.safe.negocio.SsfPerfilBO;
 import duoc.cl.safe.negocio.SsfPersonaBO;
 import duoc.cl.safe.negocio.SsfUsuarioBO;
-import java.awt.Color;
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
 
@@ -38,7 +32,6 @@ public class MantenedorUsuario extends javax.swing.JFrame {
      */
     public MantenedorUsuario() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -73,6 +66,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         bBuscarUsuario = new javax.swing.JButton();
         tfBuscarUsuario = new javax.swing.JTextField();
+        bRefrescar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -187,6 +181,13 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             }
         });
 
+        bRefrescar.setText("Refrescar");
+        bRefrescar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRefrescarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -197,59 +198,64 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                     .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(42, 42, 42)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(lExito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(lError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(bRefrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(lExito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lError, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(jLabel2)
-                                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
-                                            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jLabel2)
+                                                        .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                    .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                    .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(pfRepetirPass, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                            .addGroup(layout.createSequentialGroup()
+                                                .addGap(32, 32, 32)
+                                                .addComponent(jLabel3)
+                                                .addGap(18, 18, 18)
+                                                .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addGap(0, 78, Short.MAX_VALUE)))
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(31, 31, 31)
+                                        .addComponent(bAgregar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bLimpiar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(bModificar)
                                         .addGap(18, 18, 18)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(pfPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(pfRepetirPass, javax.swing.GroupLayout.PREFERRED_SIZE, 116, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(tbEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(32, 32, 32)
-                                        .addComponent(jLabel3)
+                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(18, 18, 18)
-                                        .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(0, 78, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(31, 31, 31)
-                                .addComponent(bAgregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bLimpiar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bModificar)
-                                .addGap(18, 18, 18)
-                                .addComponent(tbEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(cbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(tfBuscarPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(bBuscarPersona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addComponent(cbPersona, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(tfBuscarUsuario)
-                                .addGap(18, 18, 18)
-                                .addComponent(bBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                        .addComponent(cbEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, 247, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addComponent(tfBuscarPersona, javax.swing.GroupLayout.PREFERRED_SIZE, 254, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(bBuscarPersona, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addComponent(cbPersona, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 402, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(tfBuscarUsuario)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(bBuscarUsuario, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(0, 52, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(78, 78, 78)
+                .addGap(44, 44, 44)
+                .addComponent(bRefrescar)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
@@ -292,6 +298,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setLocationRelativeTo(null);
         cargaEmpresa();
         cargaPerfil();
         cargaTabla();
@@ -344,33 +351,48 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                     }
                     if (pers.getNombre() != null) {
                         if (!pp.isEmpty()) {
-                            if (!existeIdPers(pp, pers) && pers.getNombre().contains(s)) {
+                            if (!existeIdPers(pp, pers) && pers.getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         } else {
-                            if (pers.getNombre().contains(s)) {
+                            if (pers.getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         }
                     }
                     if (pers.getApPaterno() != null) {
                         if (!pp.isEmpty()) {
-                            if (!existeIdPers(pp, pers) && pers.getApPaterno().contains(s)) {
+                            if (!existeIdPers(pp, pers) && pers.getApPaterno().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         } else {
-                            if (pers.getApPaterno().contains(s)) {
+                            if (pers.getApPaterno().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         }
                     }
                     if (pers.getApMaterno() != null) {
                         if (!pp.isEmpty()) {
-                            if (!existeIdPers(pp, pers) && pers.getApMaterno().contains(s)) {
+                            if (!existeIdPers(pp, pers) && pers.getApMaterno().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         } else {
-                            if (pers.getApMaterno().contains(s)) {
+                            if (pers.getApMaterno().toLowerCase().contains(s.toLowerCase())) {
+                                pp.add(pers);
+                            }
+                        }
+                    }
+                }
+            }
+            for (String s : palabras2) {
+                for (SsfPersona pers : ppall) {
+                    if (pers.getRut() != null) {
+                        if (!pp.isEmpty()) {
+                            if (!existeIdPers(pp, pers) && pers.getRut().contains(s)) {
+                                pp.add(pers);
+                            }
+                        } else {
+                            if (pers.getRut().contains(s)) {
                                 pp.add(pers);
                             }
                         }
@@ -593,66 +615,66 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                 for (SsfUsuario u : uuall) {
                     if (u.getUsername()!= null) {
                         if (!uu.isEmpty()) {
-                            if (!existeIdUsuario(uu, u) && u.getUsername().contains(s)) {
+                            if (!existeIdUsuario(uu, u) && u.getUsername().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         } else {
-                            if (u.getUsername().contains(s)) {
+                            if (u.getUsername().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         }
                     }
                     if (u.getIdPersona().getNombre()!= null) {
                         if (!uu.isEmpty()) {
-                            if (!existeIdUsuario(uu, u) && u.getIdPersona().getNombre().contains(s)) {
+                            if (!existeIdUsuario(uu, u) && u.getIdPersona().getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         } else {
-                            if (u.getIdPersona().getNombre().contains(s)) {
+                            if (u.getIdPersona().getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         }
                     }
                     if (u.getIdPersona().getApPaterno() != null) {
                         if (!uu.isEmpty()) {
-                            if (!existeIdUsuario(uu, u) && u.getIdPersona().getApPaterno().contains(s)) {
+                            if (!existeIdUsuario(uu, u) && u.getIdPersona().getApPaterno().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         } else {
-                            if (u.getIdPersona().getApPaterno().contains(s)) {
+                            if (u.getIdPersona().getApPaterno().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         }
                     }
                     if (u.getIdPersona().getApMaterno() != null) {
                         if (!uu.isEmpty()) {
-                            if (!existeIdUsuario(uu, u) && u.getIdPersona().getApMaterno().contains(s)) {
+                            if (!existeIdUsuario(uu, u) && u.getIdPersona().getApMaterno().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         } else {
-                            if (u.getIdPersona().getApMaterno().contains(s)) {
+                            if (u.getIdPersona().getApMaterno().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         }
                     }
                     if (u.getIdPerfil().getPerfil()!= null) {
                         if (!uu.isEmpty()) {
-                            if (!existeIdUsuario(uu, u) && u.getIdPerfil().getPerfil().contains(s)) {
+                            if (!existeIdUsuario(uu, u) && u.getIdPerfil().getPerfil().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         } else {
-                            if (u.getIdPerfil().getPerfil().contains(s)) {
+                            if (u.getIdPerfil().getPerfil().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         }
                     }
                     if (u.getIdEmpresa().getNombre()!= null) {
                         if (!uu.isEmpty()) {
-                            if (!existeIdUsuario(uu, u) && u.getIdEmpresa().getNombre().contains(s)) {
+                            if (!existeIdUsuario(uu, u) && u.getIdEmpresa().getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         } else {
-                            if (u.getIdEmpresa().getNombre().contains(s)) {
+                            if (u.getIdEmpresa().getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 uu.add(u);
                             }
                         }
@@ -684,6 +706,10 @@ public class MantenedorUsuario extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_bBuscarUsuarioActionPerformed
+
+    private void bRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefrescarActionPerformed
+        cargaTabla();
+    }//GEN-LAST:event_bRefrescarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -726,6 +752,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     private javax.swing.JButton bBuscarUsuario;
     private javax.swing.JButton bLimpiar;
     private javax.swing.JButton bModificar;
+    private javax.swing.JButton bRefrescar;
     private javax.swing.JComboBox<String> cbEmpresa;
     private javax.swing.JComboBox<String> cbPerfil;
     private javax.swing.JComboBox<String> cbPersona;

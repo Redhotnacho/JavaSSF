@@ -13,7 +13,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.ParameterMode;
 import javax.persistence.Persistence;
+import javax.persistence.StoredProcedureQuery;
 
 /**
  *
@@ -101,4 +103,214 @@ public class SsfUsuarioDAO {
             return null;
         }
     }
+    
+    public SsfUsuario findSP(int id) {
+        SsfUsuario objUsuario = null;
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_find", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_data", void.class, ParameterMode.REF_CURSOR);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            List<SsfUsuario> usuarios = (List<SsfUsuario>) storedProcedure.getOutputParameterValue("o_data");
+            objUsuario = usuarios.get(0);
+
+            return objUsuario;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al buscar", ex);
+            return null;
+        }
+    }
+
+    public List<SsfUsuario> getAllSP() {
+        List<SsfUsuario> usuarios = null;
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_getAll", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_data", void.class, ParameterMode.REF_CURSOR);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            System.out.println("o_glosa : " + o_glosa);
+            usuarios = (List<SsfUsuario>) storedProcedure.getOutputParameterValue("o_data");
+
+            return usuarios;
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            return null;
+        }
+    }
+
+    public boolean addSP(SsfUsuario usuario) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_add", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("p_username", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_contrasena", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_persona", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_perfil", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_empresa", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_id", BigDecimal.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_username", usuario.getUsername());
+            storedProcedure.setParameter("p_contrasena", usuario.getContrasena());
+            storedProcedure.setParameter("p_persona", usuario.getIdPersona());
+            storedProcedure.setParameter("p_perfil", usuario.getIdPerfil());
+            storedProcedure.setParameter("p_empresa", usuario.getIdEmpresa());
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            BigDecimal o_id = (BigDecimal) storedProcedure.getOutputParameterValue("o_id");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            System.out.println("o_id : " + o_id);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al agregar", ex);
+            return false;
+        }
+    }
+
+    public boolean updateSP(SsfUsuario usuario) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_update", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_username", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_contrasena", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_persona", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_perfil", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_empresa", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", usuario.getId());
+            storedProcedure.setParameter("p_username", usuario.getUsername());
+            storedProcedure.setParameter("p_contrasena", usuario.getContrasena());
+            storedProcedure.setParameter("p_persona", usuario.getIdPersona());
+            storedProcedure.setParameter("p_perfil", usuario.getIdPerfil());
+            storedProcedure.setParameter("p_empresa", usuario.getIdEmpresa());
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al modificar", ex);
+            return false;
+        }
+    }
+
+    public boolean removeSP(int id) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_delete", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            System.out.println("o_glosa : " + o_glosa);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al borrar", ex);
+            return false;
+        }
+    }
+
+    public boolean desactivarSP(int id) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_desactivar", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al desactivar", ex);
+            return false;
+        }
+    }
+
+    public boolean activarSP(int id) {
+        try {
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManager em = emf.createEntityManager();
+
+            StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfUsuario.sp_activar", SsfUsuario.class);
+            storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
+            storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
+            storedProcedure.setParameter("p_id", id);
+            storedProcedure.execute();
+            String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
+            Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
+            System.out.println("o_glosa : " + o_glosa);
+            System.out.println("o_estado : " + o_estado);
+            if (o_glosa.contains("xito")) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            System.out.println("Error: " + ex.getMessage());
+            Logger.getLogger(SsfUsuarioDAO.class.getName()).log(Level.SEVERE, null, ex);
+            log.log(Level.SEVERE, "Error al activar", ex);
+            return false;
+        }
+    }
+    
 }

@@ -7,7 +7,6 @@ package duoc.cl.safe.forms;
 
 import duoc.cl.safe.entity.SsfPersona;
 import duoc.cl.safe.negocio.SsfPersonaBO;
-import java.awt.Color;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.text.ParseException;
@@ -31,7 +30,6 @@ public class MantenedorPersona extends javax.swing.JFrame {
      */
     public MantenedorPersona() {
         initComponents();
-        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -67,6 +65,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
         lExito = new javax.swing.JLabel();
         tfBuscar = new javax.swing.JTextField();
         bBuscar = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -163,6 +162,13 @@ public class MantenedorPersona extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setText("Refrescar");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -185,7 +191,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(tfRut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(tfFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(tfFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -194,39 +201,40 @@ public class MantenedorPersona extends javax.swing.JFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 310, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(32, 32, 32)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
-                                        .addGap(2, 2, 2)
-                                        .addComponent(bAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bLimpiar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bModificar)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 147, Short.MAX_VALUE))
-                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(32, 32, 32)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
-                                        .addGap(4, 4, 4)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(tfAp1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                            .addComponent(tfAp2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGap(36, 36, 36)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(tfBuscar)
                                             .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                                                .addGap(4, 4, 4)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                    .addComponent(tfAp1, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                    .addComponent(tfAp2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(36, 36, 36)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                                     .addComponent(jLabel6)
                                                     .addComponent(jLabel5))
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                     .addComponent(tfCorreo, javax.swing.GroupLayout.DEFAULT_SIZE, 148, Short.MAX_VALUE)
-                                                    .addComponent(tfTelefono))))
+                                                    .addComponent(tfTelefono)))
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(bAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(bLimpiar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(bModificar)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                                .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(48, 48, 48)
+                                        .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 198, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addComponent(bBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)))
+                                .addGap(130, 130, 130)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -234,9 +242,10 @@ public class MantenedorPersona extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(38, 38, 38)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bBuscar)
                     .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBuscar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(jButton1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -279,7 +288,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     .addComponent(lError, javax.swing.GroupLayout.DEFAULT_SIZE, 19, Short.MAX_VALUE)
                     .addComponent(lExito, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -287,6 +296,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setLocationRelativeTo(null);
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
 
@@ -380,7 +390,6 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tfAp2.setText("");
         tfCorreo.setText("");
         tfTelefono.setText("");
-        tfFechaNac.setText("");
         tfBuscar.setText("");
     }//GEN-LAST:event_bLimpiarActionPerformed
 
@@ -547,33 +556,44 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     }
                     if (pers.getNombre() != null) {
                         if (!pp.isEmpty()) {
-                            if (!existeIdPers(pp, pers) && pers.getNombre().contains(s)) {
+                            if (!existeIdPers(pp, pers) && pers.getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         } else {
-                            if (pers.getNombre().contains(s)) {
+                            if (pers.getNombre().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         }
                     }
                     if (pers.getApPaterno() != null) {
                         if (!pp.isEmpty()) {
-                            if (!existeIdPers(pp, pers) && pers.getApPaterno().contains(s)) {
+                            if (!existeIdPers(pp, pers) && pers.getApPaterno().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         } else {
-                            if (pers.getApPaterno().contains(s)) {
+                            if (pers.getApPaterno().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         }
                     }
                     if (pers.getApMaterno() != null) {
                         if (!pp.isEmpty()) {
-                            if (!existeIdPers(pp, pers) && pers.getApMaterno().contains(s)) {
+                            if (!existeIdPers(pp, pers) && pers.getApMaterno().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         } else {
-                            if (pers.getApMaterno().contains(s)) {
+                            if (pers.getApMaterno().toLowerCase().contains(s.toLowerCase())) {
+                                pp.add(pers);
+                            }
+                        }
+                    }
+                    if (pers.getCorreo()!= null) {
+                        if (!pp.isEmpty()) {
+                            if (!existeIdPers(pp, pers) && pers.getCorreo().toLowerCase().contains(s.toLowerCase())) {
+                                pp.add(pers);
+                            }
+                        } else {
+                            if (pers.getCorreo().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
                             }
                         }
@@ -607,6 +627,10 @@ public class MantenedorPersona extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_bBuscarActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        cargaTabla();
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -649,6 +673,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bLimpiar;
     private javax.swing.JButton bModificar;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -685,6 +710,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
             
             if (p.getFechaNac() != null) {
                 sfecha = sdf.format(p.getFechaNac());
+            }else{
+                sfecha = "";
             }
             model.addRow(new Object[]{p.getId(), p.getRut(), p.getNombre(), p.getApPaterno(), p.getApMaterno(), p.getCorreo(), p.getTelefono(), sfecha, sdf.format(p.getFechCreacion()), p.getEstado()});
         }
@@ -726,6 +753,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
             
             if (p.getFechaNac() != null) {
                 sfecha = sdf.format(p.getFechaNac());
+            }else{
+                sfecha = "";
             }
             model.addRow(new Object[]{p.getId(), p.getRut(), p.getNombre(),
                 p.getApPaterno(), p.getApMaterno(), p.getCorreo(), p.getTelefono(),

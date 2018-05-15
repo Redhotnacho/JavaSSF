@@ -9,7 +9,7 @@ import duoc.cl.safe.entity.SsfPersona;
 import duoc.cl.safe.jpa.SsfPersonaJpaController;
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.sql.Date;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -129,7 +129,7 @@ public class SsfPersonaDAO {
 
             return objPersona;
         } catch (Exception ex) {
-            System.out.println("" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SsfPersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
             log.log(Level.SEVERE, "Error al buscar", ex);
             return null;
@@ -152,7 +152,7 @@ public class SsfPersonaDAO {
 
             return personas;
         } catch (Exception ex) {
-            System.out.println("" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SsfPersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
             log.log(Level.SEVERE, "Error al buscar elementos", ex);
             return null;
@@ -181,11 +181,7 @@ public class SsfPersonaDAO {
             storedProcedure.setParameter("p_apellidom", persona.getApMaterno());
             storedProcedure.setParameter("p_correo", persona.getCorreo());
             storedProcedure.setParameter("p_telefono", persona.getTelefono());
-            Date nfecha = null;
-            if (persona.getFechaNac() != null) {
-                nfecha = new Date(persona.getFechaNac().getTime());
-            }
-            storedProcedure.setParameter("p_fechanac", nfecha);
+            storedProcedure.setParameter("p_fechanac", persona.getFechaNac()); 
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
@@ -199,9 +195,9 @@ public class SsfPersonaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SsfPersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al insertar", ex);
+            log.log(Level.SEVERE, "Error al agregar", ex);
             return false;
         }
     }
@@ -229,11 +225,7 @@ public class SsfPersonaDAO {
             storedProcedure.setParameter("p_apellidom", persona.getApMaterno());
             storedProcedure.setParameter("p_correo", persona.getCorreo());
             storedProcedure.setParameter("p_telefono", persona.getTelefono());
-            Date nfecha = null;
-            if (persona.getFechaNac() != null) {
-                nfecha = new Date(persona.getFechaNac().getTime());
-            }
-            storedProcedure.setParameter("p_fechanac", nfecha);
+            storedProcedure.setParameter("p_fechanac", persona.getFechaNac());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             Short o_estado = (Short) storedProcedure.getOutputParameterValue("o_estado");
@@ -245,7 +237,7 @@ public class SsfPersonaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SsfPersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
             log.log(Level.SEVERE, "Error al modificar", ex);
             return false;
@@ -270,7 +262,7 @@ public class SsfPersonaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SsfPersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
             log.log(Level.SEVERE, "Error al borrar", ex);
             return false;
@@ -298,9 +290,9 @@ public class SsfPersonaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SsfPersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.SEVERE, "Error al desactivar", ex);
             return false;
         }
     }
@@ -326,9 +318,9 @@ public class SsfPersonaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("" + ex.getMessage());
+            System.out.println("Error: " + ex.getMessage());
             Logger.getLogger(SsfPersonaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.SEVERE, "Error al activar", ex);
             return false;
         }
     }
