@@ -123,7 +123,10 @@ public class SsfFichamedicaatencionDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfFichamedicaatencion> fichamedicatenciones = (List<SsfFichamedicaatencion>) storedProcedure.getOutputParameterValue("o_data");
-            objFichamedicaatencion = fichamedicatenciones.get(0);
+            
+            if (!fichamedicatenciones.isEmpty()) {
+                objFichamedicaatencion = fichamedicatenciones.get(0);
+            }
 
             return objFichamedicaatencion;
         } catch (Exception ex) {

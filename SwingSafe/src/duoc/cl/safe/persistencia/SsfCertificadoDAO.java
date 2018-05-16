@@ -122,7 +122,10 @@ public class SsfCertificadoDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfCertificado> certificados = (List<SsfCertificado>) storedProcedure.getOutputParameterValue("o_data");
-            objCertificado = certificados.get(0);
+            
+            if (!certificados.isEmpty()) {
+                objCertificado = certificados.get(0);
+            }
 
             return objCertificado;
         } catch (Exception ex) {

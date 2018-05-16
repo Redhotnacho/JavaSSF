@@ -122,7 +122,10 @@ public class SsfAlumnoDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfAlumno> alumnos = (List<SsfAlumno>) storedProcedure.getOutputParameterValue("o_data");
-            objAlumno = alumnos.get(0);
+            
+            if (!alumnos.isEmpty()) {
+                objAlumno = alumnos.get(0);
+            }
 
             return objAlumno;
         } catch (Exception ex) {

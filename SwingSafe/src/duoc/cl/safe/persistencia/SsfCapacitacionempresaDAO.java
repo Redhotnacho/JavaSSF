@@ -122,7 +122,10 @@ public class SsfCapacitacionempresaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfCapacitacionempresa> capacitacionempresas = (List<SsfCapacitacionempresa>) storedProcedure.getOutputParameterValue("o_data");
-            objCapacitacionempresa = capacitacionempresas.get(0);
+            
+            if (!capacitacionempresas.isEmpty()) {
+                objCapacitacionempresa = capacitacionempresas.get(0);
+            }
 
             return objCapacitacionempresa;
         } catch (Exception ex) {

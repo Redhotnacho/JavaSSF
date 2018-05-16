@@ -122,7 +122,11 @@ public class SsfAtencionmedicaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfAtencionmedica> atencionmedicas = (List<SsfAtencionmedica>) storedProcedure.getOutputParameterValue("o_data");
-            objAtencionmedica = atencionmedicas.get(0);
+            
+            
+            if (!atencionmedicas.isEmpty()) {
+                objAtencionmedica = atencionmedicas.get(0);
+            }
 
             return objAtencionmedica;
         } catch (Exception ex) {

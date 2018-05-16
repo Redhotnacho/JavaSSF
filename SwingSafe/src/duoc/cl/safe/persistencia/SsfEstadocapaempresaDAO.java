@@ -122,7 +122,10 @@ public class SsfEstadocapaempresaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfEstadocapaempresa> estadocapaempresas = (List<SsfEstadocapaempresa>) storedProcedure.getOutputParameterValue("o_data");
-            objEstadocapaempresa = estadocapaempresas.get(0);
+            
+            if (!estadocapaempresas.isEmpty()) {
+                objEstadocapaempresa = estadocapaempresas.get(0);
+            }
 
             return objEstadocapaempresa;
         } catch (Exception ex) {

@@ -125,7 +125,10 @@ public class SsfPersonaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfPersona> personas = (List<SsfPersona>) storedProcedure.getOutputParameterValue("o_data");
-            objPersona = personas.get(0);
+            
+            if (!personas.isEmpty()) {
+                objPersona = personas.get(0);
+            }
 
             return objPersona;
         } catch (Exception ex) {

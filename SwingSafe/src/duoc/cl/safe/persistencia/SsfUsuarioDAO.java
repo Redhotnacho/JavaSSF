@@ -122,7 +122,10 @@ public class SsfUsuarioDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfUsuario> usuarios = (List<SsfUsuario>) storedProcedure.getOutputParameterValue("o_data");
-            objUsuario = usuarios.get(0);
+            if (!usuarios.isEmpty()) {
+                objUsuario = usuarios.get(0);
+            }
+            
 
             return objUsuario;
         } catch (Exception ex) {
@@ -334,7 +337,9 @@ public class SsfUsuarioDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfUsuario> usuarios = (List<SsfUsuario>) storedProcedure.getOutputParameterValue("o_data");
-            objUsuario = usuarios.get(0);
+            if (!usuarios.isEmpty()) {
+                objUsuario = usuarios.get(0);
+            }
 
             if (o_glosa.contains("xito")) {
                 return objUsuario;

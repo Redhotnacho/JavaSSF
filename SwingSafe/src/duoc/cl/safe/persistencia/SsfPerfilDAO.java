@@ -122,7 +122,10 @@ public class SsfPerfilDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfPerfil> perfiles = (List<SsfPerfil>) storedProcedure.getOutputParameterValue("o_data");
-            objPerfil = perfiles.get(0);
+            
+            if (!perfiles.isEmpty()) {
+                objPerfil = perfiles.get(0);
+            }
 
             return objPerfil;
         } catch (Exception ex) {

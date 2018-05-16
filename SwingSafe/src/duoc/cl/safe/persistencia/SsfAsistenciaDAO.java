@@ -123,7 +123,10 @@ public class SsfAsistenciaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfAsistencia> asistencias = (List<SsfAsistencia>) storedProcedure.getOutputParameterValue("o_data");
-            objAsistencia = asistencias.get(0);
+            
+            if (!asistencias.isEmpty()) {
+                objAsistencia = asistencias.get(0);
+            }
 
             return objAsistencia;
         } catch (Exception ex) {

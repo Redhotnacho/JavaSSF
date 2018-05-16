@@ -122,7 +122,10 @@ public class SsfMedicoDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfMedico> medicos = (List<SsfMedico>) storedProcedure.getOutputParameterValue("o_data");
-            objMedico = medicos.get(0);
+            
+            if (!medicos.isEmpty()) {
+                objMedico = medicos.get(0);
+            }
 
             return objMedico;
         } catch (Exception ex) {

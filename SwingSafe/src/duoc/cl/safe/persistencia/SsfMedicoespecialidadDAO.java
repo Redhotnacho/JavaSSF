@@ -122,7 +122,10 @@ public class SsfMedicoespecialidadDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfMedicoespecialidad> medicoespecialidades = (List<SsfMedicoespecialidad>) storedProcedure.getOutputParameterValue("o_data");
-            objMedicoespecialidad = medicoespecialidades.get(0);
+            
+            if (!medicoespecialidades.isEmpty()) {
+                objMedicoespecialidad = medicoespecialidades.get(0);
+            }
 
             return objMedicoespecialidad;
         } catch (Exception ex) {

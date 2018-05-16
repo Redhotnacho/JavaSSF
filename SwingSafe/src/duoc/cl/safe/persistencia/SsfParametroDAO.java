@@ -122,7 +122,10 @@ public class SsfParametroDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfParametro> parametros = (List<SsfParametro>) storedProcedure.getOutputParameterValue("o_data");
-            objParametro = parametros.get(0);
+            
+            if (!parametros.isEmpty()) {
+                objParametro = parametros.get(0);
+            }
 
             return objParametro;
         } catch (Exception ex) {

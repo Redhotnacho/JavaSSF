@@ -122,7 +122,10 @@ public class SsfExamentipoDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfExamentipo> examentipos = (List<SsfExamentipo>) storedProcedure.getOutputParameterValue("o_data");
-            objExamentipo = examentipos.get(0);
+            
+            if (!examentipos.isEmpty()) {
+                objExamentipo = examentipos.get(0);
+            }
 
             return objExamentipo;
         } catch (Exception ex) {

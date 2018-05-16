@@ -123,7 +123,10 @@ public class SsfAlumnocapaempresaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfAlumnocapaempresa> alumnocapaempresas = (List<SsfAlumnocapaempresa>) storedProcedure.getOutputParameterValue("o_data");
-            objAlumnocapaempresa = alumnocapaempresas.get(0);
+            
+            if (!alumnocapaempresas.isEmpty()) {
+                objAlumnocapaempresa = alumnocapaempresas.get(0);
+            }
 
             return objAlumnocapaempresa;
         } catch (Exception ex) {

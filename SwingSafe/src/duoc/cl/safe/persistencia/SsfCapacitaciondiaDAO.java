@@ -123,7 +123,10 @@ public class SsfCapacitaciondiaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfCapacitaciondia> capacitaciondias = (List<SsfCapacitaciondia>) storedProcedure.getOutputParameterValue("o_data");
-            objCapacitaciondia = capacitaciondias.get(0);
+            
+            if (!capacitaciondias.isEmpty()) {
+                objCapacitaciondia = capacitaciondias.get(0);
+            }
 
             return objCapacitaciondia;
         } catch (Exception ex) {

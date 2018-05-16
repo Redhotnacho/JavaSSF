@@ -122,7 +122,10 @@ public class SsfMenuDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfMenu> menus = (List<SsfMenu>) storedProcedure.getOutputParameterValue("o_data");
-            objMenu = menus.get(0);
+            
+            if (!menus.isEmpty()) {
+                objMenu = menus.get(0);
+            }
 
             return objMenu;
         } catch (Exception ex) {

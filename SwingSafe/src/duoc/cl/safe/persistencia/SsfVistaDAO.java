@@ -123,7 +123,10 @@ public class SsfVistaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfVista> vistas = (List<SsfVista>) storedProcedure.getOutputParameterValue("o_data");
-            objVista = vistas.get(0);
+            
+            if (!vistas.isEmpty()) {
+                objVista = vistas.get(0);
+            }
 
             return objVista;
         } catch (Exception ex) {

@@ -122,7 +122,10 @@ public class SsfEvaluacionparametroDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfEvaluacionparametro> evaluacionparametros = (List<SsfEvaluacionparametro>) storedProcedure.getOutputParameterValue("o_data");
-            objEvaluacionparametro = evaluacionparametros.get(0);
+            
+            if (!evaluacionparametros.isEmpty()) {
+                objEvaluacionparametro = evaluacionparametros.get(0);
+            }
 
             return objEvaluacionparametro;
         } catch (Exception ex) {

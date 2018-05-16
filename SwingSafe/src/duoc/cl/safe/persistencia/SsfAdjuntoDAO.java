@@ -122,7 +122,10 @@ public class SsfAdjuntoDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfAdjunto> adjuntos = (List<SsfAdjunto>) storedProcedure.getOutputParameterValue("o_data");
-            objAdjunto = adjuntos.get(0);
+            
+            if (!adjuntos.isEmpty()) {
+                objAdjunto = adjuntos.get(0);
+            }
 
             return objAdjunto;
         } catch (Exception ex) {
