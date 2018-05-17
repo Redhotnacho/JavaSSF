@@ -60,7 +60,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tfAp2 = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         tbEstado = new javax.swing.JToggleButton();
-        jButton1 = new javax.swing.JButton();
+        bRefrescar = new javax.swing.JButton();
         lError = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         bLimpiar = new javax.swing.JButton();
@@ -148,10 +148,10 @@ public class MantenedorPersona extends javax.swing.JFrame {
             }
         });
 
-        jButton1.setText("Refrescar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bRefrescar.setText("Refrescar");
+        bRefrescar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bRefrescarActionPerformed(evt);
             }
         });
 
@@ -194,7 +194,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                                 .addComponent(tfRut, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(tfFechaNac, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
+                            .addComponent(bRefrescar, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)))
                     .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(pMantenedorPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pMantenedorPersonaLayout.createSequentialGroup()
@@ -246,7 +246,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                 .addGroup(pMantenedorPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(bBuscar)
                     .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1))
+                    .addComponent(bRefrescar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pMantenedorPersonaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pMantenedorPersonaLayout.createSequentialGroup()
@@ -373,14 +373,15 @@ public class MantenedorPersona extends javax.swing.JFrame {
         } else {
             int id = Short.parseShort(model.getValueAt(tblPersona.getSelectedRow(), 0).toString());
             if (!tbEstado.isSelected()) {
-                activarEstado();
-                model.setValueAt("1", tblPersona.getSelectedRow(), 9);
-                pbo.activarSP(id);
+                if (pbo.activarSP(id)) {
+                    activarEstado();
+                    model.setValueAt("1", tblPersona.getSelectedRow(), 9);
+                }
             } else {
-                desactivarEstado();
-                model.setValueAt("0", tblPersona.getSelectedRow(), 9);
-                pbo.desactivarSP(id);
-
+                if (pbo.desactivarSP(id)) {
+                    desactivarEstado();
+                    model.setValueAt("0", tblPersona.getSelectedRow(), 9);
+                }
             }
         }
 
@@ -458,7 +459,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void bModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bModificarActionPerformed
-        DefaultTableModel model = (DefaultTableModel) tblPersona.getModel();
+        model = (DefaultTableModel) tblPersona.getModel();
         pbo = new SsfPersonaBO();
         limpiarMsgs();
         if (tblPersona.getSelectedRow() == -1) {
@@ -525,7 +526,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                             model.setValueAt(tel, tblPersona.getSelectedRow(), 6);
                         }
                         model.setValueAt(sfech, tblPersona.getSelectedRow(), 7);
- 
+
                     } else {
                         lError.setText("No se pudo modificar");
                     }
@@ -538,7 +539,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_bModificarActionPerformed
 
     private void bBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bBuscarActionPerformed
-        
+
         String busqueda = tfBuscar.getText().trim();
         //split(Pattern.quote(".")) - str.split("\\s+");
         if (busqueda.equals("")) {
@@ -595,7 +596,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                             }
                         }
                     }
-                    if (pers.getCorreo()!= null) {
+                    if (pers.getCorreo() != null) {
                         if (!pp.isEmpty()) {
                             if (!existeIdPers(pp, pers) && pers.getCorreo().toLowerCase().contains(s.toLowerCase())) {
                                 pp.add(pers);
@@ -632,13 +633,13 @@ public class MantenedorPersona extends javax.swing.JFrame {
             }
 
         }
-        
-        
+
+
     }//GEN-LAST:event_bBuscarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefrescarActionPerformed
         cargaTabla();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bRefrescarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -681,7 +682,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private javax.swing.JButton bBuscar;
     private javax.swing.JButton bLimpiar;
     private javax.swing.JButton bModificar;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton bRefrescar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -708,8 +709,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private static Logger log = Logger.getLogger(MantenedorPersona.class.getName());
     private DefaultTableModel model;
     private SsfPersonaBO pbo;
-    
-    
+
     private void cargaTabla() {
         borrarTabla();
         pbo = new SsfPersonaBO();
@@ -717,10 +717,10 @@ public class MantenedorPersona extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String sfecha = null;
         for (SsfPersona p : lp) {
-            
+
             if (p.getFechaNac() != null) {
                 sfecha = sdf.format(p.getFechaNac());
-            }else{
+            } else {
                 sfecha = "";
             }
             model.addRow(new Object[]{p.getId(), p.getRut(), p.getNombre(), p.getApPaterno(), p.getApMaterno(), p.getCorreo(), p.getTelefono(), sfecha, sdf.format(p.getFechCreacion()), p.getEstado()});
@@ -728,8 +728,6 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tblPersona.setModel(model);
 
     }
-
-    
 
     private void desactivarEstado() {
         tbEstado.setText("Desactivado");
@@ -745,7 +743,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
         lExito.setText("");
         lError.setText("");
     }
-    
+
     private boolean existeIdPers(List<SsfPersona> pp, SsfPersona pers) {
         for (SsfPersona p : pp) {
             if (p.getId() == pers.getId()) {
@@ -760,10 +758,10 @@ public class MantenedorPersona extends javax.swing.JFrame {
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String sfecha = null;
         for (SsfPersona p : pp) {
-            
+
             if (p.getFechaNac() != null) {
                 sfecha = sdf.format(p.getFechaNac());
-            }else{
+            } else {
                 sfecha = "";
             }
             model.addRow(new Object[]{p.getId(), p.getRut(), p.getNombre(),
@@ -784,7 +782,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
         for (int i = rows - 1; i >= 0; i--) {
             model.removeRow(i);
         }
-        
+
         tblPersona.removeAll();
         model.setRowCount(0);
         model.fireTableDataChanged();
@@ -793,7 +791,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tblPersona.repaint();
         tblPersona.removeAll();
     }
-    
+
     public SsfUsuario getUsuarioSesion() {
         return usuarioSesion;
     }

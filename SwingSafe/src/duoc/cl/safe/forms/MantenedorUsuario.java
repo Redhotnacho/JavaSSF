@@ -409,17 +409,15 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         } else {
             int id = Short.parseShort(model.getValueAt(tblUsuario.getSelectedRow(), 0).toString());
             if (!tbEstado.isSelected()) {
-                activarEstado();
-                model.setValueAt("1", tblUsuario.getSelectedRow(), 7);
-                u = ubo.findSP(id);
-                u.setEstado(Short.parseShort("1"));
-                ubo.updateSP(u);
+                if (ubo.activarSP(id)) {
+                    activarEstado();
+                    model.setValueAt("1", tblUsuario.getSelectedRow(), 7);
+                }
             } else {
-                desactivarEstado();
-                model.setValueAt("0", tblUsuario.getSelectedRow(), 7);
-                u = ubo.findSP(id);
-                u.setEstado(Short.parseShort("0"));
-                ubo.updateSP(u);
+                if (ubo.desactivarSP(id)) {
+                    desactivarEstado();
+                    model.setValueAt("0", tblUsuario.getSelectedRow(), 7);
+                }
             }
         }
     }//GEN-LAST:event_tbEstadoActionPerformed
@@ -903,7 +901,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         }
         tblUsuario.setModel(model);
     }
-    
+
     public SsfUsuario getUsuarioSesion() {
         return usuarioSesion;
     }
@@ -911,7 +909,5 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     public void setUsuarioSesion(SsfUsuario usuarioSesion) {
         this.usuarioSesion = usuarioSesion;
     }
-    
-    
 
 }

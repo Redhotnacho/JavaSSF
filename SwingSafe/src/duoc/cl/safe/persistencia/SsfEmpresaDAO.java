@@ -166,7 +166,7 @@ public class SsfEmpresaDAO {
 
             StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfEmpresa.sp_add", SsfEmpresa.class);
             storedProcedure.registerStoredProcedureParameter("p_nombre", String.class, ParameterMode.IN);
-            storedProcedure.registerStoredProcedureParameter("p_telefono", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_telefono", Long.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("p_direccion", String.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
@@ -201,7 +201,7 @@ public class SsfEmpresaDAO {
             StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfEmpresa.sp_update", SsfEmpresa.class);
             storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("p_nombre", String.class, ParameterMode.IN);
-            storedProcedure.registerStoredProcedureParameter("p_telefono", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_telefono", Long.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("p_direccion", String.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
