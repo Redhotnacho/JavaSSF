@@ -382,7 +382,6 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                 }
             }
             if (!pp.isEmpty()) {
-                cbPersona.removeAllItems();
                 cargaPersonas(pp);
             } else {
                 tfBuscarPersona.setText("Búsqueda sin resultados");
@@ -397,7 +396,6 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         limpiarMsgs();
         model = (DefaultTableModel) tblUsuario.getModel();
         ubo = new SsfUsuarioBO();
-        SsfUsuario u = null;
 
         if (tblUsuario.getSelectedRow() == -1) {
             tbEstado.setEnabled(false);
@@ -427,7 +425,6 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         tbEstado.setEnabled(true);
         bModificar.setEnabled(true);
         model = (DefaultTableModel) tblUsuario.getModel();
-        //cbEmpresa.setSelectedItem("Cliente 2");
         if (Short.parseShort(model.getValueAt(tblUsuario.getSelectedRow(), 7).toString()) == 1) {
             tbEstado.setSelected(false);
             activarEstado();
@@ -581,7 +578,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         String busqueda = tfBuscarUsuario.getText().trim();
         //split(Pattern.quote(".")) - str.split("\\s+");
         if (busqueda.equals("")) {
-            tfBuscarPersona.setText("Búsqueda no puede ser vacía");
+            tfBuscarUsuario.setText("Búsqueda no puede ser vacía");
         } else {
             String[] palabras = busqueda.split("\\s+");
             String[] palabras2 = busqueda.split(Pattern.quote("."));
@@ -674,7 +671,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                 }
             }
             if (!uu.isEmpty()) {
-                cbPersona.removeAllItems();
+                tblUsuario.removeAll();
                 cargaUsuarios(uu);
             } else {
                 tfBuscarPersona.setText("Búsqueda sin resultados");
@@ -785,6 +782,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         mappers = new HashMap<>();
         cbPersona.setEnabled(true);
         cbPersona.removeAllItems();
+        
         pp.forEach((p) -> {
             mappers.put("Rut: " + p.getRut() + " - Nombre: " + p.getNombre() + " " + p.getApPaterno() + " " + p.getApMaterno(), p.getId().intValue());
         });
