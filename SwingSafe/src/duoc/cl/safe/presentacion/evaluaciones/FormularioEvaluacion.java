@@ -418,7 +418,7 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
         limpiarMsgs();
         tbEstado.setEnabled(true);
         bModificar.setEnabled(true);
-        
+
         limpiarParametro();
         DefaultTableModel model = (DefaultTableModel) tblEvaluacion.getModel();
         if (Integer.parseInt(model.getValueAt(tblEvaluacion.getSelectedRow(), 7).toString()) == 1) {
@@ -646,9 +646,9 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
             lErrorParametro.setText("No hay fila evaluación seleccionada");
         } else if (tblEvaluacion.getRowCount() == 0) {
             lErrorParametro.setText("Tabla evaluación vacía");
-        } else if (tblParametro.getRowCount() == -1) {
+        } /*else if (tblParametro.getRowCount() == -1) {
             lErrorParametro.setText("Tabla parámetro vacía");
-        } else if (lstParametro.getSelectedIndex() == -1) {
+        } */else if (lstParametro.getSelectedIndex() == -1) {
             lErrorParametro.setText("No hay lista seleccionada");
         } else {
             SsfEvaluacionparametro ep = null;
@@ -674,7 +674,7 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
                 } else {
                     lErrorParametro.setText("No se pudo modificar");
                 }
-            }else{
+            } else {
                 lErrorParametro.setText("No se pudo modificar");
             }
         }
@@ -894,30 +894,38 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
     }
 
     private void cargaParametroList(String tipoeval) {
-        lstParametro.removeAll();
-        DefaultTableModel model = (DefaultTableModel) tblEvaluacion.getModel();
-        DefaultListModel lmodel = new DefaultListModel();
-        SsfEvaluacionparametroBO epbo = new SsfEvaluacionparametroBO();
-        if (lep == null) {
-            lep = epbo.getAllSP();
-        }
-        int id = Integer.parseInt(model.getValueAt(tblEvaluacion.getSelectedRow(), 0).toString());
-        mapep = new HashMap<>();
-        for (SsfEvaluacionparametro ep : lep) {
-            if (ep.getIdEvaluacion() != null) {
-                if (ep.getIdEvaluacion().getId().intValue() == id) {
-                    mapep.put(ep.getIdParametro().getParametro(), ep);
+        if (tblEvaluacion.getSelectedRow() == -1) {
+            tbEstado.setEnabled(false);
+            lErrorParametro.setText("No hay fila evaluación seleccionada");
+        } else if (tblEvaluacion.getRowCount() == 0) {
+            lErrorParametro.setText("Tabla evaluación vacía");
+        } else {
+            lstParametro.removeAll();
+            DefaultTableModel model = (DefaultTableModel) tblEvaluacion.getModel();
+            DefaultListModel lmodel = new DefaultListModel();
+            SsfEvaluacionparametroBO epbo = new SsfEvaluacionparametroBO();
+            if (lep == null) {
+                lep = epbo.getAllSP();
+            }
+            int id = Integer.parseInt(model.getValueAt(tblEvaluacion.getSelectedRow(), 0).toString());
+            mapep = new HashMap<>();
+            for (SsfEvaluacionparametro ep : lep) {
+                if (ep.getIdEvaluacion() != null) {
+                    if (ep.getIdEvaluacion().getId().intValue() == id) {
+                        mapep.put(ep.getIdParametro().getParametro(), ep);
+                    }
                 }
             }
+
+            for (Map.Entry<String, SsfEvaluacionparametro> entry : mapep.entrySet()) {
+                if (entry.getValue().getIdParametro().getIdEvaluaciontipo().getTopo().equalsIgnoreCase(tipoeval)
+                        && entry.getValue().getIdEvaluacion().getIdEvaluaciontipo().getTopo().equalsIgnoreCase(entry.getValue().getIdParametro().getIdEvaluaciontipo().getTopo())) {
+                    lmodel.addElement(entry.getValue().getIdParametro().getParametro());
+                }
+            }
+            lstParametro.setModel(lmodel);
         }
 
-        for (Map.Entry<String, SsfEvaluacionparametro> entry : mapep.entrySet()) {
-            if (entry.getValue().getIdParametro().getIdEvaluaciontipo().getTopo().equalsIgnoreCase(tipoeval)
-                    && entry.getValue().getIdEvaluacion().getIdEvaluaciontipo().getTopo().equalsIgnoreCase(entry.getValue().getIdParametro().getIdEvaluaciontipo().getTopo())) {
-                lmodel.addElement(entry.getValue().getIdParametro().getParametro());
-            }
-        }
-        lstParametro.setModel(lmodel);
     }
 
     private void cargaParametroEv() {
