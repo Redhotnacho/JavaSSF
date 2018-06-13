@@ -9,6 +9,7 @@ import duoc.cl.safe.entity.SsfEmpresa;
 import duoc.cl.safe.entity.SsfPerfil;
 import duoc.cl.safe.entity.SsfPersona;
 import duoc.cl.safe.entity.SsfUsuario;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfEmpresaBO;
 import duoc.cl.safe.negocio.SsfPerfilBO;
 import duoc.cl.safe.negocio.SsfPersonaBO;
@@ -20,6 +21,10 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -32,6 +37,8 @@ public class MantenedorUsuario extends javax.swing.JFrame {
      */
     public MantenedorUsuario() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
+        model = (DefaultTableModel) tblUsuario.getModel();
     }
 
     /**
@@ -68,6 +75,8 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         bBuscarUsuario = new javax.swing.JButton();
         cbEmpresa = new javax.swing.JComboBox<>();
         jLabel2 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -78,7 +87,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             }
         });
 
-        pMantenedorUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mantenedor Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(204, 0, 153))); // NOI18N
+        pMantenedorUsuario.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mantenedor Usuario", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 14), new java.awt.Color(204, 0, 153))); // NOI18N
         pMantenedorUsuario.setName(""); // NOI18N
 
         bModificar.setText("Modificar");
@@ -281,8 +290,13 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                         .addComponent(bModificar)
                         .addComponent(tbEstado)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE))
         );
+
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -293,7 +307,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 27, Short.MAX_VALUE)
+                .addGap(0, 18, Short.MAX_VALUE)
                 .addComponent(pMantenedorUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -301,6 +315,8 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
         this.setLocationRelativeTo(null);
         cargaEmpresa();
         cargaPerfil();
@@ -511,10 +527,10 @@ public class MantenedorUsuario extends javax.swing.JFrame {
                 cargaTabla();
             } else {
                 lError.setText("No se pudo agregar");
+                log.log(Level.INFO, "No se pudo agregar");
             }
 
         }
-
 
     }//GEN-LAST:event_bAgregarActionPerformed
 
@@ -568,6 +584,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
 
                 } else {
                     lError.setText("No se pudo modificar");
+                    log.log(Level.INFO, "No se pudo modificar");
                 }
             }
         }
@@ -682,6 +699,18 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     }//GEN-LAST:event_bBuscarUsuarioActionPerformed
 
     private void bRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefrescarActionPerformed
+        tbEstado.setEnabled(false);
+        bModificar.setEnabled(false);
+        cbPersona.setEnabled(false);
+        limpiarMsgs();
+        tblUsuario.clearSelection();
+        tfUsuario.setText("");
+        tfBuscarPersona.setText("");
+        tfBuscarUsuario.setText("");
+        pfPassword.setText("");
+        pfRepetirPass.setText("");
+        cbEmpresa.setSelectedIndex(0);
+        cbPerfil.setSelectedIndex(0);
         cargaTabla();
     }//GEN-LAST:event_bRefrescarActionPerformed
 
@@ -711,6 +740,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MantenedorUsuario.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -735,6 +765,8 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lError;
     private javax.swing.JLabel lExito;
@@ -747,10 +779,11 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     private javax.swing.JTextField tfBuscarUsuario;
     private javax.swing.JTextField tfUsuario;
     // End of variables declaration//GEN-END:variables
+    private static Logger log = Logger.getLogger(MantenedorUsuario.class.getName());
     private HashMap<String, Integer> mape = new HashMap<>();
     private HashMap<String, Integer> mapp = new HashMap<>();
     private HashMap<String, Integer> mappers = new HashMap<>();
-    private SsfUsuario usuarioSesion;
+    private FormsController formsController;
 
     private DefaultTableModel model;
     private List<SsfUsuario> lu;
@@ -782,7 +815,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         mappers = new HashMap<>();
         cbPersona.setEnabled(true);
         cbPersona.removeAllItems();
-        
+
         pp.forEach((p) -> {
             mappers.put("Rut: " + p.getRut() + " - Nombre: " + p.getNombre() + " " + p.getApPaterno() + " " + p.getApMaterno(), p.getId().intValue());
         });
@@ -828,7 +861,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     }
 
     private void cargaTabla() {
-        borrarTabla();
+        model.setRowCount(0);
         ubo = new SsfUsuarioBO();
         lu = ubo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -888,7 +921,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     }
 
     private void cargaUsuarios(List<SsfUsuario> uu) {
-        borrarTabla();
+        model.setRowCount(0);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         for (SsfUsuario u : uu) {
 
@@ -900,12 +933,8 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         tblUsuario.setModel(model);
     }
 
-    public SsfUsuario getUsuarioSesion() {
-        return usuarioSesion;
-    }
-
-    public void setUsuarioSesion(SsfUsuario usuarioSesion) {
-        this.usuarioSesion = usuarioSesion;
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
     }
 
 }

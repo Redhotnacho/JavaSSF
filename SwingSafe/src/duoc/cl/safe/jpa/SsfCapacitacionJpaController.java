@@ -272,5 +272,5 @@ public class SsfCapacitacionJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

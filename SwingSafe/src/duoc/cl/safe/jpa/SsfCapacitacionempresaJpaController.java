@@ -359,5 +359,5 @@ public class SsfCapacitacionempresaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

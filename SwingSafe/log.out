@@ -1,0 +1,22 @@
+2018-06-12 11:42:36 ERROR MantenedorCapacitacion:472 - Error en formato de fecha inicio
+2018-06-12 12:42:53 ERROR MantenedorCapacitacion:499 - Error al ingresar horas
+ java.lang.NumberFormatException: For input string: "a"
+2018-06-12 15:29:57 ERROR SsfCapacitacionDAO:235 - 
+ java.lang.IllegalArgumentException: Can not refresh not managed object: duoc.cl.safe.entity.SsfCapacitacion[ id=24 ]
+2018-06-12 15:29:57 ERROR SsfCapacitacionDAO:236 - Error al modificar
+ java.lang.IllegalArgumentException: Can not refresh not managed object: duoc.cl.safe.entity.SsfCapacitacion[ id=24 ].	
+2018-06-12 15:33:40 ERROR SsfCapacitacionDAO:235 - 
+ java.lang.IllegalArgumentException: You have provided an instance of an incorrect PK class for this find operation.  Class expected : class java.math.BigDecimal, Class received : class duoc.cl.safe.entity.SsfCapacitacion
+2018-06-12 15:33:40 ERROR SsfCapacitacionDAO:236 - Error al modificar
+ java.lang.IllegalArgumentException: You have provided an instance of an incorrect PK class for this find operation.  Class expected : class java.math.BigDecimal, Class received : class duoc.cl.safe.entity.SsfCapacitacion.	
+2018-06-12 15:35:38 ERROR SsfCapacitacionDAO:235 - 
+ java.lang.IllegalArgumentException: Unknown entity bean class: class java.math.BigDecimal, please verify that this class has been marked with the @Entity annotation.	
+2018-06-12 15:35:38 ERROR SsfCapacitacionDAO:236 - Error al modificar
+ java.lang.IllegalArgumentException: Unknown entity bean class: class java.math.BigDecimal, please verify that this class has been marked with the @Entity annotation.
+	
+2018-06-12 15:51:19 ERROR SsfCapacitacionDAO:235 - 
+ java.lang.IllegalArgumentException: Can not refresh not managed object: duoc.cl.safe.entity.SsfCapacitacion[ id=24 ].
+	
+2018-06-12 15:51:19 ERROR SsfCapacitacionDAO:236 - Error al modificar
+ java.lang.IllegalArgumentException: Can not refresh not managed object: duoc.cl.safe.entity.SsfCapacitacion[ id=24 ].
+	

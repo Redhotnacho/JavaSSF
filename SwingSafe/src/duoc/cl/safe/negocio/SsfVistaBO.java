@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfVistaBO {
+
     private SsfVistaDAO vistaDAO;
 
     public SsfVistaBO() {
         this.vistaDAO = new SsfVistaDAO();
     }
-    
-    public boolean add(SsfVista vista){
+
+    public boolean add(SsfVista vista) {
         return this.vistaDAO.add(vista);
     }
-    
-    public boolean update(SsfVista vista){
+
+    public boolean update(SsfVista vista) {
         return this.vistaDAO.update(vista);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.vistaDAO.remove(id);
     }
-    
-    public SsfVista find(int id){
+
+    public SsfVista find(int id) {
         return this.vistaDAO.find(id);
     }
-    
-    public List<SsfVista> getAll(){
+
+    public List<SsfVista> getAll() {
         return this.vistaDAO.getAll();
     }
-    
-    public SsfVista findSP(int id){
+
+    public SsfVista findSP(int id) {
         return this.vistaDAO.findSP(id);
     }
-    
-    public List<SsfVista> getAllSP(){
+
+    public List<SsfVista> getAllSP() {
         return this.vistaDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfVista vista){
+
+    public boolean addSP(SsfVista vista) {
         return this.vistaDAO.addSP(vista);
     }
-    
-    public boolean updateSP(SsfVista vista){
+
+    public boolean updateSP(SsfVista vista) {
         return this.vistaDAO.updateSP(vista);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.vistaDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.vistaDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.vistaDAO.activarSP(id);
     }
-    
+
 }

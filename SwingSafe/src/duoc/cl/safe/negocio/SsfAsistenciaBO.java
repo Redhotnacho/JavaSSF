@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfAsistenciaBO {
+
     private SsfAsistenciaDAO asistenciaDAO;
 
     public SsfAsistenciaBO() {
         this.asistenciaDAO = new SsfAsistenciaDAO();
     }
-    
-    public boolean add(SsfAsistencia asistencia){
+
+    public boolean add(SsfAsistencia asistencia) {
         return this.asistenciaDAO.add(asistencia);
     }
-    
-    public boolean update(SsfAsistencia asistencia){
+
+    public boolean update(SsfAsistencia asistencia) {
         return this.asistenciaDAO.update(asistencia);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.asistenciaDAO.remove(id);
     }
-    
-    public SsfAsistencia find(int id){
+
+    public SsfAsistencia find(int id) {
         return this.asistenciaDAO.find(id);
     }
-    
-    public List<SsfAsistencia> getAll(){
+
+    public List<SsfAsistencia> getAll() {
         return this.asistenciaDAO.getAll();
     }
-    
-    public SsfAsistencia findSP(int id){
+
+    public SsfAsistencia findSP(int id) {
         return this.asistenciaDAO.findSP(id);
     }
-    
-    public List<SsfAsistencia> getAllSP(){
+
+    public List<SsfAsistencia> getAllSP() {
         return this.asistenciaDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfAsistencia asistencia){
+
+    public boolean addSP(SsfAsistencia asistencia) {
         return this.asistenciaDAO.addSP(asistencia);
     }
-    
-    public boolean updateSP(SsfAsistencia asistencia){
+
+    public boolean updateSP(SsfAsistencia asistencia) {
         return this.asistenciaDAO.updateSP(asistencia);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.asistenciaDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.asistenciaDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.asistenciaDAO.activarSP(id);
     }
-    
+
 }

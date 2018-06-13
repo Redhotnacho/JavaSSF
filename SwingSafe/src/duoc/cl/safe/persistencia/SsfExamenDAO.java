@@ -9,8 +9,8 @@ import duoc.cl.safe.entity.SsfExamen;
 import duoc.cl.safe.jpa.SsfExamenJpaController;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -22,11 +22,12 @@ import javax.persistence.StoredProcedureQuery;
  * @author Nacho
  */
 public class SsfExamenDAO {
+
     private static Logger log = Logger.getLogger(SsfExamenDAO.class.getName());
-    
-    public boolean add(SsfExamen examen){
+
+    public boolean add(SsfExamen examen) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfExamenJpaController service = new SsfExamenJpaController(emf);
             em.getTransaction().begin();
@@ -34,15 +35,14 @@ public class SsfExamenDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
-    
-    public boolean update(SsfExamen examen){
+
+    public boolean update(SsfExamen examen) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfExamenJpaController service = new SsfExamenJpaController(emf);
             em.getTransaction().begin();
@@ -50,15 +50,14 @@ public class SsfExamenDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfExamenJpaController service = new SsfExamenJpaController(emf);
             em.getTransaction().begin();
@@ -66,15 +65,14 @@ public class SsfExamenDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
-    
-    public SsfExamen find(int id){
+
+    public SsfExamen find(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfExamenJpaController service = new SsfExamenJpaController(emf);
             em.getTransaction().begin();
@@ -82,28 +80,29 @@ public class SsfExamenDAO {
             em.getTransaction().commit();
             return examen;
         } catch (Exception ex) {
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
-    
-    public List<SsfExamen> getAll(){
+
+    public List<SsfExamen> getAll() {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfExamenJpaController service = new SsfExamenJpaController(emf);
             em.getTransaction().begin();
             List<SsfExamen> lista = service.findSsfExamenEntities();
+            lista.forEach((r) -> {
+                em.refresh(r);
+            });
             em.getTransaction().commit();
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
-    
+
     public SsfExamen findSP(int id) {
         SsfExamen objExamen = null;
         try {
@@ -122,7 +121,7 @@ public class SsfExamenDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfExamen> examenes = (List<SsfExamen>) storedProcedure.getOutputParameterValue("o_data");
-            
+
             if (!examenes.isEmpty()) {
                 objExamen = examenes.get(0);
             }
@@ -130,8 +129,7 @@ public class SsfExamenDAO {
             return objExamen;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
@@ -149,12 +147,13 @@ public class SsfExamenDAO {
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             System.out.println("o_glosa : " + o_glosa);
             examenes = (List<SsfExamen>) storedProcedure.getOutputParameterValue("o_data");
-
+            examenes.forEach((r) -> {
+                em.refresh(r);
+            });
             return examenes;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
@@ -188,8 +187,7 @@ public class SsfExamenDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
@@ -222,8 +220,7 @@ public class SsfExamenDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
@@ -247,8 +244,7 @@ public class SsfExamenDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
@@ -275,8 +271,7 @@ public class SsfExamenDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al desactivar", ex);
+            log.log(Level.ERROR, "Error al desactivar", ex);
             return false;
         }
     }
@@ -303,11 +298,9 @@ public class SsfExamenDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfExamenDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al activar", ex);
+            log.log(Level.ERROR, "Error al activar", ex);
             return false;
         }
     }
-    
-    
+
 }

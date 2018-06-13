@@ -200,5 +200,5 @@ public class SsfPerfilvistaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

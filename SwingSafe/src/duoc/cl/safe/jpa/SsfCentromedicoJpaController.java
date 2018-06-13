@@ -206,5 +206,5 @@ public class SsfCentromedicoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

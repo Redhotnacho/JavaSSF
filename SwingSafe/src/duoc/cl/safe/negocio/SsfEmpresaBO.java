@@ -14,57 +14,58 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfEmpresaBO {
+
     private SsfEmpresaDAO empresaDAO;
 
     public SsfEmpresaBO() {
         this.empresaDAO = new SsfEmpresaDAO();
     }
-    
-    public boolean add(SsfEmpresa empresa){
+
+    public boolean add(SsfEmpresa empresa) {
         return this.empresaDAO.add(empresa);
     }
-    
-    public boolean update(SsfEmpresa empresa){
+
+    public boolean update(SsfEmpresa empresa) {
         return this.empresaDAO.update(empresa);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.empresaDAO.remove(id);
     }
-    
-    public SsfEmpresa find(int id){
+
+    public SsfEmpresa find(int id) {
         return this.empresaDAO.find(id);
     }
-    
-    public List<SsfEmpresa> getAll(){
+
+    public List<SsfEmpresa> getAll() {
         return this.empresaDAO.getAll();
     }
-    
-    public SsfEmpresa findSP(int id){
+
+    public SsfEmpresa findSP(int id) {
         return this.empresaDAO.findSP(id);
     }
-    
-    public List<SsfEmpresa> getAllSP(){
+
+    public List<SsfEmpresa> getAllSP() {
         return this.empresaDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfEmpresa empresa){
+
+    public boolean addSP(SsfEmpresa empresa) {
         return this.empresaDAO.addSP(empresa);
     }
-    
-    public boolean updateSP(SsfEmpresa empresa){
+
+    public boolean updateSP(SsfEmpresa empresa) {
         return this.empresaDAO.updateSP(empresa);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.empresaDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.empresaDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.empresaDAO.activarSP(id);
     }
 }

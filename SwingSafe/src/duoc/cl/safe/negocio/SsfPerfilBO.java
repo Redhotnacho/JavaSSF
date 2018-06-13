@@ -14,57 +14,58 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfPerfilBO {
+
     private SsfPerfilDAO perfilDAO;
 
     public SsfPerfilBO() {
         this.perfilDAO = new SsfPerfilDAO();
     }
-    
-    public boolean add(SsfPerfil perfil){
+
+    public boolean add(SsfPerfil perfil) {
         return this.perfilDAO.add(perfil);
     }
-    
-    public boolean update(SsfPerfil perfil){
+
+    public boolean update(SsfPerfil perfil) {
         return this.perfilDAO.update(perfil);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.perfilDAO.remove(id);
     }
-    
-    public SsfPerfil find(int id){
+
+    public SsfPerfil find(int id) {
         return this.perfilDAO.find(id);
     }
-    
-    public List<SsfPerfil> getAll(){
+
+    public List<SsfPerfil> getAll() {
         return this.perfilDAO.getAll();
     }
-    
-    public SsfPerfil findSP(int id){
+
+    public SsfPerfil findSP(int id) {
         return this.perfilDAO.findSP(id);
     }
-    
-    public List<SsfPerfil> getAllSP(){
+
+    public List<SsfPerfil> getAllSP() {
         return this.perfilDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfPerfil perfil){
+
+    public boolean addSP(SsfPerfil perfil) {
         return this.perfilDAO.addSP(perfil);
     }
-    
-    public boolean updateSP(SsfPerfil perfil){
+
+    public boolean updateSP(SsfPerfil perfil) {
         return this.perfilDAO.updateSP(perfil);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.perfilDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.perfilDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.perfilDAO.activarSP(id);
     }
 }

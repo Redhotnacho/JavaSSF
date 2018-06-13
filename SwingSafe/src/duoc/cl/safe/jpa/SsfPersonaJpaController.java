@@ -234,5 +234,5 @@ public class SsfPersonaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

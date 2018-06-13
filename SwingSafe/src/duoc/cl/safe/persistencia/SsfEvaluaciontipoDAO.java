@@ -7,10 +7,12 @@ package duoc.cl.safe.persistencia;
 
 import duoc.cl.safe.entity.SsfEvaluaciontipo;
 import duoc.cl.safe.jpa.SsfEvaluaciontipoJpaController;
+import duoc.cl.safe.jpa.exceptions.IllegalOrphanException;
+import duoc.cl.safe.jpa.exceptions.NonexistentEntityException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -22,11 +24,12 @@ import javax.persistence.StoredProcedureQuery;
  * @author Nacho
  */
 public class SsfEvaluaciontipoDAO {
+
     private static Logger log = Logger.getLogger(SsfEvaluaciontipoDAO.class.getName());
-    
-    public boolean add(SsfEvaluaciontipo evaluaciontipo){
+
+    public boolean add(SsfEvaluaciontipo evaluaciontipo) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluaciontipoJpaController service = new SsfEvaluaciontipoJpaController(emf);
             em.getTransaction().begin();
@@ -34,15 +37,14 @@ public class SsfEvaluaciontipoDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
-    
-    public boolean update(SsfEvaluaciontipo evaluaciontipo){
+
+    public boolean update(SsfEvaluaciontipo evaluaciontipo) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluaciontipoJpaController service = new SsfEvaluaciontipoJpaController(emf);
             em.getTransaction().begin();
@@ -50,31 +52,29 @@ public class SsfEvaluaciontipoDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluaciontipoJpaController service = new SsfEvaluaciontipoJpaController(emf);
             em.getTransaction().begin();
             service.destroy(BigDecimal.valueOf(new Long(id)));
             em.getTransaction().commit();
             return true;
-        } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+        } catch (IllegalOrphanException | NonexistentEntityException ex) {
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
-    
-    public SsfEvaluaciontipo find(int id){
+
+    public SsfEvaluaciontipo find(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluaciontipoJpaController service = new SsfEvaluaciontipoJpaController(emf);
             em.getTransaction().begin();
@@ -82,28 +82,29 @@ public class SsfEvaluaciontipoDAO {
             em.getTransaction().commit();
             return evaluaciontipo;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
-    
-    public List<SsfEvaluaciontipo> getAll(){
+
+    public List<SsfEvaluaciontipo> getAll() {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluaciontipoJpaController service = new SsfEvaluaciontipoJpaController(emf);
             em.getTransaction().begin();
             List<SsfEvaluaciontipo> lista = service.findSsfEvaluaciontipoEntities();
+            lista.forEach((r) -> {
+                em.refresh(r);
+            });
             em.getTransaction().commit();
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
-    
+
     public SsfEvaluaciontipo findSP(int id) {
         SsfEvaluaciontipo objEvaluaciontipo = null;
         try {
@@ -122,16 +123,14 @@ public class SsfEvaluaciontipoDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfEvaluaciontipo> evaluaciontipos = (List<SsfEvaluaciontipo>) storedProcedure.getOutputParameterValue("o_data");
-            
+
             if (!evaluaciontipos.isEmpty()) {
                 objEvaluaciontipo = evaluaciontipos.get(0);
             }
 
             return objEvaluaciontipo;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
@@ -149,12 +148,12 @@ public class SsfEvaluaciontipoDAO {
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             System.out.println("o_glosa : " + o_glosa);
             evaluaciontipos = (List<SsfEvaluaciontipo>) storedProcedure.getOutputParameterValue("o_data");
-
+            evaluaciontipos.forEach((r) -> {
+                em.refresh(r);
+            });
             return evaluaciontipos;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
@@ -165,12 +164,12 @@ public class SsfEvaluaciontipoDAO {
             EntityManager em = emf.createEntityManager();
 
             StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfEvaluaciontipo.sp_add", SsfEvaluaciontipo.class);
-            storedProcedure.registerStoredProcedureParameter("p_topo", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_tipo", String.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("p_descripcion", String.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_id", BigDecimal.class, ParameterMode.OUT);
-            storedProcedure.setParameter("p_topo", evaluaciontipo.getTopo());
+            storedProcedure.setParameter("p_tipo", evaluaciontipo.getTipo());
             storedProcedure.setParameter("p_descripcion", evaluaciontipo.getDescripcion());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
@@ -185,9 +184,7 @@ public class SsfEvaluaciontipoDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
@@ -199,12 +196,12 @@ public class SsfEvaluaciontipoDAO {
 
             StoredProcedureQuery storedProcedure = em.createStoredProcedureQuery("pkg_ssfEvaluaciontipo.sp_update", SsfEvaluaciontipo.class);
             storedProcedure.registerStoredProcedureParameter("p_id", BigDecimal.class, ParameterMode.IN);
-            storedProcedure.registerStoredProcedureParameter("p_topo", String.class, ParameterMode.IN);
+            storedProcedure.registerStoredProcedureParameter("p_tipo", String.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("p_descripcion", String.class, ParameterMode.IN);
             storedProcedure.registerStoredProcedureParameter("o_glosa", String.class, ParameterMode.OUT);
             storedProcedure.registerStoredProcedureParameter("o_estado", Short.class, ParameterMode.OUT);
             storedProcedure.setParameter("p_id", evaluaciontipo.getId());
-            storedProcedure.setParameter("p_topo", evaluaciontipo.getTopo());
+            storedProcedure.setParameter("p_tipo", evaluaciontipo.getTipo());
             storedProcedure.setParameter("p_descripcion", evaluaciontipo.getDescripcion());
             storedProcedure.execute();
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
@@ -217,9 +214,7 @@ public class SsfEvaluaciontipoDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
@@ -242,9 +237,7 @@ public class SsfEvaluaciontipoDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
@@ -270,9 +263,7 @@ public class SsfEvaluaciontipoDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al desactivar", ex);
+            log.log(Level.ERROR, "Error al desactivar", ex);
             return false;
         }
     }
@@ -298,12 +289,9 @@ public class SsfEvaluaciontipoDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluaciontipoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al activar", ex);
+            log.log(Level.ERROR, "Error al activar", ex);
             return false;
         }
     }
-    
-    
+
 }

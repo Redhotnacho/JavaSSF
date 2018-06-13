@@ -64,10 +64,10 @@ public class SsfPersona implements Serializable {
     @Column(name = "FECHA_NAC")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechaNac;
-    @Column(name = "FECH_CREACION", insertable = false, updatable = false)
+    @Column(name = "FECH_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechCreacion;
-    @Column(name = "ESTADO", insertable = false)
+    @Column(name = "ESTADO")
     private Short estado;
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "idPersona")
     private SsfUsuario ssfUsuario;
@@ -201,5 +201,5 @@ public class SsfPersona implements Serializable {
     public String toString() {
         return "duoc.cl.safe.entity.SsfPersona[ id=" + id + " ]";
     }
-    
+
 }

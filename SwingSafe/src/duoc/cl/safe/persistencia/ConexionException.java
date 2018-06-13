@@ -8,7 +8,7 @@ package duoc.cl.safe.persistencia;
 /**
  *
  * @author Nacho
- * 
+ *
  * Clase que hereda de Exception
  */
 public class ConexionException extends Exception {
@@ -16,5 +16,5 @@ public class ConexionException extends Exception {
     public ConexionException(String message) {
         super(message);
     }
-    
+
 }

@@ -77,25 +77,24 @@ public class PruebaUsuario extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        SsfUsuarioBO ubo= new SsfUsuarioBO();
+        SsfUsuarioBO ubo = new SsfUsuarioBO();
         SsfUsuario u = ubo.find(21);
         SsfPerfil pf = u.getIdPerfil();
         SsfPersona ps = u.getIdPersona();
 
-        
-        if (u!=null) {
+        if (u != null) {
             lUsername.setText(u.getUsername());
-        }else{
+        } else {
             lUsername.setText("nope");
         }
-        if (pf!=null) {
+        if (pf != null) {
             lPerfil.setText(pf.getPerfil());
-        }else{
+        } else {
             lUsername.setText("nope");
         }
-        if (ps!=null) {
+        if (ps != null) {
             lPersona.setText(ps.getNombre());
-        }else{
+        } else {
             lUsername.setText("nope");
         }
     }//GEN-LAST:event_formWindowOpened

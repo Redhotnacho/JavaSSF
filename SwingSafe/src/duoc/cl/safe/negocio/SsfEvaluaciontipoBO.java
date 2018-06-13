@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfEvaluaciontipoBO {
+
     private SsfEvaluaciontipoDAO evaluaciontipoDAO;
 
     public SsfEvaluaciontipoBO() {
         this.evaluaciontipoDAO = new SsfEvaluaciontipoDAO();
     }
-    
-    public boolean add(SsfEvaluaciontipo evaluaciontipo){
+
+    public boolean add(SsfEvaluaciontipo evaluaciontipo) {
         return this.evaluaciontipoDAO.add(evaluaciontipo);
     }
-    
-    public boolean update(SsfEvaluaciontipo evaluaciontipo){
+
+    public boolean update(SsfEvaluaciontipo evaluaciontipo) {
         return this.evaluaciontipoDAO.update(evaluaciontipo);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.evaluaciontipoDAO.remove(id);
     }
-    
-    public SsfEvaluaciontipo find(int id){
+
+    public SsfEvaluaciontipo find(int id) {
         return this.evaluaciontipoDAO.find(id);
     }
-    
-    public List<SsfEvaluaciontipo> getAll(){
+
+    public List<SsfEvaluaciontipo> getAll() {
         return this.evaluaciontipoDAO.getAll();
     }
-    
-    public SsfEvaluaciontipo findSP(int id){
+
+    public SsfEvaluaciontipo findSP(int id) {
         return this.evaluaciontipoDAO.findSP(id);
     }
-    
-    public List<SsfEvaluaciontipo> getAllSP(){
+
+    public List<SsfEvaluaciontipo> getAllSP() {
         return this.evaluaciontipoDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfEvaluaciontipo evaluaciontipo){
+
+    public boolean addSP(SsfEvaluaciontipo evaluaciontipo) {
         return this.evaluaciontipoDAO.addSP(evaluaciontipo);
     }
-    
-    public boolean updateSP(SsfEvaluaciontipo evaluaciontipo){
+
+    public boolean updateSP(SsfEvaluaciontipo evaluaciontipo) {
         return this.evaluaciontipoDAO.updateSP(evaluaciontipo);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.evaluaciontipoDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.evaluaciontipoDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.evaluaciontipoDAO.activarSP(id);
     }
-    
+
 }

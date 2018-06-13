@@ -7,10 +7,11 @@ package duoc.cl.safe.persistencia;
 
 import duoc.cl.safe.entity.SsfEstadocapaempresa;
 import duoc.cl.safe.jpa.SsfEstadocapaempresaJpaController;
+import duoc.cl.safe.jpa.exceptions.NonexistentEntityException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -22,11 +23,12 @@ import javax.persistence.StoredProcedureQuery;
  * @author Nacho
  */
 public class SsfEstadocapaempresaDAO {
+
     private static Logger log = Logger.getLogger(SsfEstadocapaempresaDAO.class.getName());
-    
-    public boolean add(SsfEstadocapaempresa estadocapaempresa){
+
+    public boolean add(SsfEstadocapaempresa estadocapaempresa) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEstadocapaempresaJpaController service = new SsfEstadocapaempresaJpaController(emf);
             em.getTransaction().begin();
@@ -34,15 +36,14 @@ public class SsfEstadocapaempresaDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
-    
-    public boolean update(SsfEstadocapaempresa estadocapaempresa){
+
+    public boolean update(SsfEstadocapaempresa estadocapaempresa) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEstadocapaempresaJpaController service = new SsfEstadocapaempresaJpaController(emf);
             em.getTransaction().begin();
@@ -50,31 +51,29 @@ public class SsfEstadocapaempresaDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEstadocapaempresaJpaController service = new SsfEstadocapaempresaJpaController(emf);
             em.getTransaction().begin();
             service.destroy(BigDecimal.valueOf(new Long(id)));
             em.getTransaction().commit();
             return true;
-        } catch (Exception ex) {
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+        } catch (NonexistentEntityException ex) {
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
-    
-    public SsfEstadocapaempresa find(int id){
+
+    public SsfEstadocapaempresa find(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEstadocapaempresaJpaController service = new SsfEstadocapaempresaJpaController(emf);
             em.getTransaction().begin();
@@ -82,28 +81,29 @@ public class SsfEstadocapaempresaDAO {
             em.getTransaction().commit();
             return estadocapaempresa;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
-    
-    public List<SsfEstadocapaempresa> getAll(){
+
+    public List<SsfEstadocapaempresa> getAll() {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEstadocapaempresaJpaController service = new SsfEstadocapaempresaJpaController(emf);
             em.getTransaction().begin();
             List<SsfEstadocapaempresa> lista = service.findSsfEstadocapaempresaEntities();
+            lista.forEach((r) -> {
+                em.refresh(r);
+            });
             em.getTransaction().commit();
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
-    
+
     public SsfEstadocapaempresa findSP(int id) {
         SsfEstadocapaempresa objEstadocapaempresa = null;
         try {
@@ -122,16 +122,14 @@ public class SsfEstadocapaempresaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfEstadocapaempresa> estadocapaempresas = (List<SsfEstadocapaempresa>) storedProcedure.getOutputParameterValue("o_data");
-            
+
             if (!estadocapaempresas.isEmpty()) {
                 objEstadocapaempresa = estadocapaempresas.get(0);
             }
 
             return objEstadocapaempresa;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
@@ -149,12 +147,12 @@ public class SsfEstadocapaempresaDAO {
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             System.out.println("o_glosa : " + o_glosa);
             estadocapaempresas = (List<SsfEstadocapaempresa>) storedProcedure.getOutputParameterValue("o_data");
-
+            estadocapaempresas.forEach((r) -> {
+                em.refresh(r);
+            });
             return estadocapaempresas;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
@@ -185,9 +183,7 @@ public class SsfEstadocapaempresaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
@@ -217,9 +213,7 @@ public class SsfEstadocapaempresaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
@@ -242,9 +236,7 @@ public class SsfEstadocapaempresaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
@@ -270,9 +262,7 @@ public class SsfEstadocapaempresaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al desactivar", ex);
+            log.log(Level.ERROR, "Error al desactivar", ex);
             return false;
         }
     }
@@ -298,12 +288,9 @@ public class SsfEstadocapaempresaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEstadocapaempresaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al activar", ex);
+            log.log(Level.ERROR, "Error al activar", ex);
             return false;
         }
     }
-    
-    
+
 }

@@ -6,7 +6,7 @@
 package duoc.cl.safe.presentacion.usuarios;
 
 import duoc.cl.safe.entity.SsfPersona;
-import duoc.cl.safe.entity.SsfUsuario;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfPersonaBO;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -15,10 +15,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -31,6 +32,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
      */
     public MantenedorPersona() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
+        model = (DefaultTableModel) tblPersona.getModel();
     }
 
     /**
@@ -68,6 +71,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tfCorreo = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         bBuscar = new javax.swing.JButton();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -78,7 +83,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
             }
         });
 
-        pMantenedorPersona.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mantenedor Persona", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 18), new java.awt.Color(204, 0, 153))); // NOI18N
+        pMantenedorPersona.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Mantenedor Persona", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 0, 16), new java.awt.Color(204, 0, 153))); // NOI18N
 
         lExito.setForeground(new java.awt.Color(0, 204, 51));
 
@@ -135,7 +140,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
             }
         });
 
-        tfFechaNac.setText("DD-MM-AAAA");
+        tfFechaNac.setText("dd-MM-aaaa");
 
         jLabel5.setText("Correo:");
 
@@ -287,6 +292,11 @@ public class MantenedorPersona extends javax.swing.JFrame {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 270, Short.MAX_VALUE))
         );
 
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -296,7 +306,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 27, Short.MAX_VALUE)
+                .addGap(0, 26, Short.MAX_VALUE)
                 .addComponent(pMantenedorPersona, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -304,6 +314,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
         this.setLocationRelativeTo(null);
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
@@ -388,7 +400,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     }//GEN-LAST:event_tbEstadoActionPerformed
 
     private void bLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bLimpiarActionPerformed
-        tfFechaNac.setText("DD-MM-AAAA");
+        tfFechaNac.setText("dd-MM-aaaa");
         tbEstado.setEnabled(false);
         bModificar.setEnabled(false);
         limpiarMsgs();
@@ -420,17 +432,15 @@ public class MantenedorPersona extends javax.swing.JFrame {
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             SsfPersona p = new SsfPersona();
             try {
-                if (!sfech.equals("") && !sfech.toLowerCase().equals("DD-MM-AAAA".toLowerCase())) {
+                if (!sfech.equals("") && !sfech.toLowerCase().equals("dd-MM-aaaa".toLowerCase())) {
                     if (sfech.length() < 10) {
                         sdf = new SimpleDateFormat("dd-MM-yy");
-                        fecha = sdf.parse(sfech);
                     }
                     fecha = sdf.parse(sfech);
                     p.setFechaNac(fecha);
                 }
             } catch (ParseException ex) {
-                //Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, ex);
-                log.log(Level.SEVERE, "Error en formato de fecha", ex);
+                log.log(Level.ERROR, "Error en formato de fecha", ex);
                 sfech = "error";
                 lError.setText("Error en formato de fecha");
             }
@@ -440,8 +450,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     p.setTelefono(telbi);
                 }
             } catch (Exception e) {
-                Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, e);
-                log.log(Level.SEVERE, "Error en valor de telefono", e);
+                log.log(Level.ERROR, "Error en valor de telefono", e);
                 lError.setText("Error en valor de telefono");
             }
             if (!sfech.equals("error")) {
@@ -490,17 +499,15 @@ public class MantenedorPersona extends javax.swing.JFrame {
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 SsfPersona p = new SsfPersona();
                 try {
-                    if (!sfech.equals("") && !sfech.toLowerCase().equals("DD-MM-AAAA".toLowerCase())) {
+                    if (!sfech.equals("") && !sfech.toLowerCase().equals("dd-MM-aaaa".toLowerCase())) {
                         if (sfech.length() < 10) {
                             sdf = new SimpleDateFormat("dd-MM-yy");
-                            fecha = sdf.parse(sfech);
                         }
                         fecha = sdf.parse(sfech);
                         p.setFechaNac(fecha);
                     }
                 } catch (ParseException ex) {
-                    Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, ex);
-                    log.log(Level.SEVERE, "Error en formato de fecha", ex);
+                    log.log(Level.ERROR, "Error en formato de fecha", ex);
                     sfech = "error";
                     lError.setText("Error en formato de fecha");
                 }
@@ -510,8 +517,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                         p.setTelefono(telbi);
                     }
                 } catch (Exception e) {
-                    Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, e);
-                    log.log(Level.SEVERE, "Error en valor de telefono", e);
+                    log.log(Level.ERROR, "Error en valor de telefono", e);
                     lError.setText("Error en valor de telefono");
                     tel = "error";
                 }
@@ -524,7 +530,6 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     p.setCorreo(correo);
                     if (pbo.updateSP(p)) {
                         lExito.setText("Persona modificada exitosamente.");
-                        // método cargaTabla() no actualiza la tabla por motivos desconocidos
                         model.setValueAt(rut, tblPersona.getSelectedRow(), 1);
                         model.setValueAt(nom, tblPersona.getSelectedRow(), 2);
                         model.setValueAt(ap1, tblPersona.getSelectedRow(), 3);
@@ -533,7 +538,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                         if (!tel.equals("error")) {
                             model.setValueAt(tel, tblPersona.getSelectedRow(), 6);
                         }
-                        if (!sfech.equals("error")) {
+                        if (!sfech.equalsIgnoreCase("error") && fecha != null) {
                             sdf = new SimpleDateFormat("dd-MM-yyyy");
                             model.setValueAt(sdf.format(fecha), tblPersona.getSelectedRow(), 7);
                         }
@@ -645,10 +650,21 @@ public class MantenedorPersona extends javax.swing.JFrame {
 
         }
 
-
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void bRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefrescarActionPerformed
+        tfFechaNac.setText("dd-MM-aaaa");
+        tbEstado.setEnabled(false);
+        bModificar.setEnabled(false);
+        limpiarMsgs();
+        tblPersona.clearSelection();
+        tfRut.setText("");
+        tfNombre.setText("");
+        tfAp1.setText("");
+        tfAp2.setText("");
+        tfCorreo.setText("");
+        tfTelefono.setText("");
+        tfBuscar.setText("");
         cargaTabla();
     }//GEN-LAST:event_bRefrescarActionPerformed
 
@@ -679,6 +695,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
         }
         //</editor-fold>
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -701,6 +719,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lError;
     private javax.swing.JLabel lExito;
@@ -716,13 +736,14 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private javax.swing.JTextField tfRut;
     private javax.swing.JTextField tfTelefono;
     // End of variables declaration//GEN-END:variables
-    private SsfUsuario usuarioSesion;
+
     private static Logger log = Logger.getLogger(MantenedorPersona.class.getName());
     private DefaultTableModel model;
     private SsfPersonaBO pbo;
+    private FormsController formsController;
 
     private void cargaTabla() {
-        borrarTabla();
+        model.setRowCount(0);
         pbo = new SsfPersonaBO();
         List<SsfPersona> lp = pbo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -765,7 +786,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     }
 
     private void cargaPersonas(List<SsfPersona> pp) {
-        borrarTabla();
+        model.setRowCount(0);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String sfecha = null;
         for (SsfPersona p : pp) {
@@ -803,12 +824,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tblPersona.removeAll();
     }
 
-    public SsfUsuario getUsuarioSesion() {
-        return usuarioSesion;
-    }
-
-    public void setUsuarioSesion(SsfUsuario usuarioSesion) {
-        this.usuarioSesion = usuarioSesion;
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
     }
 
 }

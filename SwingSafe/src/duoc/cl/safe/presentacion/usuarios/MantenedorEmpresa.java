@@ -6,14 +6,17 @@
 package duoc.cl.safe.presentacion.usuarios;
 
 import duoc.cl.safe.entity.SsfEmpresa;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfEmpresaBO;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -26,6 +29,7 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
      */
     public MantenedorEmpresa() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
     }
 
     /**
@@ -54,6 +58,9 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         tblEmpresa = new javax.swing.JTable();
         bRefrescar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -142,6 +149,15 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("Mantenedor Empresa");
+
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -153,42 +169,47 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
                 .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 283, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(167, 167, 167))
             .addGroup(layout.createSequentialGroup()
-                .addGap(42, 42, 42)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
-                            .addComponent(tfDireccion))
-                        .addGap(18, 18, 18)
-                        .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
-                        .addComponent(bAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bLimpiar)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bRefrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane1)
                 .addContainerGap())
+            .addGroup(layout.createSequentialGroup()
+                .addGap(42, 42, 42)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel3))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfEmpresa, javax.swing.GroupLayout.DEFAULT_SIZE, 256, Short.MAX_VALUE)
+                                    .addComponent(tfDireccion))
+                                .addGap(18, 18, 18)
+                                .addComponent(tfBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(tfTelefono, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 137, Short.MAX_VALUE)
+                                .addComponent(bAgregar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bModificar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(bLimpiar)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bRefrescar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(bBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(53, 53, 53)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfEmpresa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -214,7 +235,7 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(lError, javax.swing.GroupLayout.DEFAULT_SIZE, 21, Short.MAX_VALUE)
                         .addGap(3, 3, 3)))
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 425, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 404, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -222,6 +243,9 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
+        this.setLocationRelativeTo(null);
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
 
@@ -353,6 +377,14 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
     }//GEN-LAST:event_bBuscarActionPerformed
 
     private void bRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefrescarActionPerformed
+        tbEstado.setEnabled(false);
+        bModificar.setEnabled(false);
+        limpiarMsgs();
+        tblEmpresa.clearSelection();
+        tfEmpresa.setText("");
+        tfDireccion.setText("");
+        tfTelefono.setText("");
+        tfBuscar.setText("");
         cargaTabla();
     }//GEN-LAST:event_bRefrescarActionPerformed
 
@@ -373,8 +405,7 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
                     emp.setTelefono(telbi);
                 }
             } catch (Exception e) {
-                Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, e);
-                log.log(Level.SEVERE, "Error en valor de telefono", e);
+                log.log(Level.ERROR, "Error en valor de telefono", e);
                 lError.setText("Error en valor de telefono");
             }
             emp.setNombre(nom);
@@ -416,8 +447,7 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
                         emp.setTelefono(telbi);
                     }
                 } catch (Exception e) {
-                    Logger.getLogger(MantenedorPersona.class.getName()).log(Level.SEVERE, null, e);
-                    log.log(Level.SEVERE, "Error en valor de telefono", e);
+                    log.log(Level.ERROR, "Error en valor de telefono", e);
                     lError.setText("Error en valor de telefono");
                     tel = "error";
                 }
@@ -426,7 +456,6 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
                 emp.setDireccion(dir);
                 if (ebo.updateSP(emp)) {
                     lExito.setText("Empresa modificada exitosamente.");
-                    // método cargaTabla() no actualiza la tabla por motivos desconocidos
                     model.setValueAt(nom, tblEmpresa.getSelectedRow(), 1);
                     model.setValueAt(dir, tblEmpresa.getSelectedRow(), 2);
                     if (!tel.equals("error")) {
@@ -465,6 +494,7 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MantenedorEmpresa.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -483,6 +513,9 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lError;
     private javax.swing.JLabel lExito;
@@ -495,10 +528,12 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private SsfEmpresaBO ebo;
     private static Logger log = Logger.getLogger(MantenedorEmpresa.class.getName());
+    private FormsController formsController;
 
     private void cargaTabla() {
-        borrarTabla();
+        
         DefaultTableModel model = (DefaultTableModel) tblEmpresa.getModel();
+        model.setRowCount(0);
         ebo = new SsfEmpresaBO();
         List<SsfEmpresa> le = ebo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -507,27 +542,6 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
         });
         tblEmpresa.setModel(model);
 
-    }
-
-    private void borrarTabla() {
-        tblEmpresa.removeAll();
-        tblEmpresa.repaint();
-        DefaultTableModel model = (DefaultTableModel) tblEmpresa.getModel();
-        model.fireTableDataChanged();
-        tblEmpresa.repaint();
-        tblEmpresa.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblEmpresa.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblEmpresa.repaint();
-        tblEmpresa.setModel(model);
-        tblEmpresa.repaint();
-        tblEmpresa.removeAll();
     }
 
     private void desactivarEstado() {
@@ -555,8 +569,9 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
     }
 
     private void cargaEmpresas(List<SsfEmpresa> ee) {
-        borrarTabla();
+        
         DefaultTableModel model = (DefaultTableModel) tblEmpresa.getModel();
+        model.setRowCount(0);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         for (SsfEmpresa e : ee) {
             model.addRow(new Object[]{e.getId(), e.getNombre(),
@@ -564,6 +579,10 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
                 sdf.format(e.getFechCreacion()), e.getEstado()});
         }
         tblEmpresa.setModel(model);
+    }
+
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
     }
 
 }

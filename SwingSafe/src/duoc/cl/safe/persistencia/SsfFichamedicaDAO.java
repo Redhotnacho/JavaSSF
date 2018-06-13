@@ -7,10 +7,11 @@ package duoc.cl.safe.persistencia;
 
 import duoc.cl.safe.entity.SsfFichamedica;
 import duoc.cl.safe.jpa.SsfFichamedicaJpaController;
+import duoc.cl.safe.jpa.exceptions.NonexistentEntityException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -22,11 +23,13 @@ import javax.persistence.StoredProcedureQuery;
  * @author Nacho
  */
 public class SsfFichamedicaDAO {
+
     private static Logger log = Logger.getLogger(SsfFichamedicaDAO.class.getName());
     
-    public boolean add(SsfFichamedica fichamedica){
+
+    public boolean add(SsfFichamedica fichamedica) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfFichamedicaJpaController service = new SsfFichamedicaJpaController(emf);
             em.getTransaction().begin();
@@ -34,15 +37,14 @@ public class SsfFichamedicaDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
-    
-    public boolean update(SsfFichamedica fichamedica){
+
+    public boolean update(SsfFichamedica fichamedica) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfFichamedicaJpaController service = new SsfFichamedicaJpaController(emf);
             em.getTransaction().begin();
@@ -50,31 +52,29 @@ public class SsfFichamedicaDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfFichamedicaJpaController service = new SsfFichamedicaJpaController(emf);
             em.getTransaction().begin();
             service.destroy(BigDecimal.valueOf(new Long(id)));
             em.getTransaction().commit();
             return true;
-        } catch (Exception ex) {
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+        } catch (NonexistentEntityException ex) {
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
-    
-    public SsfFichamedica find(int id){
+
+    public SsfFichamedica find(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfFichamedicaJpaController service = new SsfFichamedicaJpaController(emf);
             em.getTransaction().begin();
@@ -82,28 +82,29 @@ public class SsfFichamedicaDAO {
             em.getTransaction().commit();
             return fichamedica;
         } catch (Exception ex) {
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
-    
-    public List<SsfFichamedica> getAll(){
+
+    public List<SsfFichamedica> getAll() {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfFichamedicaJpaController service = new SsfFichamedicaJpaController(emf);
             em.getTransaction().begin();
             List<SsfFichamedica> lista = service.findSsfFichamedicaEntities();
+            lista.forEach((r) -> {
+                em.refresh(r);
+            });
             em.getTransaction().commit();
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
-    
+
     public SsfFichamedica findSP(int id) {
         SsfFichamedica objFichamedica = null;
         try {
@@ -122,16 +123,14 @@ public class SsfFichamedicaDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfFichamedica> fichamedicas = (List<SsfFichamedica>) storedProcedure.getOutputParameterValue("o_data");
-            
+
             if (!fichamedicas.isEmpty()) {
                 objFichamedica = fichamedicas.get(0);
             }
 
             return objFichamedica;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
@@ -149,12 +148,12 @@ public class SsfFichamedicaDAO {
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             System.out.println("o_glosa : " + o_glosa);
             fichamedicas = (List<SsfFichamedica>) storedProcedure.getOutputParameterValue("o_data");
-
+            fichamedicas.forEach((r) -> {
+                em.refresh(r);
+            });
             return fichamedicas;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
@@ -185,9 +184,7 @@ public class SsfFichamedicaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
@@ -217,9 +214,7 @@ public class SsfFichamedicaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
@@ -242,9 +237,7 @@ public class SsfFichamedicaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
@@ -270,9 +263,7 @@ public class SsfFichamedicaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al desactivar", ex);
+            log.log(Level.ERROR, "Error al desactivar", ex);
             return false;
         }
     }
@@ -298,13 +289,9 @@ public class SsfFichamedicaDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfFichamedicaDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al activar", ex);
+            log.log(Level.ERROR, "Error al activar", ex);
             return false;
         }
     }
-    
-    
-    
+
 }

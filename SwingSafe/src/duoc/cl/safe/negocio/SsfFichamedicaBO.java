@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfFichamedicaBO {
+
     private SsfFichamedicaDAO fichamedicaDAO;
 
     public SsfFichamedicaBO() {
         this.fichamedicaDAO = new SsfFichamedicaDAO();
     }
-    
-    public boolean add(SsfFichamedica fichamedica){
+
+    public boolean add(SsfFichamedica fichamedica) {
         return this.fichamedicaDAO.add(fichamedica);
     }
-    
-    public boolean update(SsfFichamedica fichamedica){
+
+    public boolean update(SsfFichamedica fichamedica) {
         return this.fichamedicaDAO.update(fichamedica);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.fichamedicaDAO.remove(id);
     }
-    
-    public SsfFichamedica find(int id){
+
+    public SsfFichamedica find(int id) {
         return this.fichamedicaDAO.find(id);
     }
-    
-    public List<SsfFichamedica> getAll(){
+
+    public List<SsfFichamedica> getAll() {
         return this.fichamedicaDAO.getAll();
     }
-    
-    public SsfFichamedica findSP(int id){
+
+    public SsfFichamedica findSP(int id) {
         return this.fichamedicaDAO.findSP(id);
     }
-    
-    public List<SsfFichamedica> getAllSP(){
+
+    public List<SsfFichamedica> getAllSP() {
         return this.fichamedicaDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfFichamedica fichamedica){
+
+    public boolean addSP(SsfFichamedica fichamedica) {
         return this.fichamedicaDAO.addSP(fichamedica);
     }
-    
-    public boolean updateSP(SsfFichamedica fichamedica){
+
+    public boolean updateSP(SsfFichamedica fichamedica) {
         return this.fichamedicaDAO.updateSP(fichamedica);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.fichamedicaDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.fichamedicaDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.fichamedicaDAO.activarSP(id);
     }
-    
+
 }

@@ -206,5 +206,5 @@ public class SsfMedicoespecialidadJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

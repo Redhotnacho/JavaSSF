@@ -171,5 +171,5 @@ public class SsfAdjuntoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

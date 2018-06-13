@@ -6,11 +6,16 @@
 package duoc.cl.safe.presentacion.evaluaciones;
 
 import duoc.cl.safe.entity.SsfEvaluaciontipo;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfEvaluaciontipoBO;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -23,6 +28,7 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
      */
     public MantenedorEvaluacionTipo() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
     }
 
     /**
@@ -47,6 +53,9 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
         bModificar = new javax.swing.JButton();
         bAgregar = new javax.swing.JButton();
         bLimpiar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -130,6 +139,15 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("Mantenedor Tipo Evaluación");
+
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -152,7 +170,8 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
                                             .addComponent(jLabel2))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(tfTipoEval))
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 284, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(39, 39, 39)
                                 .addComponent(bAgregar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -170,7 +189,9 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(71, 71, 71)
+                .addGap(36, 36, 36)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfTipoEval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -201,6 +222,10 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
+        this.setLocationRelativeTo(null);
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
 
@@ -246,8 +271,10 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
             tbEstado.setEnabled(false);
             if (tblEvaluacionTipo.getRowCount() == 0) {
                 lError.setText("Tabla vacía");
+                Logger.getLogger(MantenedorEvaluacionTipo.class.getName()).log(Level.WARN, "Tabla vacía");
             } else {
                 lError.setText("No hay fila seleccionada");
+                Logger.getLogger(MantenedorEvaluacionTipo.class.getName()).log(Level.WARN, "No hay fila seleccionada");
             }
         } else {
             int id = Short.parseShort(model.getValueAt(tblEvaluacionTipo.getSelectedRow(), 0).toString());
@@ -271,11 +298,11 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
         if (tfTipoEval.getText().trim().equals("")) {
             lError.setText("Ingrese un nombre para el Tipo de Evaluación");
         } else {
-            String nom,desc;
+            String nom, desc;
             nom = tfTipoEval.getText();
             desc = taDescripcion.getText();
             SsfEvaluaciontipo perf = new SsfEvaluaciontipo();
-            perf.setTopo(nom);
+            perf.setTipo(nom);
             perf.setDescripcion(desc);
             if (etbo.addSP(perf)) {
                 lExito.setText("Menú agregado exitosamente.");
@@ -301,17 +328,16 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
             if (tfTipoEval.getText().trim().equals("")) {
                 lError.setText("Nombre Tipo Evaluación no puede estar en blanco");
             } else {
-                String desc,nom,id;
+                String desc, nom, id;
                 id = model.getValueAt(tblEvaluacionTipo.getSelectedRow(), 0).toString();
                 nom = tfTipoEval.getText().trim();
                 desc = taDescripcion.getText().trim();
                 SsfEvaluaciontipo menu = new SsfEvaluaciontipo();
                 menu.setId(BigDecimal.valueOf(Long.valueOf(id)));
-                menu.setTopo(nom);
+                menu.setTipo(nom);
                 menu.setDescripcion(desc);
                 if (etbo.updateSP(menu)) {
                     lExito.setText("Tipo Evaluación modificada exitosamente.");
-                    // método cargaTabla() no actualiza la tabla por motivos desconocidos
                     model.setValueAt(nom, tblEvaluacionTipo.getSelectedRow(), 1);
                     model.setValueAt(desc, tblEvaluacionTipo.getSelectedRow(), 2);
                 } else {
@@ -363,6 +389,9 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
     private javax.swing.JButton bModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lError;
@@ -374,39 +403,24 @@ public class MantenedorEvaluacionTipo extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private SsfEvaluaciontipoBO etbo;
+    private FormsController formsController;
+
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
+    }
 
     private void cargaTabla() {
-        borrarTabla();
+        
         DefaultTableModel model = (DefaultTableModel) tblEvaluacionTipo.getModel();
+        model.setRowCount(0);
         etbo = new SsfEvaluaciontipoBO();
         List<SsfEvaluaciontipo> let = etbo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         let.forEach((et) -> {
-            model.addRow(new Object[]{et.getId(), et.getTopo(), et.getDescripcion(), sdf.format(et.getFechCreacion()), et.getEstado()});
+            model.addRow(new Object[]{et.getId(), et.getTipo(), et.getDescripcion(), sdf.format(et.getFechCreacion()), et.getEstado()});
         });
         tblEvaluacionTipo.setModel(model);
 
-    }
-
-    private void borrarTabla() {
-        tblEvaluacionTipo.removeAll();
-        tblEvaluacionTipo.repaint();
-        DefaultTableModel model = (DefaultTableModel) tblEvaluacionTipo.getModel();
-        model.fireTableDataChanged();
-        tblEvaluacionTipo.repaint();
-        tblEvaluacionTipo.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblEvaluacionTipo.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblEvaluacionTipo.repaint();
-        tblEvaluacionTipo.setModel(model);
-        tblEvaluacionTipo.repaint();
-        tblEvaluacionTipo.removeAll();
     }
 
     private void desactivarEstado() {

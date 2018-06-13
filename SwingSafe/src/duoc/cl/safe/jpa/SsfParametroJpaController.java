@@ -222,5 +222,5 @@ public class SsfParametroJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

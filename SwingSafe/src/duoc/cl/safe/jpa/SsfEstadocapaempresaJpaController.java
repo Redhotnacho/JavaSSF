@@ -193,5 +193,5 @@ public class SsfEstadocapaempresaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

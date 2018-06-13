@@ -222,5 +222,5 @@ public class SsfExamenJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

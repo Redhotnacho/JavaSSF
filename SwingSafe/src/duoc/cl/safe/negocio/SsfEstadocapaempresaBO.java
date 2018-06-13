@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfEstadocapaempresaBO {
+
     private SsfEstadocapaempresaDAO estadocapaempresaDAO;
 
     public SsfEstadocapaempresaBO() {
         this.estadocapaempresaDAO = new SsfEstadocapaempresaDAO();
     }
-    
-    public boolean add(SsfEstadocapaempresa estadocapaempresa){
+
+    public boolean add(SsfEstadocapaempresa estadocapaempresa) {
         return this.estadocapaempresaDAO.add(estadocapaempresa);
     }
-    
-    public boolean update(SsfEstadocapaempresa estadocapaempresa){
+
+    public boolean update(SsfEstadocapaempresa estadocapaempresa) {
         return this.estadocapaempresaDAO.update(estadocapaempresa);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.estadocapaempresaDAO.remove(id);
     }
-    
-    public SsfEstadocapaempresa find(int id){
+
+    public SsfEstadocapaempresa find(int id) {
         return this.estadocapaempresaDAO.find(id);
     }
-    
-    public List<SsfEstadocapaempresa> getAll(){
+
+    public List<SsfEstadocapaempresa> getAll() {
         return this.estadocapaempresaDAO.getAll();
     }
-    
-    public SsfEstadocapaempresa findSP(int id){
+
+    public SsfEstadocapaempresa findSP(int id) {
         return this.estadocapaempresaDAO.findSP(id);
     }
-    
-    public List<SsfEstadocapaempresa> getAllSP(){
+
+    public List<SsfEstadocapaempresa> getAllSP() {
         return this.estadocapaempresaDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfEstadocapaempresa estadocapaempresa){
+
+    public boolean addSP(SsfEstadocapaempresa estadocapaempresa) {
         return this.estadocapaempresaDAO.addSP(estadocapaempresa);
     }
-    
-    public boolean updateSP(SsfEstadocapaempresa estadocapaempresa){
+
+    public boolean updateSP(SsfEstadocapaempresa estadocapaempresa) {
         return this.estadocapaempresaDAO.updateSP(estadocapaempresa);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.estadocapaempresaDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.estadocapaempresaDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.estadocapaempresaDAO.activarSP(id);
     }
-    
+
 }

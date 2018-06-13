@@ -7,10 +7,11 @@ package duoc.cl.safe.persistencia;
 
 import duoc.cl.safe.entity.SsfEvaluacionparametro;
 import duoc.cl.safe.jpa.SsfEvaluacionparametroJpaController;
+import duoc.cl.safe.jpa.exceptions.NonexistentEntityException;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -22,11 +23,12 @@ import javax.persistence.StoredProcedureQuery;
  * @author Nacho
  */
 public class SsfEvaluacionparametroDAO {
+
     private static Logger log = Logger.getLogger(SsfEvaluacionparametroDAO.class.getName());
-    
-    public boolean add(SsfEvaluacionparametro evaluacionparametro){
+
+    public boolean add(SsfEvaluacionparametro evaluacionparametro) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluacionparametroJpaController service = new SsfEvaluacionparametroJpaController(emf);
             em.getTransaction().begin();
@@ -34,15 +36,14 @@ public class SsfEvaluacionparametroDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
-    
-    public boolean update(SsfEvaluacionparametro evaluacionparametro){
+
+    public boolean update(SsfEvaluacionparametro evaluacionparametro) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluacionparametroJpaController service = new SsfEvaluacionparametroJpaController(emf);
             em.getTransaction().begin();
@@ -50,31 +51,29 @@ public class SsfEvaluacionparametroDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluacionparametroJpaController service = new SsfEvaluacionparametroJpaController(emf);
             em.getTransaction().begin();
             service.destroy(BigDecimal.valueOf(new Long(id)));
             em.getTransaction().commit();
             return true;
-        } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+        } catch (NonexistentEntityException ex) {
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
-    
-    public SsfEvaluacionparametro find(int id){
+
+    public SsfEvaluacionparametro find(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluacionparametroJpaController service = new SsfEvaluacionparametroJpaController(emf);
             em.getTransaction().begin();
@@ -82,28 +81,29 @@ public class SsfEvaluacionparametroDAO {
             em.getTransaction().commit();
             return evaluacionparametro;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
-    
-    public List<SsfEvaluacionparametro> getAll(){
+
+    public List<SsfEvaluacionparametro> getAll() {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfEvaluacionparametroJpaController service = new SsfEvaluacionparametroJpaController(emf);
             em.getTransaction().begin();
             List<SsfEvaluacionparametro> lista = service.findSsfEvaluacionparametroEntities();
+            lista.forEach((r) -> {
+                em.refresh(r);
+            });
             em.getTransaction().commit();
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
-    
+
     public SsfEvaluacionparametro findSP(int id) {
         SsfEvaluacionparametro objEvaluacionparametro = null;
         try {
@@ -122,16 +122,14 @@ public class SsfEvaluacionparametroDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfEvaluacionparametro> evaluacionparametros = (List<SsfEvaluacionparametro>) storedProcedure.getOutputParameterValue("o_data");
-            
+
             if (!evaluacionparametros.isEmpty()) {
                 objEvaluacionparametro = evaluacionparametros.get(0);
             }
 
             return objEvaluacionparametro;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
@@ -149,12 +147,12 @@ public class SsfEvaluacionparametroDAO {
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             System.out.println("o_glosa : " + o_glosa);
             evaluacionparametros = (List<SsfEvaluacionparametro>) storedProcedure.getOutputParameterValue("o_data");
-
+            evaluacionparametros.forEach((r) -> {
+                em.refresh(r);
+            });
             return evaluacionparametros;
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
@@ -189,9 +187,7 @@ public class SsfEvaluacionparametroDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
@@ -225,9 +221,7 @@ public class SsfEvaluacionparametroDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
@@ -250,9 +244,7 @@ public class SsfEvaluacionparametroDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
@@ -278,9 +270,7 @@ public class SsfEvaluacionparametroDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al desactivar", ex);
+            log.log(Level.ERROR, "Error al desactivar", ex);
             return false;
         }
     }
@@ -306,13 +296,9 @@ public class SsfEvaluacionparametroDAO {
                 return false;
             }
         } catch (Exception ex) {
-            System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfEvaluacionparametroDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al activar", ex);
+            log.log(Level.ERROR, "Error al activar", ex);
             return false;
         }
     }
-    
-    
-    
+
 }

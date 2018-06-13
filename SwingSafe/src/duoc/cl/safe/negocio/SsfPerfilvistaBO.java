@@ -14,58 +14,63 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfPerfilvistaBO {
+
     private SsfPerfilvistaDAO perfilvistaDAO;
 
     public SsfPerfilvistaBO() {
         this.perfilvistaDAO = new SsfPerfilvistaDAO();
     }
-    
-    public boolean add(SsfPerfilvista perfilvista){
+
+    public boolean add(SsfPerfilvista perfilvista) {
         return this.perfilvistaDAO.add(perfilvista);
     }
-    
-    public boolean update(SsfPerfilvista perfilvista){
+
+    public boolean update(SsfPerfilvista perfilvista) {
         return this.perfilvistaDAO.update(perfilvista);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.perfilvistaDAO.remove(id);
     }
-    
-    public SsfPerfilvista find(int id){
+
+    public SsfPerfilvista find(int id) {
         return this.perfilvistaDAO.find(id);
     }
-    
-    public List<SsfPerfilvista> getAll(){
+
+    public List<SsfPerfilvista> getAll() {
         return this.perfilvistaDAO.getAll();
     }
-    
-    public SsfPerfilvista findSP(int id){
+
+    public SsfPerfilvista findSP(int id) {
         return this.perfilvistaDAO.findSP(id);
     }
-    
-    public List<SsfPerfilvista> getAllSP(){
+
+    public List<SsfPerfilvista> getAllSP() {
         return this.perfilvistaDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfPerfilvista perfilvista){
+
+    public List<SsfPerfilvista> getVistasXPerfilSP(int idPerfil) {
+        return this.perfilvistaDAO.getVistasXPerfilSP(idPerfil);
+    }
+
+    public boolean addSP(SsfPerfilvista perfilvista) {
         return this.perfilvistaDAO.addSP(perfilvista);
     }
-    
-    public boolean updateSP(SsfPerfilvista perfilvista){
+
+    public boolean updateSP(SsfPerfilvista perfilvista) {
         return this.perfilvistaDAO.updateSP(perfilvista);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.perfilvistaDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.perfilvistaDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.perfilvistaDAO.activarSP(id);
     }
-    
+
 }

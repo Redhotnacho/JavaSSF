@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfAdjuntoBO {
+
     private SsfAdjuntoDAO adjuntoDAO;
 
     public SsfAdjuntoBO() {
         this.adjuntoDAO = new SsfAdjuntoDAO();
     }
-    
-    public boolean add(SsfAdjunto adjunto){
+
+    public boolean add(SsfAdjunto adjunto) {
         return this.adjuntoDAO.add(adjunto);
     }
-    
-    public boolean update(SsfAdjunto adjunto){
+
+    public boolean update(SsfAdjunto adjunto) {
         return this.adjuntoDAO.update(adjunto);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.adjuntoDAO.remove(id);
     }
-    
-    public SsfAdjunto find(int id){
+
+    public SsfAdjunto find(int id) {
         return this.adjuntoDAO.find(id);
     }
-    
-    public List<SsfAdjunto> getAll(){
+
+    public List<SsfAdjunto> getAll() {
         return this.adjuntoDAO.getAll();
     }
-    
-    public SsfAdjunto findSP(int id){
+
+    public SsfAdjunto findSP(int id) {
         return this.adjuntoDAO.findSP(id);
     }
-    
-    public List<SsfAdjunto> getAllSP(){
+
+    public List<SsfAdjunto> getAllSP() {
         return this.adjuntoDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfAdjunto adjunto){
+
+    public boolean addSP(SsfAdjunto adjunto) {
         return this.adjuntoDAO.addSP(adjunto);
     }
-    
-    public boolean updateSP(SsfAdjunto adjunto){
+
+    public boolean updateSP(SsfAdjunto adjunto) {
         return this.adjuntoDAO.updateSP(adjunto);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.adjuntoDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.adjuntoDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.adjuntoDAO.activarSP(id);
     }
-    
+
 }

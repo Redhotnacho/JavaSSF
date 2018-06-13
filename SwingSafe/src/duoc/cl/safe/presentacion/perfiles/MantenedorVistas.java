@@ -7,6 +7,7 @@ package duoc.cl.safe.presentacion.perfiles;
 
 import duoc.cl.safe.entity.SsfMenu;
 import duoc.cl.safe.entity.SsfVista;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfMenuBO;
 import duoc.cl.safe.negocio.SsfVistaBO;
 import java.math.BigDecimal;
@@ -14,6 +15,10 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -26,6 +31,7 @@ public class MantenedorVistas extends javax.swing.JFrame {
      */
     public MantenedorVistas() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
     }
 
     /**
@@ -51,6 +57,9 @@ public class MantenedorVistas extends javax.swing.JFrame {
         bAgregar = new javax.swing.JButton();
         lError = new javax.swing.JLabel();
         lExito = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -124,25 +133,21 @@ public class MantenedorVistas extends javax.swing.JFrame {
 
         lExito.setForeground(new java.awt.Color(0, 204, 0));
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("Mantenedor Vistas");
+
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(58, 58, 58)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel1))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cbMenu, 0, 160, Short.MAX_VALUE)
-                            .addComponent(tfNombre))
-                        .addGap(36, 36, 36)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tfURL, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 340, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -153,7 +158,23 @@ public class MantenedorVistas extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(bLimpiar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(58, 58, 58)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel8)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(jLabel2)
+                                    .addComponent(jLabel1))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(cbMenu, 0, 160, Short.MAX_VALUE)
+                                    .addComponent(tfNombre))
+                                .addGap(36, 36, 36)
+                                .addComponent(jLabel3)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(tfURL, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addContainerGap(78, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
@@ -168,7 +189,9 @@ public class MantenedorVistas extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(60, 60, 60)
+                .addGap(25, 25, 25)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cbMenu, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -178,7 +201,7 @@ public class MantenedorVistas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 9, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lExito, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 18, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -197,6 +220,9 @@ public class MantenedorVistas extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
+        this.setLocationRelativeTo(null);
         cargaMenu();
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
@@ -239,8 +265,10 @@ public class MantenedorVistas extends javax.swing.JFrame {
             tbEstado.setEnabled(false);
             if (tblVista.getRowCount() == 0) {
                 lError.setText("Tabla vacía");
+                Logger.getLogger(MantenedorVistas.class.getName()).log(Level.WARN, "Tabla vacía");
             } else {
                 lError.setText("No hay fila seleccionada");
+                Logger.getLogger(MantenedorVistas.class.getName()).log(Level.WARN, "No hay fila seleccionada");
             }
         } else {
             int id = Short.parseShort(model.getValueAt(tblVista.getSelectedRow(), 0).toString());
@@ -316,13 +344,12 @@ public class MantenedorVistas extends javax.swing.JFrame {
                 url = tfURL.getText().trim();
                 idmenu = mapm.get(cbMenu.getSelectedItem()).toString();
                 SsfVista vista = new SsfVista();
-                vista.setId(BigDecimal.valueOf((long)Long.valueOf(id)));
+                vista.setId(BigDecimal.valueOf((long) Long.valueOf(id)));
                 vista.setNombre(nom);
                 vista.setUrl(url);
-                vista.setIdMenu(new SsfMenu(BigDecimal.valueOf((long)Long.valueOf(idmenu))));
+                vista.setIdMenu(new SsfMenu(BigDecimal.valueOf((long) Long.valueOf(idmenu))));
                 if (vbo.updateSP(vista)) {
                     lExito.setText("Vista modificada exitosamente.");
-                    // método cargaTabla() no actualiza la tabla por motivos desconocidos
                     model.setValueAt(nom, tblVista.getSelectedRow(), 1);
                     model.setValueAt(url, tblVista.getSelectedRow(), 2);
                     model.setValueAt(cbMenu.getSelectedItem(), tblVista.getSelectedRow(), 3);
@@ -376,6 +403,9 @@ public class MantenedorVistas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lError;
     private javax.swing.JLabel lExito;
@@ -387,39 +417,29 @@ public class MantenedorVistas extends javax.swing.JFrame {
 
     private SsfVistaBO vbo;
     private HashMap<String, Integer> mapm = new HashMap<>();
+    private FormsController formsController;
 
     private void cargaTabla() {
-        borrarTabla();
+        
         DefaultTableModel model = (DefaultTableModel) tblVista.getModel();
+        model.setRowCount(0);
         vbo = new SsfVistaBO();
         List<SsfVista> lv = vbo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         lv.forEach((v) -> {
-            model.addRow(new Object[]{v.getId(), v.getNombre(), v.getUrl(), v.getIdMenu().getNombre(), sdf.format(v.getFechCreacion()), v.getEstado()});
+            String fecha = "";
+            if (v.getFechCreacion().toString() != null && v.getFechCreacion().toString() != "") {
+                fecha = sdf.format(v.getFechCreacion());
+            }
+            model.addRow(new Object[]{v.getId(),
+                v.getNombre(),
+                v.getUrl(),
+                v.getIdMenu().getNombre(),
+                fecha,
+                v.getEstado()});
         });
         tblVista.setModel(model);
 
-    }
-
-    private void borrarTabla() {
-        tblVista.removeAll();
-        tblVista.repaint();
-        DefaultTableModel model = (DefaultTableModel) tblVista.getModel();
-        model.fireTableDataChanged();
-        tblVista.repaint();
-        tblVista.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblVista.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblVista.repaint();
-        tblVista.setModel(model);
-        tblVista.repaint();
-        tblVista.removeAll();
     }
 
     private void desactivarEstado() {
@@ -448,4 +468,7 @@ public class MantenedorVistas extends javax.swing.JFrame {
         });
     }
 
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
+    }
 }

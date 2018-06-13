@@ -14,57 +14,58 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfEvaluacionestadoBO {
+
     private SsfEvaluacionestadoDAO evaluacionestadoDAO;
 
     public SsfEvaluacionestadoBO() {
         this.evaluacionestadoDAO = new SsfEvaluacionestadoDAO();
     }
-    
-    public boolean add(SsfEvaluacionestado evaluacionestado){
+
+    public boolean add(SsfEvaluacionestado evaluacionestado) {
         return this.evaluacionestadoDAO.add(evaluacionestado);
     }
-    
-    public boolean update(SsfEvaluacionestado evaluacionestado){
+
+    public boolean update(SsfEvaluacionestado evaluacionestado) {
         return this.evaluacionestadoDAO.update(evaluacionestado);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.evaluacionestadoDAO.remove(id);
     }
-    
-    public SsfEvaluacionestado find(int id){
+
+    public SsfEvaluacionestado find(int id) {
         return this.evaluacionestadoDAO.find(id);
     }
-    
-    public List<SsfEvaluacionestado> getAll(){
+
+    public List<SsfEvaluacionestado> getAll() {
         return this.evaluacionestadoDAO.getAll();
     }
-    
-    public SsfEvaluacionestado findSP(int id){
+
+    public SsfEvaluacionestado findSP(int id) {
         return this.evaluacionestadoDAO.findSP(id);
     }
-    
-    public List<SsfEvaluacionestado> getAllSP(){
+
+    public List<SsfEvaluacionestado> getAllSP() {
         return this.evaluacionestadoDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfEvaluacionestado evaluacionestado){
+
+    public boolean addSP(SsfEvaluacionestado evaluacionestado) {
         return this.evaluacionestadoDAO.addSP(evaluacionestado);
     }
-    
-    public boolean updateSP(SsfEvaluacionestado evaluacionestado){
+
+    public boolean updateSP(SsfEvaluacionestado evaluacionestado) {
         return this.evaluacionestadoDAO.updateSP(evaluacionestado);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.evaluacionestadoDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.evaluacionestadoDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.evaluacionestadoDAO.activarSP(id);
     }
 }

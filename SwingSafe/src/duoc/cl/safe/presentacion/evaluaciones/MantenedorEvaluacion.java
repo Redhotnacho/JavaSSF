@@ -9,20 +9,22 @@ import duoc.cl.safe.entity.SsfEmpresa;
 import duoc.cl.safe.entity.SsfEvaluaciontipo;
 import duoc.cl.safe.entity.SsfEvaluacion;
 import duoc.cl.safe.entity.SsfEvaluacionestado;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfEmpresaBO;
 import duoc.cl.safe.negocio.SsfEvaluaciontipoBO;
 import duoc.cl.safe.negocio.SsfEvaluacionBO;
 import duoc.cl.safe.negocio.SsfEvaluacionestadoBO;
-import duoc.cl.safe.presentacion.usuarios.MantenedorPersona;
 import java.math.BigDecimal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -35,6 +37,7 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
      */
     public MantenedorEvaluacion() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
     }
 
     /**
@@ -64,6 +67,9 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
         cbEmpresa = new javax.swing.JComboBox<>();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -144,7 +150,7 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
 
         jLabel3.setText("Tipo Evaluación:");
 
-        tfFecha.setText("DD-MM-AAAA");
+        tfFecha.setText("dd-MM-aaaa");
 
         cbEstadoEval.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "- Seleccione Estado Evaluación -" }));
 
@@ -153,6 +159,15 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
         jLabel4.setText("Estado Evaluación:");
 
         jLabel5.setText("Empresa:");
+
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("Mantenedor Evaluación");
+
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -186,7 +201,10 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                             .addComponent(cbEmpresa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(cbEstadoEval, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cbTipoEval, 0, 208, Short.MAX_VALUE))))
+                                            .addComponent(cbTipoEval, 0, 208, Short.MAX_VALUE)))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGap(13, 13, 13)
+                                        .addComponent(jLabel8)))
                                 .addGap(39, 39, 39)
                                 .addComponent(bAgregar)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -202,7 +220,9 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(45, 45, 45)
+                .addGap(17, 17, 17)
+                .addComponent(jLabel8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbTipoEval, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3))
@@ -244,6 +264,9 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
+        this.setLocationRelativeTo(null);
         cargaTabla();
         cargaEvaluacionTipo();
         cargaEmpresa();
@@ -295,7 +318,7 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
         limpiarMsgs();
         tblEvaluacion.clearSelection();
         tfEvaluacion.setText("");
-        tfFecha.setText("DD-MM-AAAA");
+        tfFecha.setText("dd-MM-aaaa");
         cbTipoEval.setSelectedIndex(0);
         cbEstadoEval.setSelectedIndex(0);
         cbEmpresa.setSelectedIndex(0);
@@ -349,18 +372,15 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
             SsfEvaluacion e = new SsfEvaluacion();
             SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
             try {
-                if (!sfech.equals("") && !sfech.toLowerCase().equals("DD-MM-AAAA".toLowerCase())) {
+                if (!sfech.equals("") && !sfech.toLowerCase().equals("dd-MM-aaaa".toLowerCase())) {
                     if (sfech.length() < 10) {
                         sdf = new SimpleDateFormat("dd-MM-yy");
-                        fecha = sdf.parse(sfech);
                     }
                     fecha = sdf.parse(sfech);
                     e.setFecha(fecha);
                 }
             } catch (ParseException ex) {
-                Logger.getLogger(MantenedorEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-                log.log(Level.SEVERE, "Error en formato de fecha", ex);
-                //sfech = "error";
+                log.log(Level.ERROR, "Error en formato de fecha", ex);
                 lError.setText("Error en formato de fecha");
             }
             e.setNombre(nom);
@@ -406,17 +426,15 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
                 Date fecha = null;
                 SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
                 try {
-                    if (!sfech.equals("") && !sfech.toLowerCase().equals("DD-MM-AAAA".toLowerCase())) {
+                    if (!sfech.equals("") && !sfech.toLowerCase().equals("dd-MM-aaaa".toLowerCase())) {
                         if (sfech.length() < 10) {
                             sdf = new SimpleDateFormat("dd-MM-yy");
-                            fecha = sdf.parse(sfech);
                         }
                         fecha = sdf.parse(sfech);
                         e.setFecha(fecha);
                     }
                 } catch (ParseException ex) {
-                    Logger.getLogger(MantenedorEvaluacion.class.getName()).log(Level.SEVERE, null, ex);
-                    log.log(Level.SEVERE, "Error en formato de fecha", ex);
+                    log.log(Level.ERROR, "Error en formato de fecha", ex);
                     sfech = "error";
                     lError.setText("Error en formato de fecha");
                 }
@@ -427,12 +445,11 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
                 e.setIdEmpresa(new SsfEmpresa(BigDecimal.valueOf((long) Long.valueOf(idempresa))));
                 if (ebo.updateSP(e)) {
                     lExito.setText("Evaluación modificada exitosamente.");
-                    // método cargaTabla() no actualiza la tabla por motivos desconocidos
                     model.setValueAt(nom, tblEvaluacion.getSelectedRow(), 1);
                     model.setValueAt(cbEmpresa.getSelectedItem(), tblEvaluacion.getSelectedRow(), 3);
                     model.setValueAt(cbEstadoEval.getSelectedItem(), tblEvaluacion.getSelectedRow(), 4);
                     model.setValueAt(cbTipoEval.getSelectedItem(), tblEvaluacion.getSelectedRow(), 5);
-                    if (!sfech.equals("error")) {
+                    if (!sfech.equals("error") && fecha != null) {
                         sdf = new SimpleDateFormat("dd-MM-yyyy");
                         model.setValueAt(sdf.format(fecha), tblEvaluacion.getSelectedRow(), 2);
                     }
@@ -497,6 +514,9 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lError;
     private javax.swing.JLabel lExito;
@@ -511,15 +531,16 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
     private HashMap<String, Integer> mape = new HashMap<>();
     private HashMap<String, Integer> mapee = new HashMap<>();
     private static Logger log = Logger.getLogger(MantenedorEvaluacion.class.getName());
+    private FormsController formsController;
 
     public void cargaEvaluacionTipo() {
         SsfEvaluaciontipoBO etbo = new SsfEvaluaciontipoBO();
         List<SsfEvaluaciontipo> etlist = etbo.getAllSP();
         etlist.forEach((et) -> {
-            mapte.put(et.getTopo(), et.getId().intValue());
+            mapte.put(et.getTipo(), et.getId().intValue());
         });
         etlist.forEach((et) -> {
-            cbTipoEval.addItem(et.getTopo());
+            cbTipoEval.addItem(et.getTipo());
         });
     }
 
@@ -546,8 +567,9 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
     }
 
     private void cargaTabla() {
-        borrarTabla();
+        
         DefaultTableModel model = (DefaultTableModel) tblEvaluacion.getModel();
+        model.setRowCount(0);
         ebo = new SsfEvaluacionBO();
         List<SsfEvaluacion> le = ebo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -558,30 +580,9 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
             } else {
                 sfecha = "";
             }
-            model.addRow(new Object[]{e.getId(), e.getNombre(), sfecha, e.getIdEmpresa().getNombre(), e.getIdEvaluacionestado().getEstadoeval(), e.getIdEvaluaciontipo().getTopo(), sdf.format(e.getFechCreacion()), e.getEstado()});
+            model.addRow(new Object[]{e.getId(), e.getNombre(), sfecha, e.getIdEmpresa().getNombre(), e.getIdEvaluacionestado().getEstadoeval(), e.getIdEvaluaciontipo().getTipo(), sdf.format(e.getFechCreacion()), e.getEstado()});
         }
         tblEvaluacion.setModel(model);
-    }
-
-    private void borrarTabla() {
-        tblEvaluacion.removeAll();
-        tblEvaluacion.repaint();
-        DefaultTableModel model = (DefaultTableModel) tblEvaluacion.getModel();
-        model.fireTableDataChanged();
-        tblEvaluacion.repaint();
-        tblEvaluacion.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblEvaluacion.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblEvaluacion.repaint();
-        tblEvaluacion.setModel(model);
-        tblEvaluacion.repaint();
-        tblEvaluacion.removeAll();
     }
 
     private void desactivarEstado() {
@@ -597,6 +598,10 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
     private void limpiarMsgs() {
         lExito.setText("");
         lError.setText("");
+    }
+
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
     }
 
 }

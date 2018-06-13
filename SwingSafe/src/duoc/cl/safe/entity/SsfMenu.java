@@ -43,10 +43,10 @@ public class SsfMenu implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private BigDecimal id;
-    @Column(name = "FECH_CREACION", insertable = false, updatable = false)
+    @Column(name = "FECH_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechCreacion;
-    @Column(name = "ESTADO", insertable = false)
+    @Column(name = "ESTADO")
     private Short estado;
     @Column(name = "NOMBRE")
     private String nombre;
@@ -125,5 +125,5 @@ public class SsfMenu implements Serializable {
     public String toString() {
         return "duoc.cl.safe.entity.SsfMenu[ id=" + id + " ]";
     }
-    
+
 }

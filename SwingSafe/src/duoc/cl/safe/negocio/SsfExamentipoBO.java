@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfExamentipoBO {
+
     private SsfExamentipoDAO examentipoDAO;
 
     public SsfExamentipoBO() {
         this.examentipoDAO = new SsfExamentipoDAO();
     }
-    
-    public boolean add(SsfExamentipo examentipo){
+
+    public boolean add(SsfExamentipo examentipo) {
         return this.examentipoDAO.add(examentipo);
     }
-    
-    public boolean update(SsfExamentipo examentipo){
+
+    public boolean update(SsfExamentipo examentipo) {
         return this.examentipoDAO.update(examentipo);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.examentipoDAO.remove(id);
     }
-    
-    public SsfExamentipo find(int id){
+
+    public SsfExamentipo find(int id) {
         return this.examentipoDAO.find(id);
     }
-    
-    public List<SsfExamentipo> getAll(){
+
+    public List<SsfExamentipo> getAll() {
         return this.examentipoDAO.getAll();
     }
-    
-    public SsfExamentipo findSP(int id){
+
+    public SsfExamentipo findSP(int id) {
         return this.examentipoDAO.findSP(id);
     }
-    
-    public List<SsfExamentipo> getAllSP(){
+
+    public List<SsfExamentipo> getAllSP() {
         return this.examentipoDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfExamentipo examentipo){
+
+    public boolean addSP(SsfExamentipo examentipo) {
         return this.examentipoDAO.addSP(examentipo);
     }
-    
-    public boolean updateSP(SsfExamentipo examentipo){
+
+    public boolean updateSP(SsfExamentipo examentipo) {
         return this.examentipoDAO.updateSP(examentipo);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.examentipoDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.examentipoDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.examentipoDAO.activarSP(id);
     }
-    
+
 }

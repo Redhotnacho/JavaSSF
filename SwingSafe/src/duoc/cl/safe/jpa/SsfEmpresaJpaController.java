@@ -343,5 +343,5 @@ public class SsfEmpresaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

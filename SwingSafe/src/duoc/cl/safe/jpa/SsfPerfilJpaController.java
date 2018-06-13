@@ -256,5 +256,5 @@ public class SsfPerfilJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

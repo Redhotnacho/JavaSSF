@@ -14,59 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfCapacitacionempresaBO {
+
     private SsfCapacitacionempresaDAO capacitacionempresaDAO;
 
     public SsfCapacitacionempresaBO() {
         this.capacitacionempresaDAO = new SsfCapacitacionempresaDAO();
     }
-    
-    public boolean add(SsfCapacitacionempresa capacitacionempresa){
+
+    public boolean add(SsfCapacitacionempresa capacitacionempresa) {
         return this.capacitacionempresaDAO.add(capacitacionempresa);
     }
-    
-    public boolean update(SsfCapacitacionempresa capacitacionempresa){
+
+    public boolean update(SsfCapacitacionempresa capacitacionempresa) {
         return this.capacitacionempresaDAO.update(capacitacionempresa);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.capacitacionempresaDAO.remove(id);
     }
-    
-    public SsfCapacitacionempresa find(int id){
+
+    public SsfCapacitacionempresa find(int id) {
         return this.capacitacionempresaDAO.find(id);
     }
-    
-    public List<SsfCapacitacionempresa> getAll(){
+
+    public List<SsfCapacitacionempresa> getAll() {
         return this.capacitacionempresaDAO.getAll();
     }
-    
-    public SsfCapacitacionempresa findSP(int id){
+
+    public SsfCapacitacionempresa findSP(int id) {
         return this.capacitacionempresaDAO.findSP(id);
     }
-    
-    public List<SsfCapacitacionempresa> getAllSP(){
+
+    public List<SsfCapacitacionempresa> getAllSP() {
         return this.capacitacionempresaDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfCapacitacionempresa capacitacionempresa){
+
+    public boolean addSP(SsfCapacitacionempresa capacitacionempresa) {
         return this.capacitacionempresaDAO.addSP(capacitacionempresa);
     }
-    
-    public boolean updateSP(SsfCapacitacionempresa capacitacionempresa){
+
+    public boolean updateSP(SsfCapacitacionempresa capacitacionempresa) {
         return this.capacitacionempresaDAO.updateSP(capacitacionempresa);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.capacitacionempresaDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.capacitacionempresaDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.capacitacionempresaDAO.activarSP(id);
     }
-    
-    
+
 }

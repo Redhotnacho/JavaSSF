@@ -36,8 +36,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "SsfCapacitaciondia.findById", query = "SELECT s FROM SsfCapacitaciondia s WHERE s.id = :id")
     , @NamedQuery(name = "SsfCapacitaciondia.findByFechCreacion", query = "SELECT s FROM SsfCapacitaciondia s WHERE s.fechCreacion = :fechCreacion")
     , @NamedQuery(name = "SsfCapacitaciondia.findByEstado", query = "SELECT s FROM SsfCapacitaciondia s WHERE s.estado = :estado")
-    , @NamedQuery(name = "SsfCapacitaciondia.findByDia", query = "SELECT s FROM SsfCapacitaciondia s WHERE s.dia = :dia")
-    , @NamedQuery(name = "SsfCapacitaciondia.findByCantidadPresentes", query = "SELECT s FROM SsfCapacitaciondia s WHERE s.cantidadPresentes = :cantidadPresentes")})
+    , @NamedQuery(name = "SsfCapacitaciondia.findByDia", query = "SELECT s FROM SsfCapacitaciondia s WHERE s.dia = :dia")})
 public class SsfCapacitaciondia implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -46,16 +45,14 @@ public class SsfCapacitaciondia implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private BigDecimal id;
-    @Column(name = "FECH_CREACION", insertable = false, updatable = false)
+    @Column(name = "FECH_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechCreacion;
-    @Column(name = "ESTADO", insertable = false)
+    @Column(name = "ESTADO")
     private Short estado;
     @Column(name = "DIA")
     @Temporal(TemporalType.TIMESTAMP)
     private Date dia;
-    @Column(name = "CANTIDAD_PRESENTES")
-    private Long cantidadPresentes;
     @JoinColumn(name = "ID_CAPAEMPRESA", referencedColumnName = "ID")
     @ManyToOne
     private SsfCapacitacionempresa idCapaempresa;
@@ -101,14 +98,6 @@ public class SsfCapacitaciondia implements Serializable {
         this.dia = dia;
     }
 
-    public Long getCantidadPresentes() {
-        return cantidadPresentes;
-    }
-
-    public void setCantidadPresentes(Long cantidadPresentes) {
-        this.cantidadPresentes = cantidadPresentes;
-    }
-
     public SsfCapacitacionempresa getIdCapaempresa() {
         return idCapaempresa;
     }
@@ -150,5 +139,5 @@ public class SsfCapacitaciondia implements Serializable {
     public String toString() {
         return "duoc.cl.safe.entity.SsfCapacitaciondia[ id=" + id + " ]";
     }
-    
+
 }

@@ -261,5 +261,5 @@ public class SsfAlumnoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

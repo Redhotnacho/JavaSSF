@@ -9,8 +9,8 @@ import duoc.cl.safe.entity.SsfMenu;
 import duoc.cl.safe.jpa.SsfMenuJpaController;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -22,11 +22,12 @@ import javax.persistence.StoredProcedureQuery;
  * @author Nacho
  */
 public class SsfMenuDAO {
+
     private static Logger log = Logger.getLogger(SsfMenuDAO.class.getName());
-    
-    public boolean add(SsfMenu menu){
+
+    public boolean add(SsfMenu menu) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfMenuJpaController service = new SsfMenuJpaController(emf);
             em.getTransaction().begin();
@@ -34,15 +35,14 @@ public class SsfMenuDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
-    
-    public boolean update(SsfMenu menu){
+
+    public boolean update(SsfMenu menu) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfMenuJpaController service = new SsfMenuJpaController(emf);
             em.getTransaction().begin();
@@ -50,15 +50,14 @@ public class SsfMenuDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfMenuJpaController service = new SsfMenuJpaController(emf);
             em.getTransaction().begin();
@@ -66,15 +65,14 @@ public class SsfMenuDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
-    
-    public SsfMenu find(int id){
+
+    public SsfMenu find(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfMenuJpaController service = new SsfMenuJpaController(emf);
             em.getTransaction().begin();
@@ -82,28 +80,29 @@ public class SsfMenuDAO {
             em.getTransaction().commit();
             return menu;
         } catch (Exception ex) {
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
-    
-    public List<SsfMenu> getAll(){
+
+    public List<SsfMenu> getAll() {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfMenuJpaController service = new SsfMenuJpaController(emf);
             em.getTransaction().begin();
             List<SsfMenu> lista = service.findSsfMenuEntities();
+            lista.forEach((r) -> {
+                em.refresh(r);
+            });
             em.getTransaction().commit();
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
-    
+
     public SsfMenu findSP(int id) {
         SsfMenu objMenu = null;
         try {
@@ -122,7 +121,7 @@ public class SsfMenuDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfMenu> menus = (List<SsfMenu>) storedProcedure.getOutputParameterValue("o_data");
-            
+
             if (!menus.isEmpty()) {
                 objMenu = menus.get(0);
             }
@@ -130,8 +129,7 @@ public class SsfMenuDAO {
             return objMenu;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
@@ -149,12 +147,13 @@ public class SsfMenuDAO {
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             System.out.println("o_glosa : " + o_glosa);
             menus = (List<SsfMenu>) storedProcedure.getOutputParameterValue("o_data");
-
+            menus.forEach((r) -> {
+                em.refresh(r);
+            });
             return menus;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
@@ -184,8 +183,7 @@ public class SsfMenuDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
@@ -214,8 +212,7 @@ public class SsfMenuDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
@@ -239,8 +236,7 @@ public class SsfMenuDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
@@ -267,8 +263,7 @@ public class SsfMenuDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al desactivar", ex);
+            log.log(Level.ERROR, "Error al desactivar", ex);
             return false;
         }
     }
@@ -295,10 +290,9 @@ public class SsfMenuDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfMenuDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al activar", ex);
+            log.log(Level.ERROR, "Error al activar", ex);
             return false;
         }
     }
-    
+
 }

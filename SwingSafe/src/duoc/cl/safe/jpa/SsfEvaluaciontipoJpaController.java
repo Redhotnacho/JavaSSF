@@ -256,5 +256,5 @@ public class SsfEvaluaciontipoJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

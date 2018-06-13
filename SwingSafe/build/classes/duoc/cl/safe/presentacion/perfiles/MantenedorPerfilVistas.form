@@ -1,10 +1,22 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
 <Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+  <NonVisualComponents>
+    <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
+      <SubComponents>
+        <Menu class="javax.swing.JMenu" name="jMenu1">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Cargando..."/>
+          </Properties>
+        </Menu>
+      </SubComponents>
+    </Menu>
+  </NonVisualComponents>
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
   <SyntheticProperties>
+    <SyntheticProperty name="menuBar" type="java.lang.String" value="jMenuBar1"/>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
@@ -26,63 +38,69 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="0" attributes="0">
+          <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="jScrollPane1" pref="780" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
-                      <Component id="lExito" min="-2" pref="215" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="lError" min="-2" pref="321" max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="tfBuscarVista" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="bBuscarVista" min="-2" pref="122" max="-2" attributes="0"/>
-                                  <Component id="lErrorBuscarVista" min="-2" pref="260" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Component id="tfURL" alignment="0" max="32767" attributes="0"/>
-                          <Group type="102" alignment="0" attributes="0">
-                              <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
-                              <Component id="bAgregar" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="lExito" min="-2" pref="215" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Component id="bLimpiar" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Component id="tbEstado" max="32767" attributes="0"/>
+                              <Component id="lError" min="-2" pref="321" max="-2" attributes="0"/>
                           </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="cbPerfil" max="32767" attributes="0"/>
-                                  <Component id="cbVista" min="-2" pref="200" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                  <Component id="tfBuscarVistaPerfil" max="32767" attributes="0"/>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Group type="103" groupAlignment="1" max="-2" attributes="0">
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="tfBuscarVista" alignment="0" min="-2" pref="195" max="-2" attributes="0"/>
+                                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="bBuscarVista" min="-2" pref="122" max="-2" attributes="0"/>
+                                          <Component id="lErrorBuscarVista" min="-2" pref="260" max="-2" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Component id="tfURL" alignment="0" max="32767" attributes="0"/>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="207" max="-2" attributes="0"/>
+                                      <Component id="bAgregar" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="tfMenu" min="-2" pref="163" max="-2" attributes="0"/>
+                                      <Component id="bLimpiar" min="-2" max="-2" attributes="0"/>
+                                      <EmptySpace max="-2" attributes="0"/>
+                                      <Component id="tbEstado" max="32767" attributes="0"/>
+                                  </Group>
+                                  <Group type="102" alignment="1" attributes="0">
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="cbPerfil" max="32767" attributes="0"/>
+                                          <Component id="cbVista" min="-2" pref="200" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="tfBuscarVistaPerfil" max="32767" attributes="0"/>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="tfMenu" min="-2" pref="163" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
                                   </Group>
                               </Group>
+                              <EmptySpace max="-2" attributes="0"/>
+                              <Group type="103" groupAlignment="1" attributes="0">
+                                  <Component id="bBuscarVistaPerfil" min="-2" pref="152" max="-2" attributes="0"/>
+                                  <Component id="bRefrescar" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
+                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="1" attributes="0">
-                          <Component id="bBuscarVistaPerfil" min="-2" pref="152" max="-2" attributes="0"/>
-                          <Component id="bRefrescar" min="-2" max="-2" attributes="0"/>
-                      </Group>
+                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -92,7 +110,9 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
+              <Component id="jLabel8" min="-2" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="cbPerfil" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -332,6 +352,17 @@
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bRefrescarActionPerformed"/>
       </Events>
+    </Component>
+    <Component class="javax.swing.JLabel" name="jLabel8">
+      <Properties>
+        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+          <Font name="Tahoma" size="14" style="0"/>
+        </Property>
+        <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+          <Color blue="66" green="0" red="66" type="rgb"/>
+        </Property>
+        <Property name="text" type="java.lang.String" value="Mantenedor Vistas Perfil"/>
+      </Properties>
     </Component>
   </SubComponents>
 </Form>

@@ -222,5 +222,5 @@ public class SsfVistaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

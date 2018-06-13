@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "SsfEvaluaciontipo.findById", query = "SELECT s FROM SsfEvaluaciontipo s WHERE s.id = :id")
     , @NamedQuery(name = "SsfEvaluaciontipo.findByFechCreacion", query = "SELECT s FROM SsfEvaluaciontipo s WHERE s.fechCreacion = :fechCreacion")
     , @NamedQuery(name = "SsfEvaluaciontipo.findByEstado", query = "SELECT s FROM SsfEvaluaciontipo s WHERE s.estado = :estado")
-    , @NamedQuery(name = "SsfEvaluaciontipo.findByTopo", query = "SELECT s FROM SsfEvaluaciontipo s WHERE s.topo = :topo")
+    , @NamedQuery(name = "SsfEvaluaciontipo.findByTipo", query = "SELECT s FROM SsfEvaluaciontipo s WHERE s.tipo = :tipo")
     , @NamedQuery(name = "SsfEvaluaciontipo.findByDescripcion", query = "SELECT s FROM SsfEvaluaciontipo s WHERE s.descripcion = :descripcion")})
 public class SsfEvaluaciontipo implements Serializable {
 
@@ -45,13 +45,13 @@ public class SsfEvaluaciontipo implements Serializable {
     @Basic(optional = false)
     @Column(name = "ID")
     private BigDecimal id;
-    @Column(name = "FECH_CREACION", insertable = false, updatable = false)
+    @Column(name = "FECH_CREACION")
     @Temporal(TemporalType.TIMESTAMP)
     private Date fechCreacion;
-    @Column(name = "ESTADO", insertable = false)
+    @Column(name = "ESTADO")
     private Short estado;
-    @Column(name = "TOPO")
-    private String topo;
+    @Column(name = "TIPO")
+    private String tipo;
     @Column(name = "DESCRIPCION")
     private String descripcion;
     @OneToMany(mappedBy = "idEvaluaciontipo")
@@ -90,12 +90,12 @@ public class SsfEvaluaciontipo implements Serializable {
         this.estado = estado;
     }
 
-    public String getTopo() {
-        return topo;
+    public String getTipo() {
+        return tipo;
     }
 
-    public void setTopo(String topo) {
-        this.topo = topo;
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
     }
 
     public String getDescripcion() {
@@ -148,5 +148,5 @@ public class SsfEvaluaciontipo implements Serializable {
     public String toString() {
         return "duoc.cl.safe.entity.SsfEvaluaciontipo[ id=" + id + " ]";
     }
-    
+
 }

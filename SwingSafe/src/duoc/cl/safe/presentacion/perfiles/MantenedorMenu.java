@@ -6,11 +6,16 @@
 package duoc.cl.safe.presentacion.perfiles;
 
 import duoc.cl.safe.entity.SsfMenu;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfMenuBO;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -23,6 +28,7 @@ public class MantenedorMenu extends javax.swing.JFrame {
      */
     public MantenedorMenu() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
     }
 
     /**
@@ -44,6 +50,9 @@ public class MantenedorMenu extends javax.swing.JFrame {
         bLimpiar = new javax.swing.JButton();
         bModificar = new javax.swing.JButton();
         bAgregar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -118,39 +127,54 @@ public class MantenedorMenu extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("Mantenedor Parámetro");
+
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(70, 70, 70)
+                            .addComponent(jLabel1)
+                            .addGap(18, 18, 18)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(bAgregar)
+                                .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(bModificar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(bLimpiar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createSequentialGroup()
+                            .addContainerGap()
+                            .addComponent(jScrollPane1)))
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(70, 70, 70)
-                        .addComponent(jLabel1)
-                        .addGap(18, 18, 18)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bAgregar)
-                            .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 154, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bModificar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(bLimpiar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(tbEstado, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jLabel8)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(65, 65, 65)
+                .addGap(30, 30, 30)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(tfNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -165,7 +189,7 @@ public class MantenedorMenu extends javax.swing.JFrame {
                     .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 357, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 336, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -242,7 +266,7 @@ public class MantenedorMenu extends javax.swing.JFrame {
             if (tfNombre.getText().trim().equals("")) {
                 lError.setText("Nombre Menú no puede estar en blanco");
             } else {
-                String nom,id;
+                String nom, id;
                 id = model.getValueAt(tblMenu.getSelectedRow(), 0).toString();
                 nom = tfNombre.getText().trim();
                 SsfMenu menu = new SsfMenu();
@@ -250,16 +274,19 @@ public class MantenedorMenu extends javax.swing.JFrame {
                 menu.setNombre(nom);
                 if (mbo.updateSP(menu)) {
                     lExito.setText("Menú modificado exitosamente.");
-                    // método cargaTabla() no actualiza la tabla por motivos desconocidos
                     model.setValueAt(nom, tblMenu.getSelectedRow(), 1);
                 } else {
                     lError.setText("No se pudo modificar");
+                    Logger.getLogger(MantenedorMenu.class.getName()).log(Level.WARN, "No se pudo modificar");
                 }
             }
         }
     }//GEN-LAST:event_bModificarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
+        this.setLocationRelativeTo(null);
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
 
@@ -322,6 +349,9 @@ public class MantenedorMenu extends javax.swing.JFrame {
     private javax.swing.JButton bLimpiar;
     private javax.swing.JButton bModificar;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lError;
     private javax.swing.JLabel lExito;
@@ -330,10 +360,12 @@ public class MantenedorMenu extends javax.swing.JFrame {
     private javax.swing.JTextField tfNombre;
     // End of variables declaration//GEN-END:variables
     private SsfMenuBO mbo;
+    private FormsController formsController;
 
     private void cargaTabla() {
-        borrarTabla();
+        
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
+        model.setRowCount(0);
         mbo = new SsfMenuBO();
         List<SsfMenu> lm = mbo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -342,27 +374,6 @@ public class MantenedorMenu extends javax.swing.JFrame {
         });
         tblMenu.setModel(model);
 
-    }
-
-    private void borrarTabla() {
-        tblMenu.removeAll();
-        tblMenu.repaint();
-        DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
-        model.fireTableDataChanged();
-        tblMenu.repaint();
-        tblMenu.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblMenu.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblMenu.repaint();
-        tblMenu.setModel(model);
-        tblMenu.repaint();
-        tblMenu.removeAll();
     }
 
     private void desactivarEstado() {
@@ -390,8 +401,9 @@ public class MantenedorMenu extends javax.swing.JFrame {
     }
 
     private void cargaMenus(List<SsfMenu> mm) {
-        borrarTabla();
+        
         DefaultTableModel model = (DefaultTableModel) tblMenu.getModel();
+        model.setRowCount(0);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         for (SsfMenu m : mm) {
             model.addRow(new Object[]{m.getId(), m.getNombre(),
@@ -400,6 +412,8 @@ public class MantenedorMenu extends javax.swing.JFrame {
         tblMenu.setModel(model);
     }
 
-
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
+    }
 
 }

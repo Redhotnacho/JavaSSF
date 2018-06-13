@@ -229,5 +229,5 @@ public class SsfAlumnocapaempresaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

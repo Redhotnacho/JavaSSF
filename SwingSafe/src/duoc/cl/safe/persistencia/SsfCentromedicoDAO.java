@@ -9,8 +9,8 @@ import duoc.cl.safe.entity.SsfCentromedico;
 import duoc.cl.safe.jpa.SsfCentromedicoJpaController;
 import java.math.BigDecimal;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.ParameterMode;
@@ -22,11 +22,12 @@ import javax.persistence.StoredProcedureQuery;
  * @author Nacho
  */
 public class SsfCentromedicoDAO {
+
     private static Logger log = Logger.getLogger(SsfCentromedicoDAO.class.getName());
-    
-    public boolean add(SsfCentromedico centromedico){
+
+    public boolean add(SsfCentromedico centromedico) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfCentromedicoJpaController service = new SsfCentromedicoJpaController(emf);
             em.getTransaction().begin();
@@ -34,15 +35,14 @@ public class SsfCentromedicoDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
-    
-    public boolean update(SsfCentromedico centromedico){
+
+    public boolean update(SsfCentromedico centromedico) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfCentromedicoJpaController service = new SsfCentromedicoJpaController(emf);
             em.getTransaction().begin();
@@ -50,15 +50,14 @@ public class SsfCentromedicoDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfCentromedicoJpaController service = new SsfCentromedicoJpaController(emf);
             em.getTransaction().begin();
@@ -66,15 +65,14 @@ public class SsfCentromedicoDAO {
             em.getTransaction().commit();
             return true;
         } catch (Exception ex) {
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
-    
-    public SsfCentromedico find(int id){
+
+    public SsfCentromedico find(int id) {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfCentromedicoJpaController service = new SsfCentromedicoJpaController(emf);
             em.getTransaction().begin();
@@ -82,28 +80,29 @@ public class SsfCentromedicoDAO {
             em.getTransaction().commit();
             return centromedico;
         } catch (Exception ex) {
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
-    
-    public List<SsfCentromedico> getAll(){
+
+    public List<SsfCentromedico> getAll() {
         try {
-            EntityManagerFactory emf= Persistence.createEntityManagerFactory("SwingSafePU");
+            EntityManagerFactory emf = Persistence.createEntityManagerFactory("SwingSafePU");
             EntityManager em = emf.createEntityManager();
             SsfCentromedicoJpaController service = new SsfCentromedicoJpaController(emf);
             em.getTransaction().begin();
             List<SsfCentromedico> lista = service.findSsfCentromedicoEntities();
+            lista.forEach((r) -> {
+                em.refresh(r);
+            });
             em.getTransaction().commit();
             return lista;
         } catch (Exception ex) {
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
-    
+
     public SsfCentromedico findSP(int id) {
         SsfCentromedico objCentromedico = null;
         try {
@@ -122,7 +121,7 @@ public class SsfCentromedicoDAO {
             System.out.println("o_glosa : " + o_glosa);
             System.out.println("o_estado : " + o_estado);
             List<SsfCentromedico> centromedicos = (List<SsfCentromedico>) storedProcedure.getOutputParameterValue("o_data");
-            
+
             if (!centromedicos.isEmpty()) {
                 objCentromedico = centromedicos.get(0);
             }
@@ -130,8 +129,7 @@ public class SsfCentromedicoDAO {
             return objCentromedico;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar", ex);
+            log.log(Level.ERROR, "Error al buscar", ex);
             return null;
         }
     }
@@ -149,12 +147,13 @@ public class SsfCentromedicoDAO {
             String o_glosa = (String) storedProcedure.getOutputParameterValue("o_glosa");
             System.out.println("o_glosa : " + o_glosa);
             centromedicos = (List<SsfCentromedico>) storedProcedure.getOutputParameterValue("o_data");
-
+            centromedicos.forEach((r) -> {
+                em.refresh(r);
+            });
             return centromedicos;
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al buscar elementos", ex);
+            log.log(Level.ERROR, "Error al buscar elementos", ex);
             return null;
         }
     }
@@ -186,8 +185,7 @@ public class SsfCentromedicoDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al agregar", ex);
+            log.log(Level.ERROR, "Error al agregar", ex);
             return false;
         }
     }
@@ -218,8 +216,7 @@ public class SsfCentromedicoDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al modificar", ex);
+            log.log(Level.ERROR, "Error al modificar", ex);
             return false;
         }
     }
@@ -243,8 +240,7 @@ public class SsfCentromedicoDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al borrar", ex);
+            log.log(Level.ERROR, "Error al borrar", ex);
             return false;
         }
     }
@@ -271,8 +267,7 @@ public class SsfCentromedicoDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al desactivar", ex);
+            log.log(Level.ERROR, "Error al desactivar", ex);
             return false;
         }
     }
@@ -299,10 +294,9 @@ public class SsfCentromedicoDAO {
             }
         } catch (Exception ex) {
             System.out.println("Error: " + ex.getMessage());
-            Logger.getLogger(SsfCentromedicoDAO.class.getName()).log(Level.SEVERE, null, ex);
-            log.log(Level.SEVERE, "Error al activar", ex);
+            log.log(Level.ERROR, "Error al activar", ex);
             return false;
         }
     }
-    
+
 }

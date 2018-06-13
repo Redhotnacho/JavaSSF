@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfCertificadoBO {
+
     private SsfCertificadoDAO certificadoDAO;
 
     public SsfCertificadoBO() {
         this.certificadoDAO = new SsfCertificadoDAO();
     }
-    
-    public boolean add(SsfCertificado certificado){
+
+    public boolean add(SsfCertificado certificado) {
         return this.certificadoDAO.add(certificado);
     }
-    
-    public boolean update(SsfCertificado certificado){
+
+    public boolean update(SsfCertificado certificado) {
         return this.certificadoDAO.update(certificado);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.certificadoDAO.remove(id);
     }
-    
-    public SsfCertificado find(int id){
+
+    public SsfCertificado find(int id) {
         return this.certificadoDAO.find(id);
     }
-    
-    public List<SsfCertificado> getAll(){
+
+    public List<SsfCertificado> getAll() {
         return this.certificadoDAO.getAll();
     }
-    
-    public SsfCertificado findSP(int id){
+
+    public SsfCertificado findSP(int id) {
         return this.certificadoDAO.findSP(id);
     }
-    
-    public List<SsfCertificado> getAllSP(){
+
+    public List<SsfCertificado> getAllSP() {
         return this.certificadoDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfCertificado certificado){
+
+    public boolean addSP(SsfCertificado certificado) {
         return this.certificadoDAO.addSP(certificado);
     }
-    
-    public boolean updateSP(SsfCertificado certificado){
+
+    public boolean updateSP(SsfCertificado certificado) {
         return this.certificadoDAO.updateSP(certificado);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.certificadoDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.certificadoDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.certificadoDAO.activarSP(id);
     }
-    
+
 }

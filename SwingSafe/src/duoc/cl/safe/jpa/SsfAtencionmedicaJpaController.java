@@ -301,5 +301,5 @@ public class SsfAtencionmedicaJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

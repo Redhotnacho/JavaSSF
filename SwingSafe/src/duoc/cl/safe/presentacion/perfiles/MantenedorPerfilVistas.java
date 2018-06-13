@@ -7,8 +7,8 @@ package duoc.cl.safe.presentacion.perfiles;
 
 import duoc.cl.safe.entity.SsfPerfil;
 import duoc.cl.safe.entity.SsfPerfilvista;
-import duoc.cl.safe.entity.SsfUsuario;
 import duoc.cl.safe.entity.SsfVista;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfPerfilBO;
 import duoc.cl.safe.negocio.SsfPerfilvistaBO;
 import duoc.cl.safe.negocio.SsfVistaBO;
@@ -18,6 +18,10 @@ import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import javax.swing.table.DefaultTableModel;
+import org.apache.log4j.Logger;
+import org.apache.log4j.Level;
+
+import org.apache.log4j.PropertyConfigurator;
 
 /**
  *
@@ -30,6 +34,8 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
      */
     public MantenedorPerfilVistas() {
         initComponents();
+        PropertyConfigurator.configure("log4j.properties");
+        model = (DefaultTableModel) tblPerfilVista.getModel();
     }
 
     /**
@@ -62,6 +68,9 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
         tfBuscarVistaPerfil = new javax.swing.JTextField();
         bBuscarVistaPerfil = new javax.swing.JButton();
         bRefrescar = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jMenuBar1 = new javax.swing.JMenuBar();
+        jMenu1 = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -170,6 +179,15 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
             }
         });
 
+        jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(102, 0, 102));
+        jLabel8.setText("Mantenedor Vistas Perfil");
+
+        jMenu1.setText("Cargando...");
+        jMenuBar1.add(jMenu1);
+
+        setJMenuBar(jMenuBar1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -179,52 +197,58 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 780, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfBuscarVista, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel3))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(bBuscarVista, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lErrorBuscarVista, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(tfURL, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addGap(207, 207, 207)
-                                .addComponent(bAgregar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(bLimpiar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(tbEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jLabel2)
-                                    .addComponent(jLabel1))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(cbPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbVista, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(44, 44, 44)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfBuscarVistaPerfil)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addComponent(jLabel4)
+                                .addComponent(lExito, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(lError, javax.swing.GroupLayout.PREFERRED_SIZE, 321, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(tfBuscarVista, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(jLabel3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(bBuscarVista, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lErrorBuscarVista, javax.swing.GroupLayout.PREFERRED_SIZE, 260, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                    .addComponent(tfURL, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                                        .addGap(207, 207, 207)
+                                        .addComponent(bAgregar)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(tfMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(bBuscarVistaPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(bRefrescar))))
+                                        .addComponent(bLimpiar)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(tbEstado, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(jLabel2)
+                                            .addComponent(jLabel1))
+                                        .addGap(18, 18, 18)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(cbPerfil, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(cbVista, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(44, 44, 44)
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(tfBuscarVistaPerfil)
+                                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                .addComponent(jLabel4)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(tfMenu, javax.swing.GroupLayout.PREFERRED_SIZE, 163, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(bBuscarVistaPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(bRefrescar)))
+                            .addComponent(jLabel8))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(64, 64, 64)
+                .addGap(29, 29, 29)
+                .addComponent(jLabel8)
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cbPerfil, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -283,11 +307,15 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
                 cargaTabla();
             } else {
                 lError.setText("No se pudo agregar");
+                Logger.getLogger(MantenedorPerfilVistas.class.getName()).log(Level.WARN, "No se pudo agregar");
             }
         }
     }//GEN-LAST:event_bAgregarActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        this.setJMenuBar(formsController.getMenu().getMenuBar());
+        formsController.getMenu().setjFrame(this);
+        this.setLocationRelativeTo(null);
         cargaVista();
         cargaPerfil();
         cargaTabla();
@@ -439,6 +467,16 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     }//GEN-LAST:event_bBuscarVistaPerfilActionPerformed
 
     private void bRefrescarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRefrescarActionPerformed
+        tbEstado.setEnabled(false);
+        limpiarMsgs();
+        tblPerfilVista.clearSelection();
+        tfBuscarVista.setText("");
+        tfBuscarVistaPerfil.setText("");
+        tfMenu.setText("");
+        tfURL.setText("");
+        cargaVista();
+        cbVista.setSelectedIndex(0);
+        cbPerfil.setSelectedIndex(0);
         cargaTabla();
     }//GEN-LAST:event_bRefrescarActionPerformed
 
@@ -537,6 +575,9 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lError;
     private javax.swing.JLabel lErrorBuscarVista;
@@ -550,19 +591,19 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private HashMap<String, SsfVista> mapv;
     private HashMap<String, Integer> mapp;
-    private SsfUsuario usuarioSesion;
     private List<SsfVista> vlist;
     private DefaultTableModel model;
+    private FormsController formsController;
 
     public void cargaVista() {
         mapv = new HashMap<>();
         cbVista.removeAllItems();
         cbVista.addItem("- Seleccione Vista -");
         SsfVistaBO vbo = new SsfVistaBO();
-        if (vlist==null) {
+        if (vlist == null) {
             vlist = vbo.getAllSP();
         }
-        
+
         vlist.forEach((v) -> {
             mapv.put(v.getNombre(), v);
         });
@@ -598,7 +639,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     }
 
     private void cargaPerfilvistas(List<SsfPerfilvista> pvv) {
-        borrarTabla();
+        model.setRowCount(0);
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         for (SsfPerfilvista pv : pvv) {
 
@@ -628,7 +669,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     }
 
     private void cargaTabla() {
-        borrarTabla();
+        model.setRowCount(0);
         SsfPerfilvistaBO pvbo = new SsfPerfilvistaBO();
         List<SsfPerfilvista> lpv = pvbo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
@@ -639,27 +680,6 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
                 pv.getEstado()});
         }
         tblPerfilVista.setModel(model);
-    }
-
-    private void borrarTabla() {
-        tblPerfilVista.removeAll();
-        tblPerfilVista.repaint();
-        model = (DefaultTableModel) tblPerfilVista.getModel();
-        model.fireTableDataChanged();
-        tblPerfilVista.repaint();
-        tblPerfilVista.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblPerfilVista.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblPerfilVista.repaint();
-        tblPerfilVista.setModel(model);
-        tblPerfilVista.repaint();
-        tblPerfilVista.removeAll();
     }
 
     private void limpiarMsgs() {
@@ -694,4 +714,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
         return v;
     }
      */
+    public void setFormsController(FormsController formsController) {
+        this.formsController = formsController;
+    }
 }

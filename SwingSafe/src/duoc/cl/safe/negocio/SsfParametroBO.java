@@ -14,58 +14,59 @@ import java.util.List;
  * @author Nacho
  */
 public class SsfParametroBO {
+
     private SsfParametroDAO parametroDAO;
 
     public SsfParametroBO() {
         this.parametroDAO = new SsfParametroDAO();
     }
-    
-    public boolean add(SsfParametro parametro){
+
+    public boolean add(SsfParametro parametro) {
         return this.parametroDAO.add(parametro);
     }
-    
-    public boolean update(SsfParametro parametro){
+
+    public boolean update(SsfParametro parametro) {
         return this.parametroDAO.update(parametro);
     }
-    
-    public boolean remove(int id){
+
+    public boolean remove(int id) {
         return this.parametroDAO.remove(id);
     }
-    
-    public SsfParametro find(int id){
+
+    public SsfParametro find(int id) {
         return this.parametroDAO.find(id);
     }
-    
-    public List<SsfParametro> getAll(){
+
+    public List<SsfParametro> getAll() {
         return this.parametroDAO.getAll();
     }
-    
-    public SsfParametro findSP(int id){
+
+    public SsfParametro findSP(int id) {
         return this.parametroDAO.findSP(id);
     }
-    
-    public List<SsfParametro> getAllSP(){
+
+    public List<SsfParametro> getAllSP() {
         return this.parametroDAO.getAllSP();
     }
-    
-    public boolean addSP(SsfParametro parametro){
+
+    public boolean addSP(SsfParametro parametro) {
         return this.parametroDAO.addSP(parametro);
     }
-    
-    public boolean updateSP(SsfParametro parametro){
+
+    public boolean updateSP(SsfParametro parametro) {
         return this.parametroDAO.updateSP(parametro);
     }
-    
-    public boolean removeSP(int id){
+
+    public boolean removeSP(int id) {
         return this.parametroDAO.removeSP(id);
     }
-    
-    public boolean desactivarSP(int id){
+
+    public boolean desactivarSP(int id) {
         return this.parametroDAO.desactivarSP(id);
     }
-    
-    public boolean activarSP(int id){
+
+    public boolean activarSP(int id) {
         return this.parametroDAO.activarSP(id);
     }
-    
+
 }
