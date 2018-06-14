@@ -7,6 +7,7 @@ package duoc.cl.safe.presentacion.capacitaciones;
 
 import duoc.cl.safe.entity.SsfCapacitaciontipo;
 import duoc.cl.safe.entity.SsfCapacitacion;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfCapacitaciontipoBO;
 import duoc.cl.safe.negocio.SsfCapacitacionBO;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
@@ -32,6 +34,7 @@ public class MantenedorCapacitacion extends javax.swing.JFrame {
     public MantenedorCapacitacion() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -271,9 +274,9 @@ public class MantenedorCapacitacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        /*
+        
         this.setJMenuBar(formsController.getMenu().getMenuBar());
-        formsController.getMenu().setjFrame(this);*/
+        formsController.getMenu().setjFrame(this);
         this.setLocationRelativeTo(null);
         cargaTabla();
         cargaTipo();
@@ -613,8 +616,8 @@ public class MantenedorCapacitacion extends javax.swing.JFrame {
     private SsfCapacitacionBO cbo;
     private HashMap<String, Integer> mapct = new HashMap<>();
     private static Logger log = Logger.getLogger(MantenedorCapacitacion.class.getName());
-
-    //private FormsController formsController;
+    private FormsController formsController;
+    
     public void cargaTipo() {
         SsfCapacitaciontipoBO ctbo = new SsfCapacitaciontipoBO();
         List<SsfCapacitaciontipo> ctlist = ctbo.getAllSP();
@@ -664,8 +667,20 @@ public class MantenedorCapacitacion extends javax.swing.JFrame {
         lError.setText("");
     }
 
-    /*
+    
     public void setFormsController(FormsController formsController) {
         this.formsController = formsController;
-    }*/
+    }
+    
+    private void resizeTabla() {
+        tblCapacitacion.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblCapacitacion.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblCapacitacion.getColumnModel().getColumn(1).setMaxWidth(200);
+        tblCapacitacion.getColumnModel().getColumn(2).setMaxWidth(50);
+        tblCapacitacion.getColumnModel().getColumn(3).setMaxWidth(200);
+        tblCapacitacion.getColumnModel().getColumn(4).setMaxWidth(80);
+        tblCapacitacion.getColumnModel().getColumn(5).setMaxWidth(120);
+        tblCapacitacion.getColumnModel().getColumn(6).setMaxWidth(120);
+        tblCapacitacion.getColumnModel().getColumn(7).setMaxWidth(50);
+    }
 }

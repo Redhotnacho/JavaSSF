@@ -39,6 +39,7 @@ public class MantenedorUsuario extends javax.swing.JFrame {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
         model = (DefaultTableModel) tblUsuario.getModel();
+        resizeTabla();
     }
 
     /**
@@ -936,5 +937,18 @@ public class MantenedorUsuario extends javax.swing.JFrame {
     public void setFormsController(FormsController formsController) {
         this.formsController = formsController;
     }
+    
+    private void resizeTabla() { 
+        tblUsuario.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblUsuario.getColumnModel().getColumn(1).setMaxWidth(110);
+        tblUsuario.getColumnModel().getColumn(2).setMaxWidth(100);
+        tblUsuario.getColumnModel().getColumn(3).setMaxWidth(200);
+        tblUsuario.getColumnModel().getColumn(4).setMaxWidth(150);
+        tblUsuario.getColumnModel().getColumn(5).setMaxWidth(200);
+        tblUsuario.getColumnModel().getColumn(6).setMaxWidth(110);
+        tblUsuario.getColumnModel().getColumn(7).setMaxWidth(50);
+    }
+    
+    
 
 }

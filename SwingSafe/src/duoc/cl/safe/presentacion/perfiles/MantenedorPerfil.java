@@ -29,6 +29,7 @@ public class MantenedorPerfil extends javax.swing.JFrame {
     public MantenedorPerfil() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -436,4 +437,13 @@ public class MantenedorPerfil extends javax.swing.JFrame {
         this.formsController = formsController;
     }
 
+    private void resizeTabla() {
+        tblPerfil.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblPerfil.getColumnModel().getColumn(1).setMaxWidth(200);
+        tblPerfil.getColumnModel().getColumn(2).setMaxWidth(400);
+        tblPerfil.getColumnModel().getColumn(3).setMaxWidth(120);
+        tblPerfil.getColumnModel().getColumn(4).setMaxWidth(50);
+    }
+    
+    
 }

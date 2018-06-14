@@ -38,6 +38,7 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
     public MantenedorEvaluacion() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -604,4 +605,16 @@ public class MantenedorEvaluacion extends javax.swing.JFrame {
         this.formsController = formsController;
     }
 
+    private void resizeTabla() { 
+        tblEvaluacion.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblEvaluacion.getColumnModel().getColumn(1).setMaxWidth(200);
+        tblEvaluacion.getColumnModel().getColumn(2).setMaxWidth(80);
+        tblEvaluacion.getColumnModel().getColumn(3).setMaxWidth(200);
+        tblEvaluacion.getColumnModel().getColumn(4).setMaxWidth(130);
+        tblEvaluacion.getColumnModel().getColumn(5).setMaxWidth(110);
+        tblEvaluacion.getColumnModel().getColumn(6).setMaxWidth(110);
+        tblEvaluacion.getColumnModel().getColumn(7).setMaxWidth(50);
+    }
+    
+    
 }

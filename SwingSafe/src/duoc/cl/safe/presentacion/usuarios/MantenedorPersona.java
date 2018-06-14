@@ -34,6 +34,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
         model = (DefaultTableModel) tblPersona.getModel();
+        resizeTabla();
     }
 
     /**
@@ -828,4 +829,16 @@ public class MantenedorPersona extends javax.swing.JFrame {
         this.formsController = formsController;
     }
 
+    private void resizeTabla() {
+        tblPersona.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblPersona.getColumnModel().getColumn(1).setMaxWidth(80);
+        tblPersona.getColumnModel().getColumn(2).setMaxWidth(80);
+        tblPersona.getColumnModel().getColumn(3).setMaxWidth(80);
+        tblPersona.getColumnModel().getColumn(4).setMaxWidth(80);
+        tblPersona.getColumnModel().getColumn(5).setMaxWidth(150);
+        tblPersona.getColumnModel().getColumn(6).setMaxWidth(110);
+        tblPersona.getColumnModel().getColumn(7).setMaxWidth(110);
+        tblPersona.getColumnModel().getColumn(8).setMaxWidth(110);
+        tblPersona.getColumnModel().getColumn(9).setMaxWidth(50);
+    }
 }

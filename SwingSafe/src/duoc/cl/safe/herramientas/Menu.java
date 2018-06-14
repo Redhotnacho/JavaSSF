@@ -75,7 +75,7 @@ public class Menu {
                 if (value != null) {
 //                    System.out.println(ssfvista.getId());
                     if (ssfvista.getEstado() == 1) {
-                        System.out.println(ssfvista.getEstado());
+                        //System.out.println(ssfvista.getEstado());
                         contador++;
                         menuItem = new JMenuItem(new AbstractAction(ssfvista.getNombre()) {
                             public void actionPerformed(ActionEvent e) {
@@ -96,6 +96,17 @@ public class Menu {
         if (usuarioSesion.getId().intValue() != 102) {
             menu = new JMenu("Usuario");
             menuItem = new JMenuItem(new AbstractAction("Cerrar Sesión") {
+                public void actionPerformed(ActionEvent e) {
+                    FormsController form = new FormsController(45, Menu.this);
+                    form.abrirJframe();
+                    jFrame.dispose();
+                }
+            });
+            menu.add(menuItem);
+            menuBar.add(menu);
+        }else{
+            menu = new JMenu("Admin");
+            menuItem = new JMenuItem(new AbstractAction("Salir") {
                 public void actionPerformed(ActionEvent e) {
                     FormsController form = new FormsController(45, Menu.this);
                     form.abrirJframe();

@@ -7,6 +7,7 @@ package duoc.cl.safe.presentacion.capacitaciones;
 
 import duoc.cl.safe.entity.SsfCapacitacionempresa;
 import duoc.cl.safe.entity.SsfCapacitaciondia;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfCapacitacionempresaBO;
 import duoc.cl.safe.negocio.SsfCapacitaciondiaBO;
 import java.math.BigDecimal;
@@ -15,6 +16,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
@@ -32,6 +34,7 @@ public class MantenedorCapacitacionDia extends javax.swing.JFrame {
     public MantenedorCapacitacionDia() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -255,9 +258,9 @@ public class MantenedorCapacitacionDia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        /*
+        
         this.setJMenuBar(formsController.getMenu().getMenuBar());
-        formsController.getMenu().setjFrame(this);*/
+        formsController.getMenu().setjFrame(this);
         this.setLocationRelativeTo(null);
         cargaTabla();
         cargaCapEmpresa();
@@ -533,8 +536,8 @@ public class MantenedorCapacitacionDia extends javax.swing.JFrame {
     private SsfCapacitaciondiaBO cdbo;
     private HashMap<String, SsfCapacitacionempresa> mapce = new HashMap<>();
     private static Logger log = Logger.getLogger(MantenedorCapacitacionDia.class.getName());
-
-    //private FormsController formsController;
+    private FormsController formsController;
+    
     public void cargaCapEmpresa() {
         SsfCapacitacionempresaBO cebo = new SsfCapacitacionempresaBO();
         List<SsfCapacitacionempresa> ctlist = cebo.getAllSP();
@@ -586,8 +589,19 @@ public class MantenedorCapacitacionDia extends javax.swing.JFrame {
         lError.setText("");
     }
 
-    /*
+    
     public void setFormsController(FormsController formsController) {
         this.formsController = formsController;
-    }*/
+    }
+    
+    private void resizeTabla() {
+        tblCapacitacionDia.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblCapacitacionDia.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblCapacitacionDia.getColumnModel().getColumn(1).setMaxWidth(120);
+        tblCapacitacionDia.getColumnModel().getColumn(2).setMaxWidth(300);
+        tblCapacitacionDia.getColumnModel().getColumn(3).setMaxWidth(200);
+        tblCapacitacionDia.getColumnModel().getColumn(4).setMaxWidth(120);
+        tblCapacitacionDia.getColumnModel().getColumn(5).setMaxWidth(50);
+    }
+    
 }

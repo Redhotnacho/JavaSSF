@@ -6,6 +6,7 @@
 package duoc.cl.safe.presentacion.capacitaciones;
 
 import duoc.cl.safe.entity.SsfCapacitaciontipo;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfCapacitaciontipoBO;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ public class MantenedorCapacitacionTipo extends javax.swing.JFrame {
     public MantenedorCapacitacionTipo() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -215,9 +217,9 @@ public class MantenedorCapacitacionTipo extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        /*
+        
         this.setJMenuBar(formsController.getMenu().getMenuBar());
-        formsController.getMenu().setjFrame(this);*/
+        formsController.getMenu().setjFrame(this);
         this.setLocationRelativeTo(null);
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
@@ -398,12 +400,12 @@ public class MantenedorCapacitacionTipo extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private SsfCapacitaciontipoBO ctbo;
-    /*
+    
     private FormsController formsController;
 
     public void setFormsController(FormsController formsController) {
         this.formsController = formsController;
-    }*/
+    }
 
     private void cargaTabla() {
         
@@ -434,4 +436,13 @@ public class MantenedorCapacitacionTipo extends javax.swing.JFrame {
         lError.setText("");
     }
 
+    private void resizeTabla() {
+        tblCapacitacionTipo.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblCapacitacionTipo.getColumnModel().getColumn(1).setMaxWidth(200);
+        tblCapacitacionTipo.getColumnModel().getColumn(2).setMaxWidth(400);
+        tblCapacitacionTipo.getColumnModel().getColumn(3).setMaxWidth(120);
+        tblCapacitacionTipo.getColumnModel().getColumn(4).setMaxWidth(50);
+    }
+    
+    
 }

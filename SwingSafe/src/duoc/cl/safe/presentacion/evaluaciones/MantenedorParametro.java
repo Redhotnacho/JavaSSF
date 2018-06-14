@@ -32,6 +32,7 @@ public class MantenedorParametro extends javax.swing.JFrame {
     public MantenedorParametro() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -489,4 +490,12 @@ public class MantenedorParametro extends javax.swing.JFrame {
         lError.setText("");
     }
 
+    private void resizeTabla() { 
+        tblParametro.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblParametro.getColumnModel().getColumn(1).setMaxWidth(200);
+        tblParametro.getColumnModel().getColumn(2).setMaxWidth(400);
+        tblParametro.getColumnModel().getColumn(3).setMaxWidth(120);
+        tblParametro.getColumnModel().getColumn(4).setMaxWidth(110);
+        tblParametro.getColumnModel().getColumn(5).setMaxWidth(50);
+    }
 }

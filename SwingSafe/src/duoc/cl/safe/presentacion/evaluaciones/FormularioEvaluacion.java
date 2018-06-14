@@ -42,6 +42,7 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
     public FormularioEvaluacion() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -1004,4 +1005,17 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
         bModificarParametro.setEnabled(false);
     }
 
+    private void resizeTabla() { 
+        tblEvaluacion.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblEvaluacion.getColumnModel().getColumn(1).setMaxWidth(150);
+        tblEvaluacion.getColumnModel().getColumn(2).setMaxWidth(80);
+        tblEvaluacion.getColumnModel().getColumn(3).setMaxWidth(200);
+        tblEvaluacion.getColumnModel().getColumn(4).setMaxWidth(120);
+        tblEvaluacion.getColumnModel().getColumn(5).setMaxWidth(110);
+        tblEvaluacion.getColumnModel().getColumn(6).setMaxWidth(110);
+        tblEvaluacion.getColumnModel().getColumn(7).setMaxWidth(50);
+    }
+    
+    
+    
 }

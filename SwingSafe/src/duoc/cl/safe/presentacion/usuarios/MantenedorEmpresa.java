@@ -30,6 +30,7 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
     public MantenedorEmpresa() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -585,4 +586,13 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
         this.formsController = formsController;
     }
 
+    private void resizeTabla() { 
+        tblEmpresa.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblEmpresa.getColumnModel().getColumn(1).setMaxWidth(300);
+        tblEmpresa.getColumnModel().getColumn(2).setMaxWidth(250);
+        tblEmpresa.getColumnModel().getColumn(3).setMaxWidth(110);
+        tblEmpresa.getColumnModel().getColumn(4).setMaxWidth(110);
+        tblEmpresa.getColumnModel().getColumn(5).setMaxWidth(50);
+    }
+    
 }

@@ -6,6 +6,7 @@
 package duoc.cl.safe.presentacion.capacitaciones;
 
 import duoc.cl.safe.entity.SsfEstadocapaempresa;
+import duoc.cl.safe.herramientas.FormsController;
 import duoc.cl.safe.negocio.SsfEstadocapaempresaBO;
 import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
@@ -27,6 +28,7 @@ public class MantenedorEstadoCapacitacion extends javax.swing.JFrame {
     public MantenedorEstadoCapacitacion() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -215,9 +217,8 @@ public class MantenedorEstadoCapacitacion extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        /*
         this.setJMenuBar(formsController.getMenu().getMenuBar());
-        formsController.getMenu().setjFrame(this);*/
+        formsController.getMenu().setjFrame(this);
         this.setLocationRelativeTo(null);
         cargaTabla();
     }//GEN-LAST:event_formWindowOpened
@@ -402,12 +403,12 @@ public class MantenedorEstadoCapacitacion extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private SsfEstadocapaempresaBO ecebo;
-    /*
+    
     private FormsController formsController;
 
     public void setFormsController(FormsController formsController) {
         this.formsController = formsController;
-    }*/
+    }
 
     private void cargaTabla() {
         
@@ -438,4 +439,12 @@ public class MantenedorEstadoCapacitacion extends javax.swing.JFrame {
         lError.setText("");
     }
 
+    private void resizeTabla() {
+        tblCapacitacionEstado.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblCapacitacionEstado.getColumnModel().getColumn(1).setMaxWidth(200);
+        tblCapacitacionEstado.getColumnModel().getColumn(2).setMaxWidth(400);
+        tblCapacitacionEstado.getColumnModel().getColumn(3).setMaxWidth(120);
+        tblCapacitacionEstado.getColumnModel().getColumn(4).setMaxWidth(50);
+    }
+    
 }

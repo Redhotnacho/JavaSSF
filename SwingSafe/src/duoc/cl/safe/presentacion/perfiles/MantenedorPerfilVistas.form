@@ -236,7 +236,7 @@
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
               <Table columnCount="6" rowCount="0">
-                <Column editable="false" title="ID Vista Perfil" type="java.lang.String"/>
+                <Column editable="false" title="ID" type="java.lang.String"/>
                 <Column editable="false" title="Perfil" type="java.lang.String"/>
                 <Column editable="false" title="Vista" type="java.lang.String"/>
                 <Column editable="false" title="Menu" type="java.lang.String"/>
@@ -361,7 +361,7 @@
         <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
           <Color blue="66" green="0" red="66" type="rgb"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Mantenedor Vistas Perfil"/>
+        <Property name="text" type="java.lang.String" value="Asignar Vistas a Perfil"/>
       </Properties>
     </Component>
   </SubComponents>

@@ -17,6 +17,7 @@ import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import org.apache.log4j.Logger;
 import org.apache.log4j.Level;
@@ -36,6 +37,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
         model = (DefaultTableModel) tblPerfilVista.getModel();
+        resizeTabla();
     }
 
     /**
@@ -111,7 +113,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID Vista Perfil", "Perfil", "Vista", "Menu", "Fecha Creación", "Estado"
+                "ID", "Perfil", "Vista", "Menu", "Fecha Creación", "Estado"
             }
         ) {
             Class[] types = new Class [] {
@@ -181,7 +183,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(102, 0, 102));
-        jLabel8.setText("Mantenedor Vistas Perfil");
+        jLabel8.setText("Asignar Vistas a Perfil");
 
         jMenu1.setText("Cargando...");
         jMenuBar1.add(jMenu1);
@@ -416,10 +418,12 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
             String[] palabras = busqueda.split("\\s+");
             //String[] palabras2 = busqueda.split(Pattern.quote("."));
             List<SsfPerfilvista> pvv = new LinkedList<>();
-            SsfPerfilvistaBO pvbo = new SsfPerfilvistaBO();
-            List<SsfPerfilvista> pvvall = pvbo.getAllSP();
+            if (lpv==null) {
+                SsfPerfilvistaBO pvbo = new SsfPerfilvistaBO();
+                lpv = pvbo.getAllSP();
+            }
             for (String s : palabras) {
-                for (SsfPerfilvista pv : pvvall) {
+                for (SsfPerfilvista pv : lpv) {
                     if (pv.getIdPerfil().getPerfil() != null) {
                         if (!pvv.isEmpty()) {
                             if (!existeIdPerfilVista(pvv, pv) && pv.getIdPerfil().getPerfil().toLowerCase().contains(s.toLowerCase())) {
@@ -457,7 +461,6 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
                 }
             }
             if (!pvv.isEmpty()) {
-                tblPerfilVista.removeAll();
                 cargaPerfilvistas(pvv);
             } else {
                 tfBuscarVistaPerfil.setText("Búsqueda sin resultados");
@@ -594,6 +597,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     private List<SsfVista> vlist;
     private DefaultTableModel model;
     private FormsController formsController;
+    List<SsfPerfilvista> lpv;
 
     public void cargaVista() {
         mapv = new HashMap<>();
@@ -671,7 +675,7 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     private void cargaTabla() {
         model.setRowCount(0);
         SsfPerfilvistaBO pvbo = new SsfPerfilvistaBO();
-        List<SsfPerfilvista> lpv = pvbo.getAllSP();
+        lpv = pvbo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
 
         for (SsfPerfilvista pv : lpv) {
@@ -717,4 +721,15 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
     public void setFormsController(FormsController formsController) {
         this.formsController = formsController;
     }
+    
+    private void resizeTabla() { 
+        tblPerfilVista.setAutoResizeMode(JTable.AUTO_RESIZE_ALL_COLUMNS);
+        tblPerfilVista.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblPerfilVista.getColumnModel().getColumn(1).setMaxWidth(150);
+        tblPerfilVista.getColumnModel().getColumn(2).setMaxWidth(250);
+        tblPerfilVista.getColumnModel().getColumn(3).setMaxWidth(200);
+        tblPerfilVista.getColumnModel().getColumn(4).setMaxWidth(110);
+        tblPerfilVista.getColumnModel().getColumn(5).setMaxWidth(50);
+    }
+    
 }

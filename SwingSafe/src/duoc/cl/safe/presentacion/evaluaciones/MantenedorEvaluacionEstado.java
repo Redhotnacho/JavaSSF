@@ -29,6 +29,7 @@ public class MantenedorEvaluacionEstado extends javax.swing.JFrame {
     public MantenedorEvaluacionEstado() {
         initComponents();
         PropertyConfigurator.configure("log4j.properties");
+        resizeTabla();
     }
 
     /**
@@ -436,6 +437,14 @@ public class MantenedorEvaluacionEstado extends javax.swing.JFrame {
     private void limpiarMsgs() {
         lExito.setText("");
         lError.setText("");
+    }
+    
+    private void resizeTabla() {
+        tblEvaluacionEstado.getColumnModel().getColumn(0).setMaxWidth(40);
+        tblEvaluacionEstado.getColumnModel().getColumn(1).setMaxWidth(200);
+        tblEvaluacionEstado.getColumnModel().getColumn(2).setMaxWidth(400);
+        tblEvaluacionEstado.getColumnModel().getColumn(3).setMaxWidth(120);
+        tblEvaluacionEstado.getColumnModel().getColumn(4).setMaxWidth(50);
     }
 
 }
