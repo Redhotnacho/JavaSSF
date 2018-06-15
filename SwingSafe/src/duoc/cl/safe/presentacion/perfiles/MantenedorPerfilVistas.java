@@ -492,10 +492,12 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
             String[] palabras = busqueda.split("\\s+");
             //String[] palabras2 = busqueda.split(Pattern.quote("."));
             List<SsfVista> vv = new LinkedList<>();
-            SsfVistaBO vistaBO = new SsfVistaBO();
-            List<SsfVista> vvall = vistaBO.getAllSP();
+            if (vlist == null) {
+                SsfVistaBO vistaBO = new SsfVistaBO();
+                vlist = vistaBO.getAllSP();
+            }
             for (String s : palabras) {
-                for (SsfVista v : vvall) {
+                for (SsfVista v : vlist) {
                     if (v.getNombre() != null) {
                         if (!vv.isEmpty()) {
                             if (!existeIdVista(vv, v) && v.getNombre().toLowerCase().contains(s.toLowerCase())) {
@@ -603,11 +605,10 @@ public class MantenedorPerfilVistas extends javax.swing.JFrame {
         mapv = new HashMap<>();
         cbVista.removeAllItems();
         cbVista.addItem("- Seleccione Vista -");
-        SsfVistaBO vbo = new SsfVistaBO();
         if (vlist == null) {
+            SsfVistaBO vbo = new SsfVistaBO();
             vlist = vbo.getAllSP();
         }
-
         vlist.forEach((v) -> {
             mapv.put(v.getNombre(), v);
         });

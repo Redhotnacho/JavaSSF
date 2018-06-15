@@ -500,7 +500,7 @@ public class MantenedorCapacitacion extends javax.swing.JFrame {
                     horas = "error";
                     lError.setText("Error al ingresar horas");
                 }
-                c.setId(BigDecimal.valueOf(Long.valueOf(id)));
+                //c.setId(BigDecimal.valueOf(Long.valueOf(id)));
                 c.setNombre(nom);
                 c.setIdCapacitaciontipo(new SsfCapacitaciontipo(BigDecimal.valueOf((long) Long.valueOf(idtipocap))));
                 if (cbo.updateSP(c)) {

@@ -411,7 +411,7 @@ public class MantenedorCapacitacionDia extends javax.swing.JFrame {
                         lError.setText("Error en formato de día");
                     }
                 }
-                c.setId(BigDecimal.valueOf(Long.valueOf(id)));
+                //c.setId(BigDecimal.valueOf(Long.valueOf(id)));
                 c.setIdCapaempresa(new SsfCapacitacionempresa(ce.getId()));
                 if (cdbo.updateSP(c)) {
                     lExito.setText("Día capacitación modificada exitosamente.");

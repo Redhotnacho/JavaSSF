@@ -873,9 +873,9 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
 
     /* alternativa a Lista parametros
     private void cargaParametroTabla(String tipoeval) {
-        borrarTablaParametro();
         DefaultTableModel model = (DefaultTableModel) tblEvaluacion.getModel();
         DefaultTableModel model2 = (DefaultTableModel) tblParametro.getModel();
+        model2.setRowCount(0);
         SsfEvaluacionparametroBO epbo = new SsfEvaluacionparametroBO();
         if (lep == null) {
             lep = epbo.getAllSP();
@@ -898,6 +898,7 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
         }
         tblParametro.setModel(model2);
     }*/
+    
     private void cargaParametroList(String tipoeval) {
         if (tblEvaluacion.getSelectedRow() == -1) {
             tbEstado.setEnabled(false);
@@ -975,27 +976,6 @@ public class FormularioEvaluacion extends javax.swing.JFrame {
         }
     }
 
-    /*
-    private void borrarTablaParametro() {
-        tblParametro.removeAll();
-        tblParametro.repaint();
-        DefaultTableModel model = (DefaultTableModel) tblParametro.getModel();
-        model.fireTableDataChanged();
-        tblParametro.repaint();
-        tblParametro.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblParametro.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblParametro.repaint();
-        tblParametro.setModel(model);
-        tblParametro.repaint();
-        tblParametro.removeAll();
-    }*/
     private void limpiarParametro() {
         taObservacion.setText("");
         rPendiente.setSelected(true);

@@ -565,10 +565,12 @@ public class MantenedorPersona extends javax.swing.JFrame {
             String[] palabras = busqueda.split("\\s+");
             String[] palabras2 = busqueda.split(Pattern.quote("."));
             List<SsfPersona> pp = new LinkedList<>();
-            pbo = new SsfPersonaBO();
-            List<SsfPersona> ppall = pbo.getAllSP();
+            if (lp==null) {
+                pbo = new SsfPersonaBO();
+                lp = pbo.getAllSP();
+            }
             for (String s : palabras) {
-                for (SsfPersona pers : ppall) {
+                for (SsfPersona pers : lp) {
                     if (pers.getRut() != null) {
                         if (!pp.isEmpty()) {
                             if (!existeIdPers(pp, pers) && pers.getRut().contains(s)) {
@@ -627,7 +629,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                 }
             }
             for (String s : palabras2) {
-                for (SsfPersona pers : ppall) {
+                for (SsfPersona pers : lp) {
                     if (pers.getRut() != null) {
                         if (!pp.isEmpty()) {
                             if (!existeIdPers(pp, pers) && pers.getRut().contains(s)) {
@@ -742,11 +744,12 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private DefaultTableModel model;
     private SsfPersonaBO pbo;
     private FormsController formsController;
+    private List<SsfPersona> lp;
 
     private void cargaTabla() {
         model.setRowCount(0);
         pbo = new SsfPersonaBO();
-        List<SsfPersona> lp = pbo.getAllSP();
+        lp = pbo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         String sfecha = null;
         for (SsfPersona p : lp) {
@@ -802,27 +805,6 @@ public class MantenedorPersona extends javax.swing.JFrame {
                 sfecha, sdf.format(p.getFechCreacion()), p.getEstado()});
         }
         tblPersona.setModel(model);
-    }
-
-    private void borrarTabla() {
-        tblPersona.removeAll();
-        tblPersona.repaint();
-        model = (DefaultTableModel) tblPersona.getModel();
-        model.fireTableDataChanged();
-        tblPersona.repaint();
-        tblPersona.removeAll();
-        int rows = model.getRowCount();
-        for (int i = rows - 1; i >= 0; i--) {
-            model.removeRow(i);
-        }
-
-        tblPersona.removeAll();
-        model.setRowCount(0);
-        model.fireTableDataChanged();
-        tblPersona.repaint();
-        tblPersona.setModel(model);
-        tblPersona.repaint();
-        tblPersona.removeAll();
     }
 
     public void setFormsController(FormsController formsController) {

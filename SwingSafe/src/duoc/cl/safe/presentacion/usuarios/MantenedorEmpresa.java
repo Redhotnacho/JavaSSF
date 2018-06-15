@@ -327,10 +327,12 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
             String[] palabras = busqueda.split("\\s+");
             //String[] palabras2 = busqueda.split(Pattern.quote("."));
             List<SsfEmpresa> ee = new LinkedList<>();
-            ebo = new SsfEmpresaBO();
-            List<SsfEmpresa> eeall = ebo.getAllSP();
+            if (le==null) {
+                ebo = new SsfEmpresaBO();
+                le = ebo.getAllSP();
+            }
             for (String s : palabras) {
-                for (SsfEmpresa emp : eeall) {
+                for (SsfEmpresa emp : le) {
                     if (emp.getNombre() != null) {
                         if (!ee.isEmpty()) {
                             if (!existeIdEmp(ee, emp) && emp.getNombre().toLowerCase().contains(s.toLowerCase())) {
@@ -530,13 +532,14 @@ public class MantenedorEmpresa extends javax.swing.JFrame {
     private SsfEmpresaBO ebo;
     private static Logger log = Logger.getLogger(MantenedorEmpresa.class.getName());
     private FormsController formsController;
+    private List<SsfEmpresa> le;
 
     private void cargaTabla() {
         
         DefaultTableModel model = (DefaultTableModel) tblEmpresa.getModel();
         model.setRowCount(0);
         ebo = new SsfEmpresaBO();
-        List<SsfEmpresa> le = ebo.getAllSP();
+        le = ebo.getAllSP();
         SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy");
         le.forEach((e) -> {
             model.addRow(new Object[]{e.getId(), e.getNombre(), e.getDireccion(), e.getTelefono(), sdf.format(e.getFechCreacion()), e.getEstado()});
