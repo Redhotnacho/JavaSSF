@@ -106,7 +106,7 @@ public class Login extends javax.swing.JFrame {
         lbl_usuario3.setFont(new java.awt.Font("Microsoft Sans Serif", 1, 36)); // NOI18N
         lbl_usuario3.setForeground(new java.awt.Color(0, 102, 0));
         lbl_usuario3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lbl_usuario3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duoc/cl/safe/img/SAFE.jpg"))); // NOI18N
+        lbl_usuario3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/duoc/cl/safe/img/SAFE.png"))); // NOI18N
         lbl_usuario3.setToolTipText("");
         lbl_usuario3.setMaximumSize(new java.awt.Dimension(196, 32));
         lbl_usuario3.setMinimumSize(new java.awt.Dimension(196, 32));

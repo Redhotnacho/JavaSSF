@@ -52,7 +52,7 @@ public class SsfAsistencia implements Serializable {
     @Column(name = "ID_ALUMCAPAEMPRESA")
     private BigInteger idAlumcapaempresa;
     @Column(name = "ASISTE")
-    private BigInteger asiste;
+    private Short asiste;
     @JoinColumn(name = "ID_CAPACITACIONDIA", referencedColumnName = "ID")
     @ManyToOne
     private SsfCapacitaciondia idCapacitaciondia;
@@ -96,11 +96,11 @@ public class SsfAsistencia implements Serializable {
         this.idAlumcapaempresa = idAlumcapaempresa;
     }
 
-    public BigInteger getAsiste() {
+    public Short getAsiste() {
         return asiste;
     }
 
-    public void setAsiste(BigInteger asiste) {
+    public void setAsiste(Short asiste) {
         this.asiste = asiste;
     }
 

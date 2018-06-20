@@ -5,9 +5,10 @@
  */
 package duoc.cl.safe.herramientas;
 
+import duoc.cl.safe.presentacion.Inicio;
 import duoc.cl.safe.presentacion.capacitaciones.MantenedorCapEmpresa;
 import duoc.cl.safe.presentacion.capacitaciones.MantenedorCapacitacion;
-import duoc.cl.safe.presentacion.capacitaciones.MantenedorCapacitacionDia;
+import duoc.cl.safe.presentacion.capacitaciones.MantenedorAsistencia;
 import duoc.cl.safe.presentacion.capacitaciones.MantenedorCapacitacionTipo;
 import duoc.cl.safe.presentacion.capacitaciones.MantenedorEstadoCapacitacion;
 import duoc.cl.safe.presentacion.evaluaciones.FormularioEvaluacion;
@@ -56,6 +57,11 @@ public class FormsController {
     }
 
     public void abrirJframe() {
+        if (idVista == -1) {
+            Inicio inicio = new Inicio();
+            inicio.setFormsController(this);
+            inicio.setVisible(true);
+        }
         if (idVista == 2 || idVista == 61) {
             MantenedorUsuario mpf = new MantenedorUsuario();
             mpf.setFormsController(this);
@@ -132,7 +138,7 @@ public class FormsController {
             mantenedorCapacitacion.setVisible(true);
         }
         if (idVista == 103) {
-            MantenedorCapacitacionDia mantenedorCapacitacionDia = new MantenedorCapacitacionDia();
+            MantenedorAsistencia mantenedorCapacitacionDia = new MantenedorAsistencia();
             mantenedorCapacitacionDia.setFormsController(this);
             mantenedorCapacitacionDia.setVisible(true);
         }

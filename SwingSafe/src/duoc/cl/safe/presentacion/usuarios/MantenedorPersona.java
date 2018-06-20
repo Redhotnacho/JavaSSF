@@ -7,6 +7,7 @@ package duoc.cl.safe.presentacion.usuarios;
 
 import duoc.cl.safe.entity.SsfPersona;
 import duoc.cl.safe.herramientas.FormsController;
+import duoc.cl.safe.herramientas.Utilidad;
 import duoc.cl.safe.negocio.SsfPersonaBO;
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -334,7 +335,8 @@ public class MantenedorPersona extends javax.swing.JFrame {
             desactivarEstado();
         }
         if (model.getValueAt(tblPersona.getSelectedRow(), 1) != null) {
-            tfRut.setText(model.getValueAt(tblPersona.getSelectedRow(), 1).toString());
+            tfRut.setText(Utilidad.formatRutSalida(model.getValueAt(tblPersona.getSelectedRow(), 1).toString()));
+            rutModificar = model.getValueAt(tblPersona.getSelectedRow(), 1).toString();
         } else {
             tfRut.setText("");
         }
@@ -420,10 +422,16 @@ public class MantenedorPersona extends javax.swing.JFrame {
         limpiarMsgs();
         if (tfNombre.getText().trim().equals("")) {
             lError.setText("Ingrese un nombre");
+        } else if (tfRut.getText().trim().isEmpty()) {
+            lError.setText("Rut no puede quedar en blanco");
+        } else if (!Utilidad.validaRut(tfRut.getText().trim())) {
+            lError.setText("Rut no válido");
+        } else if (ExisteRut(tfRut.getText().trim())) {
+            lError.setText("Rut ya está registrado");
         } else {
             String rut, nom, ap1, ap2, correo, tel, sfech;
             Date fecha = null;
-            rut = tfRut.getText();
+            rut = Utilidad.formatRutIngreso(tfRut.getText());
             nom = tfNombre.getText();
             ap1 = tfAp1.getText();
             ap2 = tfAp2.getText();
@@ -486,11 +494,17 @@ public class MantenedorPersona extends javax.swing.JFrame {
         } else {
             if (tfNombre.getText().trim().equals("")) {
                 lError.setText("Ingrese un nombre");
+            } else if (tfRut.getText().trim().isEmpty()) {
+                lError.setText("Rut no puede quedar en blanco");
+            } else if (!Utilidad.validaRut(tfRut.getText().trim())) {
+                lError.setText("Rut no válido");
+            } else if (ExisteRutModificar(tfRut.getText().trim())) {
+                lError.setText("Rut ya está registrado");
             } else {
                 String rut, nom, ap1, ap2, correo, tel, sfech, id;
                 id = model.getValueAt(tblPersona.getSelectedRow(), 0).toString();
                 Date fecha = null;
-                rut = tfRut.getText();
+                rut = Utilidad.formatRutIngreso(tfRut.getText());
                 nom = tfNombre.getText();
                 ap1 = tfAp1.getText();
                 ap2 = tfAp2.getText();
@@ -531,7 +545,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
                     p.setCorreo(correo);
                     if (pbo.updateSP(p)) {
                         lExito.setText("Persona modificada exitosamente.");
-                        model.setValueAt(rut, tblPersona.getSelectedRow(), 1);
+                        model.setValueAt(Utilidad.formatRutSalida(rut), tblPersona.getSelectedRow(), 1);
                         model.setValueAt(nom, tblPersona.getSelectedRow(), 2);
                         model.setValueAt(ap1, tblPersona.getSelectedRow(), 3);
                         model.setValueAt(ap2, tblPersona.getSelectedRow(), 4);
@@ -565,7 +579,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
             String[] palabras = busqueda.split("\\s+");
             String[] palabras2 = busqueda.split(Pattern.quote("."));
             List<SsfPersona> pp = new LinkedList<>();
-            if (lp==null) {
+            if (lp == null) {
                 pbo = new SsfPersonaBO();
                 lp = pbo.getAllSP();
             }
@@ -745,6 +759,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
     private SsfPersonaBO pbo;
     private FormsController formsController;
     private List<SsfPersona> lp;
+    private String rutModificar;
 
     private void cargaTabla() {
         model.setRowCount(0);
@@ -759,7 +774,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
             } else {
                 sfecha = "";
             }
-            model.addRow(new Object[]{p.getId(), p.getRut(), p.getNombre(), p.getApPaterno(), p.getApMaterno(), p.getCorreo(), p.getTelefono(), sfecha, sdf.format(p.getFechCreacion()), p.getEstado()});
+            model.addRow(new Object[]{p.getId(), Utilidad.formatRutSalida(p.getRut()), p.getNombre(), p.getApPaterno(), p.getApMaterno(), p.getCorreo(), p.getTelefono(), sfecha, sdf.format(p.getFechCreacion()), p.getEstado()});
         }
         tblPersona.setModel(model);
 
@@ -800,7 +815,7 @@ public class MantenedorPersona extends javax.swing.JFrame {
             } else {
                 sfecha = "";
             }
-            model.addRow(new Object[]{p.getId(), p.getRut(), p.getNombre(),
+            model.addRow(new Object[]{p.getId(), Utilidad.formatRutSalida(p.getRut()), p.getNombre(),
                 p.getApPaterno(), p.getApMaterno(), p.getCorreo(), p.getTelefono(),
                 sfecha, sdf.format(p.getFechCreacion()), p.getEstado()});
         }
@@ -822,5 +837,29 @@ public class MantenedorPersona extends javax.swing.JFrame {
         tblPersona.getColumnModel().getColumn(7).setMaxWidth(110);
         tblPersona.getColumnModel().getColumn(8).setMaxWidth(110);
         tblPersona.getColumnModel().getColumn(9).setMaxWidth(50);
+    }
+
+    private boolean ExisteRut(String rut) {
+        if (lp == null) {
+            lp = new SsfPersonaBO().getAllSP();
+        }
+        for (SsfPersona p : lp) {
+            if (Utilidad.formatRutIngreso(rut).equalsIgnoreCase(p.getRut())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean ExisteRutModificar(String rut) {
+        if (lp == null) {
+            lp = new SsfPersonaBO().getAllSP();
+        }
+        for (SsfPersona p : lp) {
+            if (Utilidad.formatRutIngreso(rut).equalsIgnoreCase(p.getRut()) && !p.getRut().equalsIgnoreCase(Utilidad.formatRutIngreso(rutModificar) )) {
+                return true;
+            }
+        }
+        return false;
     }
 }

@@ -93,29 +93,16 @@ public class Menu {
                 menuBar.add(menu);
             }
         }
-        if (usuarioSesion.getId().intValue() != 102) {
-            menu = new JMenu("Usuario");
-            menuItem = new JMenuItem(new AbstractAction("Cerrar Sesión") {
-                public void actionPerformed(ActionEvent e) {
-                    FormsController form = new FormsController(45, Menu.this);
-                    form.abrirJframe();
-                    jFrame.dispose();
-                }
-            });
-            menu.add(menuItem);
-            menuBar.add(menu);
-        }else{
-            menu = new JMenu("Admin");
-            menuItem = new JMenuItem(new AbstractAction("Salir") {
-                public void actionPerformed(ActionEvent e) {
-                    FormsController form = new FormsController(45, Menu.this);
-                    form.abrirJframe();
-                    jFrame.dispose();
-                }
-            });
-            menu.add(menuItem);
-            menuBar.add(menu);
-        }
+        menu = new JMenu(usuarioSesion.getIdPersona().getNombre() + " " + usuarioSesion.getIdPersona().getApPaterno());
+        menuItem = new JMenuItem(new AbstractAction("Salir") {
+            public void actionPerformed(ActionEvent e) {
+                FormsController form = new FormsController(45, Menu.this);
+                form.abrirJframe();
+                jFrame.dispose();
+            }
+        });
+        menu.add(menuItem);
+        menuBar.add(menu);
 
         //Build the first menu.
         //menu.setMnemonic(KeyEvent.VK_A);

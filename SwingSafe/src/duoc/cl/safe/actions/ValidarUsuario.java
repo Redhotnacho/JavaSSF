@@ -35,7 +35,7 @@ public class ValidarUsuario implements Runnable {
             cargando.jLabel2.setText("Buscando Permisos...");
             Menu menu = new Menu(usuarioSesion);
             menu.menu();
-            FormsController formsController = new FormsController(2, menu);
+            FormsController formsController = new FormsController(-1, menu);
             formsController.abrirJframe();
             login.dispose();
             cargando.dispose();

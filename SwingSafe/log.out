@@ -20,3 +20,5 @@
 2018-06-12 15:51:19 ERROR SsfCapacitacionDAO:236 - Error al modificar
  java.lang.IllegalArgumentException: Can not refresh not managed object: duoc.cl.safe.entity.SsfCapacitacion[ id=24 ].
 	
+2018-06-20 04:30:45 INFO  MantenedorUsuario:592 - No se pudo modificar
+ 
